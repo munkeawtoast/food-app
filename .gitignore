@@ -6,7 +6,7 @@ node_modules/
 # Expo
 .expo/
 dist/
-web-build/
+web-bugit remote add origin https://github.com/munkeawtoast/food-app.gitgit remote add origin https://github.com/munkeawtoast/food-app.gitild/
 
 # Native
 *.orig.*
