@@ -1,11 +1,11 @@
-import type { FC } from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useCallback, type FC, useEffect } from 'react'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
-import ShopScreen from './screens/user/ShopScreen';
-import OrderStatusScreen from './screens/user/OrderStatusScreen';
-import { Horse } from 'phosphor-react-native';
-import { Text } from 'react-native';
+import ShopScreen from './screens/user/ShopScreen'
+import OrderStatusScreen from './screens/user/OrderStatusScreen'
+import { Horse } from 'phosphor-react-native'
+import { Text, View } from 'react-native'
 import { useFonts } from 'expo-font'
 import {
   Prompt_100Thin,
@@ -26,7 +26,7 @@ import {
   Prompt_800ExtraBold_Italic,
   Prompt_900Black,
   Prompt_900Black_Italic,
-} from '@expo-google-fonts/prompt';
+} from '@expo-google-fonts/prompt'
 import {
   Mitr_200ExtraLight,
   Mitr_300Light,
@@ -34,18 +34,15 @@ import {
   Mitr_500Medium,
   Mitr_600SemiBold,
   Mitr_700Bold,
-} from '@expo-google-fonts/mitr';
-
-
-
-import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfig from './tailwind.config.js'
-import AppLoading from 'expo-app-loading';
-
-const fullConfig = resolveConfig(tailwindConfig)
+} from '@expo-google-fonts/mitr'
+import colors from 'tailwindcss/colors'
+// import AppLoading from 'expo-app-loading'
+import * as SplashScreen from 'expo-splash-screen'
 
 const Tab = createBottomTabNavigator()
 const UserTab = createBottomTabNavigator()
+
+SplashScreen.preventAutoHideAsync()
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -73,16 +70,27 @@ export default function App() {
     Prompt_800ExtraBold_Italic,
     Prompt_900Black,
     Prompt_900Black_Italic,
-  });
-  return (
-    fontsLoaded
-      ? (
-        <NavigationContainer>
-          <UserNavigator />
-        </NavigationContainer>
-      )
-      : <AppLoading />
+  })
 
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync()
+    }
+  }, [fontsLoaded])
+
+  if (!fontsLoaded) {
+    return null;
+   }
+
+  return (
+    <View
+      onLayout={onLayoutRootView}
+      className='flex-1'
+    >
+      <NavigationContainer>
+        <UserNavigator />
+      </NavigationContainer>
+    </View>
   )
 }
 
@@ -91,27 +99,27 @@ const UserNavigator: FC = () => {
     <UserTab.Navigator
       initialRouteName="home"
       screenOptions={{
-        tabBarActiveTintColor: 'red',
-        tabBarInactiveTintColor: '#aaa',
+        tabBarActiveTintColor: colors.red['500'],
+        tabBarInactiveTintColor: colors.gray['400'],
         headerTitleStyle: {
           fontFamily: 'Prompt_400Regular',
-
-        }
+        },
       }}
     >
       <UserTab.Screen
         name="shop"
         options={{
           tabBarIcon: ({ color, size, focused }) => (
-            <Horse color={color} size={size} weight={focused ? 'duotone' : 'regular'} />
-          )
+            <Horse
+              color={color}
+              size={size}
+              weight={focused ? 'duotone' : 'regular'}
+            />
+          ),
         }}
-        component={ShopScreen} />
-      <UserTab.Screen
-        name="orderStatus"
-
-        component={OrderStatusScreen} />
+        component={ShopScreen}
+      />
+      <UserTab.Screen name="orderStatus" component={OrderStatusScreen} />
     </UserTab.Navigator>
   )
 }
-
