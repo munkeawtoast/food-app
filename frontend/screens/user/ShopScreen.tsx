@@ -1,10 +1,11 @@
-import type { FC } from 'react';
-import { View } from 'react-native';
-
+import Slider from '@react-native-community/slider'
+import type { FC } from 'react'
+import { View } from 'react-native'
 
 const ShopScreen: FC = () => {
-  return <View />;
+  return <View>
+    <Slider  />
+  </View>
 }
 
-export default ShopScreen;
-
+export default ShopScreen
