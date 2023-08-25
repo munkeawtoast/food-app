@@ -1,9 +1,14 @@
-import type { FC } from 'react';
-import { View } from 'react-native';
-
+import type { FC } from 'react'
+import { View, Text } from 'react-native'
+import useTestStore from '../../stores/testStore'
 
 const OrderStatusScreen: FC = () => {
-  return <View />;
+  const { addABear, bears } = useTestStore()
+  return (
+    <View>
+      <Text>{bears} </Text>
+    </View>
+  )
 }
 
-export default OrderStatusScreen;
+export default OrderStatusScreen

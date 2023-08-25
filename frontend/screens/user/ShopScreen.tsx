@@ -1,11 +1,17 @@
 import Slider from '@react-native-community/slider'
 import type { FC } from 'react'
-import { View } from 'react-native'
+import { View, Text, Button } from 'react-native'
+import useTestStore from '../../stores/testStore'
 
 const ShopScreen: FC = () => {
-  return <View>
-    <Slider  />
-  </View>
+  const { addABear, bears } = useTestStore()
+  return (
+    <View>
+      <Slider step={1} tapToSeek minimumValue={0} maximumValue={4} />
+      <Text>{bears} </Text>
+      <Button title='add bear' onPress={addABear} />
+    </View>
+  )
 }
 
 export default ShopScreen

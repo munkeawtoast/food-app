@@ -38,6 +38,8 @@ import {
 import colors from 'tailwindcss/colors'
 // import AppLoading from 'expo-app-loading'
 import * as SplashScreen from 'expo-splash-screen'
+import QrScanScreen from './screens/user/QrScanScreen'
+import MaskedTest from './screens/user/MaskedTest'
 
 const Tab = createBottomTabNavigator()
 const UserTab = createBottomTabNavigator()
@@ -79,18 +81,13 @@ export default function App() {
   }, [fontsLoaded])
 
   if (!fontsLoaded) {
-    return null;
-   }
+    return null
+  }
 
   return (
-    <View
-      onLayout={onLayoutRootView}
-      className='flex-1'
-    >
-      <NavigationContainer>
-        <UserNavigator />
-      </NavigationContainer>
-    </View>
+    <NavigationContainer onReady={onLayoutRootView}>
+      <UserNavigator />
+    </NavigationContainer>
   )
 }
 
@@ -120,6 +117,8 @@ const UserNavigator: FC = () => {
         component={ShopScreen}
       />
       <UserTab.Screen name="orderStatus" component={OrderStatusScreen} />
+      <UserTab.Screen name="qr" component={QrScanScreen} />
+      <UserTab.Screen name="masked" component={MaskedTest} />
     </UserTab.Navigator>
   )
 }

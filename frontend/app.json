@@ -1,7 +1,7 @@
 {
+  "$schema": "https://json.schemastore.org/expo-46.0.0.json",
   "expo": {
     "name": "food-app",
-    "entryPoint": "./src/App.tsx",
     "slug": "food-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -12,21 +12,36 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.munkeawtoast.food-app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.munkeawtoast.foodapp"
     },
     "web": {
       "bundler": "metro",
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5fe8a6c9-3b00-4309-ba3a-9f77e7170237"
+      }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ]
   }
 }
