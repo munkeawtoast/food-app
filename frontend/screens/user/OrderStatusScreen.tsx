@@ -6,7 +6,7 @@ const OrderStatusScreen: FC = () => {
   const { addABear, bears } = useTestStore()
   return (
     <View>
-      <Text>{bears} </Text>
+      <Text>{bears}  test</Text>
     </View>
   )
 }

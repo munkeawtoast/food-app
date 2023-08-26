@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import PrimitiveStorage from '.'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 type TestState = {
   bears: number
@@ -15,7 +15,7 @@ const useTestStore = create<TestState>()(
     }),
     {
       name: 'food-storage', // name of the item in the storage (must be unique)
-      storage: createJSONStorage(() => PrimitiveStorage), // (optional) by default, 'localStorage' is used
+      storage: createJSONStorage(() => AsyncStorage),
     }
   )
 )
