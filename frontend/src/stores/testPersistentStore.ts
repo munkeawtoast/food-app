@@ -7,7 +7,7 @@ type TestState = {
   addABear: () => void
 }
 
-const useTestStore = create<TestState>()(
+const useTestPersistentStore = create<TestState>()(
   persist(
     (set, get) => ({
       bears: 0,
@@ -20,4 +20,4 @@ const useTestStore = create<TestState>()(
   )
 )
 
-export default useTestStore
+export default useTestPersistentStore

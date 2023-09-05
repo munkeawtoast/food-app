@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "appEntry.tsx",
   "scripts": {
     "preinstall": "npx only-allow yarn",
     "dev": "expo start",
@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@babel/preset-typescript": "^7.22.15",
     "@types/react": "~18.2.14",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "@typescript-eslint/parser": "^6.4.0",
