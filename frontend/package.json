@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
+    "preinstall": "npx only-allow yarn",
     "dev": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
@@ -60,6 +61,10 @@
   "resolutions": {
     "@expo/config-plugins": "~7.2.2",
     "@expo/prebuild-config": "~6.2.4"
+  },
+  "engines": {
+    "npm": "please-use-yarn",
+    "yarn": ">= 1.19.1"
   },
   "private": true,
   "author": "munkeawtoast <munkeawtoast@duck.com>",
