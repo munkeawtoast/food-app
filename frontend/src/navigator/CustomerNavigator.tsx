@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Horse } from 'phosphor-react-native'
 import type { FC } from 'react'
-import colors from 'tailwindcss/colors'
+// import colors from 'tailwindcss/colors'
 import MaskedTest from '../screens/customer/MaskedTest'
 import OrderStatusScreen from '../screens/customer/OrderStatusScreen'
 import QrScanScreen from '../screens/customer/QrScanScreen'
@@ -35,7 +35,18 @@ const CustomerNavigator: FC = () => {
         }}
         component={ShopScreen}
       />
-      <UserTab.Screen name="orderStatus" component={OrderStatusScreen} />
+      <UserTab.Screen name="orderStatus"
+      options= {{
+        headerShown: false,
+        tabBarIcon: ({ color, size, focused }) => (
+          <Horse
+            color={"blue"}
+            size={size}
+            weight={focused ? 'duotone' : 'regular'}
+          />
+        )
+      }}
+      component={OrderStatusScreen} />
       <UserTab.Screen name="qr" component={QrScanScreen} />
       <UserTab.Screen name="masked" component={MaskedTest} />
     </UserTab.Navigator>
