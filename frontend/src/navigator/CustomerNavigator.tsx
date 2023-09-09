@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Horse } from 'phosphor-react-native'
+import { Horse, Fish } from 'phosphor-react-native'
 import type { FC } from 'react'
 // import colors from 'tailwindcss/colors'
 import MaskedTest from '../screens/customer/MaskedTest'
@@ -39,8 +39,8 @@ const CustomerNavigator: FC = () => {
       options= {{
         headerShown: false,
         tabBarIcon: ({ color, size, focused }) => (
-          <Horse
-            color={"blue"}
+          <Fish
+            color={color}
             size={size}
             weight={focused ? 'duotone' : 'regular'}
           />

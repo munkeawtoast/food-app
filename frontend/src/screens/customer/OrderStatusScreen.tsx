@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import { CheckBox } from 'react-native-elements'
 import useTestPersistentStore from '../../stores/testPersistentStore'
-import { Ionicons, Octicons } from '@expo/vector-icons'
+import { HourglassHigh, Users, Timer, CaretLeft } from 'phosphor-react-native'
 
 interface ItemProps {
   number: number
@@ -26,7 +26,9 @@ interface RadioButton {
 const RadioButtonWannabe: FC<RadioButton> = ({ label, selected, OnCheck }) => {
   return (
     <TouchableOpacity onPress={OnCheck}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: "1%" }}>
+      <View
+        style={{ flexDirection: 'row', alignItems: 'center', marginTop: '1%' }}
+      >
         <View
           style={{
             width: 24,
@@ -81,7 +83,7 @@ const RadioButtonGroup: FC = () => {
       >
         ระดับความเผ็ด
       </Text>
-      <View style={{ marginLeft: '3%', marginTop: '1%'}}>
+      <View style={{ marginLeft: '3%', marginBottom: '2%' }}>
         {options.map((option) => (
           <RadioButtonWannabe
             key={option.value}
@@ -146,7 +148,7 @@ const AddOn: FC = () => {
           onPress={() => toggleCheckBox('checkbox1')}
           containerStyle={{
             backgroundColor: 'transparent', // Background color of the container
-            borderWidth: 0
+            borderWidth: 0,
           }}
         />
         <CheckBox
@@ -155,7 +157,7 @@ const AddOn: FC = () => {
           onPress={() => toggleCheckBox('checkbox2')}
           containerStyle={{
             backgroundColor: 'transparent', // Background color of the container
-            borderWidth: 0
+            borderWidth: 0,
           }}
         />
         <CheckBox
@@ -164,7 +166,7 @@ const AddOn: FC = () => {
           onPress={() => toggleCheckBox('checkbox3')}
           containerStyle={{
             backgroundColor: 'transparent', // Background color of the container
-            borderWidth: 0
+            borderWidth: 0,
           }}
         />
       </View>
@@ -183,8 +185,7 @@ const QueueShown: FC = () => {
         alignItems: 'center',
       }}
     >
-      <Ionicons
-        name="md-hourglass-sharp"
+      <HourglassHigh
         size={50}
         color="#FDBA74"
         style={{
@@ -196,8 +197,7 @@ const QueueShown: FC = () => {
       <View style={{ flexDirection: 'column', gap: 15 }}>
         <Text style={{ fontSize: 24, marginLeft: 30 }}>คิวก่อนหน้า</Text>
         <View style={{ flexDirection: 'row' }}>
-          <Octicons
-            name="people"
+          <Users
             size={26}
             color="#FDBA74"
             style={{
@@ -209,8 +209,7 @@ const QueueShown: FC = () => {
             {' '}
             |
           </Text>
-          <Ionicons
-            name="time-outline"
+          <Timer
             size={26}
             color="#FDBA74"
             style={{
@@ -304,18 +303,56 @@ const FoodCategory: FC = () => {
 const OrderStatusScreen: FC = (navigation) => {
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ flexGrow: 1 }}
       style={{
         backgroundColor: '#0C4A6E',
+        height: '100%',
         flex: 1,
         flexDirection: 'column',
       }}
     >
+      <View style={{ flexDirection: 'row' }}>
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            alignContent: 'center',
+            marginTop: '1%',
+            marginLeft: '1%',
+          }}
+        >
+          <CaretLeft size={40} color="white" />
+          <Text
+            style={{
+              color: 'white',
+              fontSize: 24,
+              marginLeft: 5,
+            }}
+          >
+            กลับ
+          </Text>
+        </TouchableOpacity>
+        <View style={{ flex: 1, alignItems: 'center' }}>
+          <Text
+            style={{
+              fontSize: 24,
+              color: 'white',
+              marginTop: '1%',
+            }}
+          >
+            วาสนาก๋วยเตี๋ยว
+          </Text>
+        </View>
+      </View>
       <View style={styles.container}>
-        <QueueShown />
-        <Split />
-        <FoodCategory />
-        <AddOn />
-        <RadioButtonGroup />
+        <View style={styles.content}>
+          <QueueShown />
+          <Split />
+          <FoodCategory />
+          <AddOn />
+          <RadioButtonGroup />
+        </View>
       </View>
     </ScrollView>
   )
@@ -323,12 +360,15 @@ const OrderStatusScreen: FC = (navigation) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: '7%',
+    marginTop: '3%',
     backgroundColor: '#FFF',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     flex: 1,
-    flexDirection: 'column',
+  },
+  content: {
+    paddingHorizontal: '5%', // Adjust as needed for spacing
+    paddingBottom: '5%', // Adjust as needed for spacing
   },
   foodCategory: {
     flexDirection: 'row',
