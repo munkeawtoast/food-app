@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  ImageSourcePropType,
 } from 'react-native'
 import { CheckBox } from 'react-native-elements'
 import useTestPersistentStore from '../../stores/testPersistentStore'
@@ -13,6 +14,7 @@ import { HourglassHigh, Users, Timer, CaretLeft } from 'phosphor-react-native'
 
 interface ItemProps {
   number: number
+  ImageUrl: ImageSourcePropType
   activeView: number | null
   handleViewPress: (number: number) => void
 }
@@ -232,7 +234,12 @@ const FoodCategory: FC = () => {
     setActiveView(viewNumber)
   }
 
-  const Item: FC<ItemProps> = ({ number, activeView, handleViewPress }) => {
+  const Item: FC<ItemProps> = ({
+    number,
+    ImageUrl,
+    activeView,
+    handleViewPress,
+  }) => {
     return (
       <TouchableOpacity
         onPress={() => handleViewPress(number)}
@@ -244,7 +251,7 @@ const FoodCategory: FC = () => {
           },
         ]}
       >
-        <Image source={require('frontend/assets/Noodle.png')} />
+        <Image source={ImageUrl} />
         <Text style={{ fontSize: 22 }}> ก๋วยเตี๋ยว </Text>
       </TouchableOpacity>
     )
@@ -267,31 +274,37 @@ const FoodCategory: FC = () => {
           <Item
             number={1}
             activeView={activeView}
+            ImageUrl={require('frontend/assets/Noodle.png')}
             handleViewPress={handleViewPress}
           />
           <Item
             number={2}
             activeView={activeView}
+            ImageUrl={require('frontend/assets/Noodle.png')}
             handleViewPress={handleViewPress}
           />
           <Item
             number={3}
             activeView={activeView}
+            ImageUrl={require('frontend/assets/Noodle.png')}
             handleViewPress={handleViewPress}
           />
           <Item
             number={4}
             activeView={activeView}
+            ImageUrl={require('frontend/assets/Noodle.png')}
             handleViewPress={handleViewPress}
           />
           <Item
             number={5}
             activeView={activeView}
+            ImageUrl={require('frontend/assets/Noodle.png')}
             handleViewPress={handleViewPress}
           />
           <Item
             number={6}
             activeView={activeView}
+            ImageUrl={require('frontend/assets/Noodle.png')}
             handleViewPress={handleViewPress}
           />
         </View>
