@@ -3,6 +3,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    'react-native/react-native': true,
   },
   extends: [
     'eslint:recommended',
@@ -28,6 +29,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react', 'react-native'],
   rules: {
+    'react-native/no-raw-text': 2,
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
   },
