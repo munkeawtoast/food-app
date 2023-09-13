@@ -55,6 +55,8 @@ const CustomerNavigator: FC = () => {
         component={QrScanScreen}
         options={{
           tabBarIcon: getIcon(QrCode),
+          tabBarShowLabel: false,
+          headerShown: false,
           title: 'สแกน QR',
         }}
       />
