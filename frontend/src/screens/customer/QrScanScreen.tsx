@@ -38,7 +38,9 @@ function QrScanScreen() {
   return (
     <View className="flex-1 bg-black">
       <MaskedView
-        className="flex-1"
+        style={{
+          flex: 1,
+        }}
         maskElement={
           <View className="flex-1 justify-center items-center bg-[#ffffff99]">
             <View

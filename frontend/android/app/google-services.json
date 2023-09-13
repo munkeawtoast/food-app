@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "154304340671",
+    "project_id": "foodshop-9efb9",
+    "storage_bucket": "foodshop-9efb9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154304340671:android:9109782057b647e8975c0a",
+        "android_client_info": {
+          "package_name": "com.canteen.foodapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154304340671-bgtfmsk3cts8g7jgr91la3vchc9q7i8d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5xJQHjZ1RIlF9vG2ZAYZASyL01egZysY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154304340671-bgtfmsk3cts8g7jgr91la3vchc9q7i8d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "154304340671-et28gcuor3m43jgd4jl73djpuafmpanq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.canteen.foodapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

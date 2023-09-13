@@ -2,12 +2,12 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-type TestState = {
+type TestStore = {
   bears: number
   addABear: () => void
 }
 
-const useTestPersistentStore = create<TestState>()(
+const useTestPersistentStore = create<TestStore>()(
   persist(
     (set, get) => ({
       bears: 0,

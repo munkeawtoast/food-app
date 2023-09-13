@@ -30,6 +30,12 @@
           <string>com.munkeawtoast.food-app</string>
         </array>
       </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>com.googleusercontent.apps.154304340671-et28gcuor3m43jgd4jl73djpuafmpanq</string>
+        </array>
+      </dict>
     </array>
     <key>CFBundleVersion</key>
     <string>1</string>
