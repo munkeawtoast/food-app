@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator()
 const ShopNavigator = ({ navigation, route }) => {
   return (
     <Stack.Navigator
-      initialRouteName="customer-shop-queue"
+      initialRouteName="customer-bottom-shop-queue"
       screenOptions={{
         headerTitleStyle: {
           fontFamily: 'Prompt_400Regular',
@@ -23,8 +23,11 @@ const ShopNavigator = ({ navigation, route }) => {
         },
       }}
     >
-      <Stack.Screen name="customer-shop-main" component={ShopScreen} />
-      <Stack.Screen name="customer-shop-queue" component={ShopQueueScreen} />
+      <Stack.Screen name="customer-bottom-shop-main" component={ShopScreen} />
+      <Stack.Screen
+        name="customer-bottom-shop-queue"
+        component={ShopQueueScreen}
+      />
     </Stack.Navigator>
   )
 }

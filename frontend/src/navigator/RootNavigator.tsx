@@ -20,7 +20,7 @@ import { lightTheme } from '../config/theme'
 import AuthNavigator from './AuthNavigator/AuthNavigator'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { RootStackParamList } from './types'
-import CustomerNavigator from './CustomerNavigator/CustomerNavigator'
+import CustomerBottomNavigator from './CustomerNavigator/CustomerBottomNavigator'
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
 
@@ -57,8 +57,8 @@ const AppNavigator: FC = () => {
         initialRouteName="auth"
       >
         <RootStack.Screen name="auth" component={AuthNavigator} />
-        <RootStack.Screen name="customer" component={CustomerNavigator} />
-        <RootStack.Screen name="merchant" component={CustomerNavigator} />
+        <RootStack.Screen name="customer" component={CustomerBottomNavigator} />
+        <RootStack.Screen name="merchant" component={CustomerBottomNavigator} />
       </RootStack.Navigator>
     </NavigationContainer>
   )
