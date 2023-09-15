@@ -1,14 +1,12 @@
 import type { FC } from 'react'
 import img from 'frontend/assets/home-background.png'
 import { Image, Text, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient'
 import { StatusBar } from 'expo-status-bar'
 
-const HomeScreen: FC = () => {
+const Top: FC = () => {
   return (
-    <View className="flex-1 flex-col">
-      <StatusBar style="light" />
+    <>
       <Image
         style={{
           resizeMode: 'cover',
@@ -30,8 +28,16 @@ const HomeScreen: FC = () => {
           สวัสดี ${'username'} !
         </Text>
       </LinearGradient>
+    </>
+  )
+}
+
+const HomeScreen: FC = () => {
+  return (
+    <View className="flex-1 flex-col">
+      <StatusBar style="light" />
+      <Top />
       <View className="flex-1">
-        {/* top-padding  */}
         <View className="h-[35%]" />
       </View>
     </View>
