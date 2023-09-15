@@ -7,10 +7,12 @@ import {
   TouchableOpacity,
   Image,
   ImageSourcePropType,
+  Dimensions,
 } from 'react-native'
 import { CheckBox } from 'react-native-elements'
 import useTestPersistentStore from '../../stores/testPersistentStore'
 import { HourglassHigh, Users, Timer, CaretLeft } from 'phosphor-react-native'
+import { moderateScale } from '../../config/scale'
 
 interface ItemProps {
   number: number
@@ -25,17 +27,24 @@ interface RadioButton {
   OnCheck: () => void
 }
 
+const { width, height } = Dimensions.get('window')
+
 const RadioButtonWannabe: FC<RadioButton> = ({ label, selected, OnCheck }) => {
   return (
     <TouchableOpacity onPress={OnCheck}>
       <View
-        style={{ flexDirection: 'row', alignItems: 'center', marginTop: '1%' }}
+        style={{
+          flexGrow: 1,
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginTop: height * 0.01,
+        }}
       >
         <View
           style={{
             width: 24,
             height: 24,
-            borderRadius: 12,
+            borderRadius: 25,
             borderWidth: 2,
             borderColor: selected ? 'blue' : 'gray',
             alignItems: 'center',
@@ -47,13 +56,13 @@ const RadioButtonWannabe: FC<RadioButton> = ({ label, selected, OnCheck }) => {
               style={{
                 width: 12,
                 height: 12,
-                borderRadius: 6,
+                borderRadius: 25,
                 backgroundColor: 'blue',
               }}
             />
           )}
         </View>
-        <Text style={{ marginLeft: 8 }}>{label}</Text>
+        <Text style={{ marginLeft: width * 0.02 }}>{label}</Text>
       </View>
     </TouchableOpacity>
   )
@@ -77,15 +86,16 @@ const RadioButtonGroup: FC = () => {
     <View>
       <Text
         style={{
-          fontSize: 22,
+          flexGrow: 1,
+          fontSize: moderateScale(22),
           color: '#C2410C',
-          marginLeft: '2%',
-          marginTop: '2%',
+          marginLeft: width * 0.02,
+          marginTop: height * 0.02,
         }}
       >
         ระดับความเผ็ด
       </Text>
-      <View style={{ marginLeft: '3%', marginBottom: '2%' }}>
+      <View style={{ marginLeft: width * 0.03, marginBottom: height * 0.02 }}>
         {options.map((option) => (
           <RadioButtonWannabe
             key={option.value}
@@ -103,10 +113,10 @@ const Split: FC = () => {
   return (
     <View
       style={{
-        marginTop: 20,
-        marginLeft: '10%',
-        width: '80%',
-        height: 2,
+        marginTop: height * 0.03,
+        marginLeft: width * 0.1,
+        width: width * 0.8,
+        height: height * 0.002,
         backgroundColor: '#D9D9D9',
       }}
     ></View>
@@ -132,23 +142,30 @@ const AddOn: FC = () => {
   }
 
   return (
-    <View>
+    <View style={{ flexGrow: 1 }}>
       <Text
         style={{
-          fontSize: 22,
+          fontSize: moderateScale(22),
           color: '#C2410C',
-          marginLeft: '2%',
-          marginTop: '2%',
+          marginLeft: width * 0.02,
+          marginTop: height * 0.01,
         }}
       >
         เพิ่มเติม
       </Text>
-      <View style={{ marginLeft: '2%' }}>
+      <View
+        style={{
+          flexGrow: 1,
+          marginLeft: width * 0.02,
+          marginTop: height * 0.01,
+        }}
+      >
         <CheckBox
           title="My Checkbox"
           checked={checkboxStates.checkbox1}
           onPress={() => toggleCheckBox('checkbox1')}
           containerStyle={{
+            padding: 3,
             backgroundColor: 'transparent', // Background color of the container
             borderWidth: 0,
           }}
@@ -158,6 +175,7 @@ const AddOn: FC = () => {
           checked={checkboxStates.checkbox2}
           onPress={() => toggleCheckBox('checkbox2')}
           containerStyle={{
+            padding: 3,
             backgroundColor: 'transparent', // Background color of the container
             borderWidth: 0,
           }}
@@ -167,6 +185,7 @@ const AddOn: FC = () => {
           checked={checkboxStates.checkbox3}
           onPress={() => toggleCheckBox('checkbox3')}
           containerStyle={{
+            padding: 3,
             backgroundColor: 'transparent', // Background color of the container
             borderWidth: 0,
           }}
@@ -181,8 +200,8 @@ const QueueShown: FC = () => {
   return (
     <View
       style={{
-        marginTop: '5%',
-        marginLeft: 30,
+        marginTop: height * 0.05,
+        marginLeft: width * 0.05, // 5% of the screen width
         flexDirection: 'row',
         alignItems: 'center',
       }}
@@ -196,29 +215,46 @@ const QueueShown: FC = () => {
           borderRadius: 25,
         }}
       />
-      <View style={{ flexDirection: 'column', gap: 15 }}>
-        <Text style={{ fontSize: 24, marginLeft: 30 }}>คิวก่อนหน้า</Text>
+      <View
+        style={{
+          flexDirection: 'column',
+          gap: 15,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Text style={{ fontSize: moderateScale(22), textAlign: 'center' }}>
+          คิวก่อนหน้า
+        </Text>
         <View style={{ flexDirection: 'row' }}>
           <Users
-            size={26}
+            size={height * 0.03}
             color="#FDBA74"
             style={{
               marginLeft: 15,
             }}
           />
-          <Text style={{ fontSize: 20, marginLeft: 10 }}>{bears} คน</Text>
-          <Text style={{ fontSize: 20, marginLeft: 10, color: '#D9D9D9' }}>
+          <Text style={{ fontSize: height * 0.02, marginLeft: 10 }}>
+            {bears} คน
+          </Text>
+          <Text
+            style={{
+              fontSize: height * 0.02,
+              marginLeft: 10,
+              color: '#D9D9D9',
+            }}
+          >
             {' '}
             |
           </Text>
           <Timer
-            size={26}
+            size={height * 0.03}
             color="#FDBA74"
             style={{
               marginLeft: 15,
             }}
           />
-          <Text style={{ fontSize: 20, marginLeft: 10 }}>
+          <Text style={{ fontSize: height * 0.02, marginLeft: 10 }}>
             ≈ {bears + 2} นาที
           </Text>
         </View>
@@ -252,7 +288,7 @@ const FoodCategory: FC = () => {
         ]}
       >
         <Image source={ImageUrl} />
-        <Text style={{ fontSize: 22 }}> ก๋วยเตี๋ยว </Text>
+        <Text style={{ fontSize: height * 0.02 }}> ก๋วยเตี๋ยว </Text>
       </TouchableOpacity>
     )
   }
@@ -261,7 +297,8 @@ const FoodCategory: FC = () => {
     <View>
       <Text
         style={{
-          fontSize: 22,
+          flexGrow: 1,
+          fontSize: moderateScale(22),
           color: '#C2410C',
           marginLeft: '2%',
           marginTop: '2%',
@@ -270,7 +307,7 @@ const FoodCategory: FC = () => {
         ประเภทอาหาร
       </Text>
       <ScrollView horizontal contentContainerStyle={styles.foodCategory}>
-        <View style={{ flexDirection: 'row', marginHorizontal: 50 }}>
+        <View style={{ flexDirection: 'row' }}>
           <Item
             number={1}
             activeView={activeView}
@@ -320,8 +357,9 @@ const OrderStatusScreen: FC = (navigation) => {
       contentContainerStyle={{ flexGrow: 1 }}
       style={{
         backgroundColor: '#0C4A6E',
-        height: '100%',
+        height: height * 0.05,
         flex: 1,
+        flexShrink: 1,
         flexDirection: 'column',
       }}
     >
@@ -331,16 +369,16 @@ const OrderStatusScreen: FC = (navigation) => {
             flexDirection: 'row',
             alignItems: 'center',
             alignContent: 'center',
-            marginTop: '1%',
-            marginLeft: '1%',
+            marginTop: height * 0.01,
+            marginLeft: width * 0.01,
           }}
         >
           <CaretLeft size={40} color="white" />
           <Text
             style={{
               color: 'white',
-              fontSize: 24,
-              marginLeft: 5,
+              fontSize: height * 0.03,
+              marginLeft: width * 0.01,
             }}
           >
             กลับ
@@ -349,9 +387,9 @@ const OrderStatusScreen: FC = (navigation) => {
         <View style={{ flex: 1, alignItems: 'center' }}>
           <Text
             style={{
-              fontSize: 24,
+              fontSize: height * 0.03,
               color: 'white',
-              marginTop: '1%',
+              marginTop: height * 0.01,
             }}
           >
             วาสนาก๋วยเตี๋ยว
@@ -373,7 +411,7 @@ const OrderStatusScreen: FC = (navigation) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: '3%',
+    marginTop: width * 0.03,
     backgroundColor: '#FFF',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -385,17 +423,17 @@ const styles = StyleSheet.create({
   },
   foodCategory: {
     flexDirection: 'row',
-    width: '100%',
-    paddingHorizontal: 20, // Adjust as needed for spacing
+    width: width * 0.3,
+    paddingHorizontal: width * 0.05, // Adjust as needed for spacing
   },
   item: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: '40%', // Adjust the width and height as needed
-    height: 125,
+    width: width * 0.3, // Adjust the width and height as needed
+    height: height * 0.2,
     backgroundColor: 'lightgray',
     borderRadius: 5,
-    marginRight: 10, // Adjust for spacing
+    marginRight: width * 0.02, // Adjust for spacing
   },
 })
 
