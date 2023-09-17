@@ -9,8 +9,8 @@ export default class extends BaseSchema {
       table.text('food_name').notNullable()
       table.float('price').notNullable()
       table.json('options').notNullable()
-      table.integer('shop_id').references('id').inTable('shops')
-      table.integer('image_id').references('id').inTable('images')
+      table.integer('shop_id').references('id').inTable('shops').notNullable()
+      table.integer('image_id').references('id').inTable('images').notNullable()
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
