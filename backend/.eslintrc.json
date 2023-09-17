@@ -1,0 +1,5 @@
+{
+  // "root": true,
+  "extends": ["plugin:adonis/typescriptApp"],
+  "plugins": ["adonis"]
+}
