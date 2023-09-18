@@ -8,7 +8,6 @@ import {
   Image,
   ImageSourcePropType,
   Dimensions,
-  Animated,
 } from 'react-native'
 import { CheckBox } from 'react-native-elements'
 import useTestPersistentStore from '../../stores/testPersistentStore'

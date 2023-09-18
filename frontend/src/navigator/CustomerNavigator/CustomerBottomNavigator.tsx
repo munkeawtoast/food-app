@@ -36,9 +36,6 @@ const CustomerBottomNavigator: FC = () => {
     <CustomerTab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarLabelStyle: {
-          fontFamily: 'Mitr_400Regular',
-        },
       }}
       initialRouteName="home"
     >

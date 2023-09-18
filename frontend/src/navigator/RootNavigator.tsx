@@ -16,13 +16,14 @@ import { NavigationContainer } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { FC, useCallback } from 'react'
-import { lightTheme } from '../config/theme'
+import { lightTheme, defaultScreenOptions } from '../config/theme'
 import AuthNavigator from './AuthNavigator/AuthNavigator'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { RootStackParamList } from './types'
-import CustomerBottomNavigator from './CustomerNavigator/CustomerBottomNavigator'
+import { createStackNavigator } from '@react-navigation/stack'
+import CustomerNavigator from './CustomerNavigator/CustomerNavigator'
+import MerchantNavigator from './MerchantNavigator/MerchantNavigator'
 
-const RootStack = createNativeStackNavigator<RootStackParamList>()
+const RootStack = createStackNavigator<RootStackParamList>()
 
 const AppNavigator: FC = () => {
   const [fontsLoaded] = useFonts({
@@ -52,13 +53,14 @@ const AppNavigator: FC = () => {
     <NavigationContainer theme={lightTheme} onReady={onLayoutRootView}>
       <RootStack.Navigator
         screenOptions={{
+          ...defaultScreenOptions,
           headerShown: false,
         }}
-        initialRouteName="auth"
+        initialRouteName="merchant"
       >
         <RootStack.Screen name="auth" component={AuthNavigator} />
-        <RootStack.Screen name="customer" component={CustomerBottomNavigator} />
-        <RootStack.Screen name="merchant" component={CustomerBottomNavigator} />
+        <RootStack.Screen name="customer" component={CustomerNavigator} />
+        <RootStack.Screen name="merchant" component={MerchantNavigator} />
       </RootStack.Navigator>
     </NavigationContainer>
   )

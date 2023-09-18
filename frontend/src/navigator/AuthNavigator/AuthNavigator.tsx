@@ -1,19 +1,18 @@
-import {
-  NativeStackScreenProps,
-  createNativeStackNavigator,
-} from '@react-navigation/native-stack'
+import { defaultScreenOptions } from '../../config/theme'
+import { StackScreenProps, createStackNavigator } from '@react-navigation/stack'
 import LandingScreen from '../../screens/auth/LandingScreen'
 import { AuthStackParamList, RootStackParamList } from '../types'
 
-const Stack = createNativeStackNavigator<AuthStackParamList>()
+const Stack = createStackNavigator<AuthStackParamList>()
 
 const AuthNavigator = ({
   navigation,
   route,
-}: NativeStackScreenProps<RootStackParamList, 'auth'>) => {
+}: StackScreenProps<RootStackParamList, 'auth'>) => {
   return (
     <Stack.Navigator
       screenOptions={{
+        ...defaultScreenOptions,
         headerShown: false,
       }}
     >

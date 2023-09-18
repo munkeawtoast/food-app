@@ -6,7 +6,7 @@ const axios = bareAxios.create({
 })
 
 axios.interceptors.request.use(
-  config => {
+  (config) => {
     const { user } = useSettingsPersistentStore()
     if (user) {
       config.headers.Authorization = ``
@@ -14,9 +14,9 @@ axios.interceptors.request.use(
 
     return config
   },
-  error => {
+  (error) => {
     return Promise.reject(error)
-  },
+  }
 )
 
 export { axios }
