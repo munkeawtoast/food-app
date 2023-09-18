@@ -206,15 +206,17 @@ const QueueShown: FC = () => {
         alignItems: 'center',
       }}
     >
-      <HourglassHigh
-        size={50}
-        color="#FDBA74"
-        style={{
-          backgroundColor: '#FFEDD5',
-          padding: 15,
-          borderRadius: 25,
-        }}
-      />
+      <View>
+        <HourglassHigh
+          size={50}
+          color="#FDBA74"
+          style={{
+            backgroundColor: '#FFEDD5',
+            padding: 15,
+            borderRadius: 25,
+          }}
+        />
+      </View>
       <View
         style={{
           flexDirection: 'column',
