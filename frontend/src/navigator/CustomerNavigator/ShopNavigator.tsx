@@ -1,12 +1,9 @@
-import {
-  NativeStackScreenProps,
-  createNativeStackNavigator,
-} from '@react-navigation/native-stack'
+import { StackScreenProps, createStackNavigator } from '@react-navigation/stack'
 import colors from 'tailwindcss/colors'
 import ShopScreen from '../../screens/customer/ShopScreen'
 import ShopQueueScreen from '../../screens/customer/ShopQueueScreen'
 
-const Stack = createNativeStackNavigator()
+const Stack = createStackNavigator()
 
 const ShopNavigator = ({ navigation, route }) => {
   return (
