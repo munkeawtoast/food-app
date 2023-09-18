@@ -21,6 +21,7 @@ import AuthNavigator from './AuthNavigator/AuthNavigator'
 import { RootStackParamList } from './types'
 import { createStackNavigator } from '@react-navigation/stack'
 import CustomerNavigator from './CustomerNavigator/CustomerNavigator'
+import MerchantNavigator from './MerchantNavigator/MerchantNavigator'
 
 const RootStack = createStackNavigator<RootStackParamList>()
 
@@ -55,11 +56,11 @@ const AppNavigator: FC = () => {
           ...defaultScreenOptions,
           headerShown: false,
         }}
-        initialRouteName="auth"
+        initialRouteName="merchant"
       >
         <RootStack.Screen name="auth" component={AuthNavigator} />
         <RootStack.Screen name="customer" component={CustomerNavigator} />
-        {/* <RootStack.Screen name="merchant" component={CustomerBottomNavigator} /> */}
+        <RootStack.Screen name="merchant" component={MerchantNavigator} />
       </RootStack.Navigator>
     </NavigationContainer>
   )

@@ -3,7 +3,7 @@ import { moderateScale, verticalScale } from '../../config/scale'
 import Animated from 'react-native-reanimated'
 import useOrdersStore from '../../stores/ordersStore'
 
-const InProgressScreen = () => {
+const HistoryScreen = () => {
   const { orders } = useOrdersStore()
   return (
     <View className="flex-1 h-full">
@@ -43,4 +43,4 @@ const InProgressScreen = () => {
     </View>
   )
 }
-export default InProgressScreen
+export default HistoryScreen
