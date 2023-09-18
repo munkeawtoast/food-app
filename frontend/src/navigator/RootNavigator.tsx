@@ -19,11 +19,10 @@ import { FC, useCallback } from 'react'
 import { lightTheme, defaultScreenOptions } from '../config/theme'
 import AuthNavigator from './AuthNavigator/AuthNavigator'
 import { RootStackParamList } from './types'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import CustomerBottomNavigator from './CustomerNavigator/CustomerBottomNavigator'
+import { createStackNavigator } from '@react-navigation/stack'
 import CustomerNavigator from './CustomerNavigator/CustomerNavigator'
 
-const RootStack = createNativeStackNavigator<RootStackParamList>()
+const RootStack = createStackNavigator<RootStackParamList>()
 
 const AppNavigator: FC = () => {
   const [fontsLoaded] = useFonts({
