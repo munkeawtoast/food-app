@@ -6,12 +6,9 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  ImageSourcePropType,
   Dimensions,
 } from 'react-native'
-import { CheckBox } from 'react-native-elements'
-import useTestPersistentStore from '../../stores/testPersistentStore'
-import { CaretLeft } from 'phosphor-react-native'
+import { CaretLeft, CaretRight, ForkKnife } from 'phosphor-react-native'
 import { moderateScale } from '../../config/scale'
 
 const { width, height } = Dimensions.get('window')
@@ -67,8 +64,87 @@ const OrderQueueView: FC = ({ navigation }) => {
       </View>
       <View style={styles.container}>
         <View style={styles.content}>
-
-          <Text>asdasdasdas</Text>
+          <ForkKnife size={200} />
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+          >
+            <Image
+              style={{
+                height: height * 0.2,
+                width: width * 0.2,
+                marginHorizontal: -width * 0.07,
+                resizeMode: 'contain',
+              }}
+              source={require('frontend/assets/Noodle.png')}
+            />
+            <View
+              style={{
+                marginHorizontal: width * 0.15,
+              }}
+            >
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                  fontSize: moderateScale(20),
+                }}
+              >
+                เตี๋ยวหมูไก่ปลา
+              </Text>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                  fontSize: moderateScale(20),
+                }}
+              >
+                50 บาท
+              </Text>
+            </View>
+          </View>
+          <View>
+            <Text
+              style={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontSize: moderateScale(20),
+              }}
+            >
+              เวลาที่คาดว่าจะสำเร็จ
+            </Text>
+            <Text
+              style={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontSize: moderateScale(20),
+              }}
+            >
+              XXX นาที
+            </Text>
+            <TouchableOpacity>
+              <View
+                style={{
+                  marginTop: width * 0.2,
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: moderateScale(20),
+                  }}
+                >
+                  ดูคิวของร้าน
+                </Text>
+                <CaretRight style={{ marginTop: 5, marginLeft: 5}} size={22}></CaretRight>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -84,8 +160,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    paddingHorizontal: '5%', // Adjust as needed for spacing
-    paddingBottom: '5%', // Adjust as needed for spacing
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: width * 0.1,
   },
 })
 
