@@ -13,7 +13,7 @@ export default class LoginController {
     if (merchant) {
       // console.log(body.username)
       // console.log(body.password)
-      response.status(200).send('ok')
+      response.status(200).send(merchant)
     } else {
       response.status(404).send('no username')
     }
@@ -28,7 +28,7 @@ export default class LoginController {
     if (customer) {
       // console.log(body.username)
       // console.log(body.password)
-      response.status(200).send('ok')
+      response.status(200).send(customer)
     } else {
       response.status(404).send('no username')
     }

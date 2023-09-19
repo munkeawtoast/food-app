@@ -16,7 +16,7 @@ const AuthScreen = ({ navigation, route }) => {
           username,
           password,
         })
-        .then(() => navigation.navigate('merchant'))
+        .then(() => navigation.replace('merchant'))
         .catch((e: AxiosError) => {
           console.log(e)
         })
@@ -26,7 +26,7 @@ const AuthScreen = ({ navigation, route }) => {
           username,
           password,
         })
-        .then(() => navigation.navigate('customer'))
+        .then(() => navigation.replace('customer'))
         .catch((e: AxiosError) => {
           console.log(e)
         })

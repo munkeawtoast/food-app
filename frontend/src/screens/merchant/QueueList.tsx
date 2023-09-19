@@ -32,8 +32,11 @@ const ListContainer = () => {
           }}
         >
           <TouchableWithoutFeedback>
-            <View className="bg-red-400 h-96 w-96 items-center justify-center rounded-">
-              <Text>asdfdd</Text>
+            <View className="bg-white h-96 w-96 rounded  p-4">
+              <Text>- ก๋วยเตี๋ยวหมูน้ำใส 2</Text>
+              <Text>ไม่ผัก</Text>
+              <Text>แห้ง</Text>
+              <Text>- ก๋วยเตี๋ยวไก่ต้มยำ 1</Text>
             </View>
           </TouchableWithoutFeedback>
         </Pressable>
