@@ -11,7 +11,16 @@ import {
 } from 'react-native'
 import { CheckBox } from 'react-native-elements'
 import useTestPersistentStore from '../../stores/testPersistentStore'
-import { HourglassHigh, Users, Timer, CaretLeft } from 'phosphor-react-native'
+import {
+  HourglassHigh,
+  Users,
+  Timer,
+  CaretLeft,
+  CaretDown,
+  CaretUp,
+  User,
+  Clock,
+} from 'phosphor-react-native'
 import { moderateScale } from '../../config/scale'
 
 interface ItemProps {
@@ -25,6 +34,11 @@ interface RadioButton {
   label: string
   selected: boolean | null
   OnCheck: () => void
+}
+
+interface QueueShownProps {
+  isAccordionOpen: boolean
+  setIsAccordionOpen: (isAccordionOpen: boolean) => void
 }
 
 const { width, height } = Dimensions.get('window')
@@ -195,71 +209,134 @@ const AddOn: FC = () => {
   )
 }
 
-const QueueShown: FC = () => {
-  const { addABear, bears } = useTestPersistentStore()
+const People: FC = () => {
   return (
-    <View
-      style={{
-        marginTop: height * 0.05,
-        marginLeft: width * 0.05, // 5% of the screen width
-        flexDirection: 'row',
-        alignItems: 'center',
-      }}
-    >
-      <View>
-        <HourglassHigh
-          size={50}
-          color="#FDBA74"
-          style={{
-            backgroundColor: '#FFEDD5',
-            padding: 15,
-            borderRadius: 25,
-          }}
-        />
+    <View style={{ flexDirection: 'row', marginTop: height * 0.02 }}>
+      <View style={{ flexDirection: 'column', padding: 10, borderWidth: 3 }}>
+        <User size={30} color="black" />
       </View>
       <View
         style={{
           flexDirection: 'column',
-          gap: 15,
-          justifyContent: 'center',
-          alignItems: 'center',
+          gap: 10,
+          marginLeft: width * 0.03,
         }}
       >
-        <Text style={{ fontSize: moderateScale(22), textAlign: 'center' }}>
-          คิวก่อนหน้า
-        </Text>
-        <View style={{ flexDirection: 'row' }}>
-          <Users
-            size={height * 0.03}
+        <Text style={{ fontSize: 20 }}>คิวที่</Text>
+        <Text>เตี่ยววว</Text>
+      </View>
+      <View
+        style={{ flexDirection: 'column', marginLeft: width * 0.35, gap: 5 }}
+      >
+        <Clock size={35} color="black" />
+        <Text style={{ fontSize: 16 }}>2 นาที</Text>
+      </View>
+    </View>
+  )
+}
+
+const QueueShown: FC<QueueShownProps> = ({
+  isAccordionOpen,
+  setIsAccordionOpen,
+}) => {
+  const { addABear, bears } = useTestPersistentStore()
+
+  return (
+    <View>
+      <View
+        style={{
+          marginTop: height * 0.05,
+          marginLeft: width * 0.05, // 5% of the screen width
+          flexDirection: 'row',
+          gap: 30,
+        }}
+      >
+        <View>
+          <HourglassHigh
+            size={moderateScale(50)}
             color="#FDBA74"
             style={{
-              marginLeft: 15,
+              backgroundColor: '#FFEDD5',
+              padding: 15,
+              borderRadius: 10,
             }}
           />
-          <Text style={{ fontSize: height * 0.02, marginLeft: 10 }}>
-            {bears} คน
-          </Text>
-          <Text
-            style={{
-              fontSize: height * 0.02,
-              marginLeft: 10,
-              color: '#D9D9D9',
-            }}
-          >
-            {' '}
-            |
-          </Text>
-          <Timer
-            size={height * 0.03}
-            color="#FDBA74"
-            style={{
-              marginLeft: 15,
-            }}
-          />
-          <Text style={{ fontSize: height * 0.02, marginLeft: 10 }}>
-            ≈ {bears + 2} นาที
-          </Text>
         </View>
+        <View
+          style={{
+            flex: 3, // Adjust the flex value to control the width of the accordion content
+            flexDirection: 'column',
+            gap: 15,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ fontSize: moderateScale(22), textAlign: 'center' }}>
+            คิวก่อนหน้า
+          </Text>
+          <View style={{ flexDirection: 'row' }}>
+            <Users
+              size={height * 0.03}
+              color="#FDBA74"
+              style={{
+                marginLeft: 15,
+              }}
+            />
+            <Text style={{ fontSize: height * 0.02, marginLeft: 10 }}>
+              {bears} คน
+            </Text>
+            <Text
+              style={{
+                fontSize: height * 0.02,
+                marginLeft: 10,
+                color: '#D9D9D9',
+              }}
+            >
+              {' '}
+              |
+            </Text>
+            <Timer
+              size={height * 0.03}
+              color="#FDBA74"
+              style={{
+                marginLeft: 15,
+              }}
+            />
+            <Text style={{ fontSize: height * 0.02, marginLeft: 10 }}>
+              ≈ {bears + 2} นาที
+            </Text>
+          </View>
+          {isAccordionOpen && (
+            <View
+              style={{
+                marginLeft: -40,
+                padding: width * 0.05,
+                backgroundColor: '#E5E7EB',
+                borderRadius: 20,
+              }}
+            >
+              <People />
+              <People />
+            </View>
+          )}
+        </View>
+        <TouchableOpacity
+          onPress={() => setIsAccordionOpen(!isAccordionOpen)} // Toggle accordion state
+        >
+          {isAccordionOpen ? (
+            <View>
+              <CaretUp weight="bold" size={moderateScale(40)} color="#6B7280" />
+            </View>
+          ) : (
+            <View>
+              <CaretDown
+                weight="bold"
+                size={moderateScale(40)}
+                color="#6B7280"
+              />
+            </View>
+          )}
+        </TouchableOpacity>
       </View>
     </View>
   )
@@ -352,7 +429,9 @@ const FoodCategory: FC = () => {
   )
 }
 
-const OrderStatusScreen: FC = (navigation) => {
+const OrderStatusScreen: FC = ({ navigation }) => {
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false)
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -391,7 +470,7 @@ const OrderStatusScreen: FC = (navigation) => {
             style={{
               fontSize: height * 0.03,
               color: 'white',
-              marginTop: height * 0.01,
+              marginTop: height * 0.02,
             }}
           >
             วาสนาก๋วยเตี๋ยว
@@ -400,12 +479,44 @@ const OrderStatusScreen: FC = (navigation) => {
       </View>
       <View style={styles.container}>
         <View style={styles.content}>
-          <QueueShown />
-          <Split />
-          <FoodCategory />
+          {isAccordionOpen ? (
+            <View>
+              <QueueShown
+                isAccordionOpen={isAccordionOpen}
+                setIsAccordionOpen={setIsAccordionOpen}
+              />
+              <Split />
+            </View>
+          ) : (
+            <View>
+              <QueueShown
+                isAccordionOpen={isAccordionOpen}
+                setIsAccordionOpen={setIsAccordionOpen}
+              />
+              <Split />
+              <FoodCategory />
+            </View>
+          )}
           <AddOn />
           <RadioButtonGroup />
         </View>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            right: width * 0.02,
+            padding: 30,
+            backgroundColor: 'red',
+            borderRadius: 20
+          }}
+          onPress={() => {
+            navigation.navigate("Queue")
+          }}
+        >
+          <View style={{ alignContent: 'flex-end', alignItems: 'flex-end' }}>
+            <Text>Clicked</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   )
@@ -425,7 +536,6 @@ const styles = StyleSheet.create({
   },
   foodCategory: {
     flexDirection: 'row',
-    width: width * 0.3,
     paddingHorizontal: width * 0.05, // Adjust as needed for spacing
   },
   item: {

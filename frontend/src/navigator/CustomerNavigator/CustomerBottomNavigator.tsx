@@ -16,6 +16,7 @@ import { View } from 'react-native'
 import ShopNavigator from './ShopNavigator'
 import { IconProps } from 'react-native-elements'
 import HomeScreen from '../../screens/customer/HomeScreen'
+import QueueNavigator from '../CustomerNavigator/QueueNavigator'
 
 const CustomerTab = createBottomTabNavigator()
 
@@ -56,11 +57,11 @@ const CustomerBottomNavigator: FC = () => {
         component={ShopNavigator}
       />
       <CustomerTab.Screen
-        name="customer-bottom-order_status"
+        name="สั่งอาหาร"
         options={{
           tabBarIcon: getIcon(Fish),
         }}
-        component={OrderStatusScreen}
+        component={QueueNavigator}
       />
     </CustomerTab.Navigator>
   )
