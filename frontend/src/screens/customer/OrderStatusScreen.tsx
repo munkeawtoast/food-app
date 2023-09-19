@@ -429,7 +429,7 @@ const FoodCategory: FC = () => {
   )
 }
 
-const OrderStatusScreen: FC = (navigation) => {
+const OrderStatusScreen: FC = ({ navigation }) => {
   const [isAccordionOpen, setIsAccordionOpen] = useState(false)
 
   return (
@@ -470,7 +470,7 @@ const OrderStatusScreen: FC = (navigation) => {
             style={{
               fontSize: height * 0.03,
               color: 'white',
-              marginTop: height * 0.01,
+              marginTop: height * 0.02,
             }}
           >
             วาสนาก๋วยเตี๋ยว
@@ -500,6 +500,23 @@ const OrderStatusScreen: FC = (navigation) => {
           <AddOn />
           <RadioButtonGroup />
         </View>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            right: width * 0.02,
+            padding: 30,
+            backgroundColor: 'red',
+            borderRadius: 20
+          }}
+          onPress={() => {
+            navigation.navigate("Queue")
+          }}
+        >
+          <View style={{ alignContent: 'flex-end', alignItems: 'flex-end' }}>
+            <Text>Clicked</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   )

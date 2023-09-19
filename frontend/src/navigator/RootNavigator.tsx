@@ -56,7 +56,7 @@ const AppNavigator: FC = () => {
           ...defaultScreenOptions,
           headerShown: false,
         }}
-        initialRouteName="merchant"
+        initialRouteName="customer"
       >
         <RootStack.Screen name="auth" component={AuthNavigator} />
         <RootStack.Screen name="customer" component={CustomerNavigator} />
