@@ -23,7 +23,11 @@ const MerchantNavigator = () => {
         component={MerchantLogin}
         options={{ headerShown: false }}
       /> */}
-      <BottomBar.Screen name="merchant-home" component={HomeScreen} />
+      <BottomBar.Screen
+        name="merchant-home"
+        component={HomeScreen}
+        options={{ headerTitle: 'Home' }}
+      />
       <BottomBar.Screen
         name="merchant-add_food"
         component={AddFood}

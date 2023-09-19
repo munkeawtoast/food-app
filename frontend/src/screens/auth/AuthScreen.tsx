@@ -8,6 +8,7 @@ import { AxiosError } from 'axios'
 const AuthScreen = ({ navigation, route }) => {
   const [username, setUsername] = useState<string>()
   const [password, setPassword] = useState<string>()
+  const [errorMessage, setErrorMessage] = useState<string>('')
   async function CheckLogin() {
     // console.log(route.params.as)
     if (route.params.as === 'merchant') {
@@ -16,9 +17,13 @@ const AuthScreen = ({ navigation, route }) => {
           username,
           password,
         })
-        .then(() => navigation.replace('merchant'))
+        .then((res) => {
+          console.log(res.data)
+          navigation.replace('merchant', { data: res.data })
+        })
         .catch((e: AxiosError) => {
           console.log(e)
+          setErrorMessage('ไอดีหรือพาสเวิคไม่ถูกต้อง')
         })
     } else if (route.params.as === 'customer') {
       await axios
@@ -29,26 +34,32 @@ const AuthScreen = ({ navigation, route }) => {
         .then(() => navigation.replace('customer'))
         .catch((e: AxiosError) => {
           console.log(e)
+          setErrorMessage('ไอดีหรือพาสเวิคไม่ถูกต้อง')
         })
     }
   }
   return (
     <SafeAreaView className="flex-1 items-center">
-      <Text>Please Login</Text>
+      <Text className="text-xl font-mitr6">Please Login</Text>
       <View className="flex-1 justify-center gap-2">
-        <Text>Your Username</Text>
-        <TextInput
-          className="w-48 h-6 border"
-          onChangeText={setUsername}
-          value={username}
-        />
-        <Text>Your Password</Text>
-        <TextInput
-          className="w-48 h-6 border"
-          onChangeText={setPassword}
-          value={password}
-        />
+        <View className="flex-row gap-2">
+          <Text>Username:</Text>
+          <TextInput
+            className="w-36 h-6 border"
+            onChangeText={setUsername}
+            value={username}
+          />
+        </View>
+        <View className="flex-row gap-2">
+          <Text>Password:</Text>
+          <TextInput
+            className="w-36 h-6 border"
+            onChangeText={setPassword}
+            value={password}
+          />
+        </View>
         <View>
+          <Text className="text-red-600">{errorMessage}</Text>
           <Button title="Submit" onPress={CheckLogin} />
         </View>
       </View>

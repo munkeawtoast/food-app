@@ -7,6 +7,9 @@ export default class Image extends BaseModel {
   public id: number
 
   @column()
+  public name: string
+
+  @column()
   public mineType: string
 
   @column()
