@@ -64,7 +64,7 @@ const OrderQueueView: FC = ({ navigation }) => {
       </View>
       <View style={styles.container}>
         <View style={styles.content}>
-          <ForkKnife size={200} />
+          <ForkKnife size={200} color="#B8B8B8" />
           <View
             style={{
               flexDirection: 'row',
@@ -105,7 +105,7 @@ const OrderQueueView: FC = ({ navigation }) => {
               </Text>
             </View>
           </View>
-          <View>
+          <View style={{ marginLeft: width * 0.1 }}>
             <Text
               style={{
                 textAlign: 'center',
