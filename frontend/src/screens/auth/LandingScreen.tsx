@@ -37,18 +37,27 @@ const LandingScreen = ({
         </View>
 
         <View className="items-center gap-y-2 pb-24">
-          <Pressable
-            android_ripple={{
-              foreground: true,
-              color: colors.sky['200'],
-            }}
-            onPress={() => {
-              navigation.replace('customer')
-            }}
-            className="py-3 w-[80%] items-center rounded-xl bg-sky-600"
-          >
-            <Text className="font-prompt3 text-xl text-white">เข้าสู่แอพ</Text>
-          </Pressable>
+          {Object.entries({ merchant: 'แม่ค้า', customer: 'ลูกค้า' }).map(
+            ([route, label]) => (
+              <Pressable
+                key={route}
+                android_ripple={{
+                  foreground: true,
+                  color: colors.sky['200'],
+                }}
+                onPress={() => {
+                  navigation.navigate('auth-auth', {
+                    as: route,
+                  })
+                }}
+                className="py-3 w-[80%] items-center rounded-xl bg-sky-600"
+              >
+                <Text className="font-prompt3 text-xl text-white">
+                  ล็อกอินสำหรับ{label}
+                </Text>
+              </Pressable>
+            )
+          )}
         </View>
       </SafeAreaView>
     </>

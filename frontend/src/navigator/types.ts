@@ -18,7 +18,9 @@ export type AllScreenList = RootStackParamList &
 
 export type AuthStackParamList = {
   'auth-landing': undefined
-  'auth-auth': undefined
+  'auth-auth': {
+    as: 'customer' | 'merchant'
+  }
 }
 
 export type CustomerTabsParamList = {

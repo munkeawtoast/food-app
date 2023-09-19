@@ -1,4 +1,12 @@
-import { View, Text, Image, Pressable, Modal, Alert } from 'react-native'
+import {
+  View,
+  Text,
+  Image,
+  Pressable,
+  Modal,
+  Alert,
+  TouchableWithoutFeedback,
+} from 'react-native'
 import { moderateScale } from '../../config/scale'
 import { CheckBox } from 'react-native-elements'
 import { useState } from 'react'
@@ -8,7 +16,7 @@ const ListContainer = () => {
   return (
     <View>
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -16,11 +24,19 @@ const ListContainer = () => {
           setModalVisible(!modalVisible)
         }}
       >
-        <View className="bg-red-200 flex-1 items-center justify-center">
-          <View className="bg-red-400 h-96 w-96 items-center justify-center">
-            <Text>asdfdd</Text>
-          </View>
-        </View>
+        <Pressable
+          onPress={() => setModalVisible(!modalVisible)}
+          className="flex-1 items-center justify-center"
+          style={{
+            backgroundColor: 'rgba(0,0,0,0.8)',
+          }}
+        >
+          <TouchableWithoutFeedback>
+            <View className="bg-red-400 h-96 w-96 items-center justify-center rounded-">
+              <Text>asdfdd</Text>
+            </View>
+          </TouchableWithoutFeedback>
+        </Pressable>
       </Modal>
 
       <View className="my-2 mx-2 flex-row gap-2">

@@ -1,22 +1,26 @@
 import bareAxios from 'axios'
+import { Platform } from 'react-native'
 import useSettingsPersistentStore from '../stores/settingsPersistentStore'
 
 const axios = bareAxios.create({
-  baseURL: 'http://localhost:3500/web',
+  baseURL:
+    Platform.OS === 'android'
+      ? 'http://10.0.2.2:3333'
+      : 'https://localhost:3333',
 })
 
-axios.interceptors.request.use(
-  (config) => {
-    const { user } = useSettingsPersistentStore()
-    if (user) {
-      config.headers.Authorization = ``
-    }
+// axios.interceptors.request.use(
+//   (config) => {
+//     const { user } = useSettingsPersistentStore()
+//     if (user) {
+//       config.headers.Authorization = ``
+//     }
 
-    return config
-  },
-  (error) => {
-    return Promise.reject(error)
-  }
-)
+//     return config
+//   },
+//   (error) => {
+//     return Promise.reject(error)
+//   }
+// )
 
 export { axios }

@@ -3,6 +3,7 @@ import HomeScreen from '../../screens/merchant/HomeScreen'
 import AddFood from '../../screens/merchant/AddFood'
 import QueueList from '../../screens/merchant/QueueList'
 import colors from 'tailwindcss/colors'
+import MerchantLogin from '../../screens/merchant/MerchantLogin'
 
 const BottomBar = createBottomTabNavigator()
 
@@ -17,6 +18,11 @@ const MerchantNavigator = () => {
         },
       }}
     >
+      {/* <BottomBar.Screen
+        name="merchant-login"
+        component={MerchantLogin}
+        options={{ headerShown: false }}
+      /> */}
       <BottomBar.Screen name="merchant-home" component={HomeScreen} />
       <BottomBar.Screen
         name="merchant-add_food"
