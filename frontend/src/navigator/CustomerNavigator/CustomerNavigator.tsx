@@ -8,10 +8,14 @@ import {
   lightTheme,
 } from '../../config/theme'
 import HistoryScreen from '../../screens/customer/HistoryScreen'
+import { RootNavigationProps } from '../types'
 
 const Stack = createStackNavigator()
 
-const CustomerNavigator = () => {
+const CustomerNavigator = ({
+  navigation,
+  route,
+}: RootNavigationProps<'customer'>) => {
   return (
     <Stack.Navigator
       screenOptions={{

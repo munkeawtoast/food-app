@@ -4,8 +4,9 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { axios } from '../../api/axios'
 import { Button } from 'react-native-elements'
 import { AxiosError } from 'axios'
+import { AuthStackProps } from '../../navigator/types'
 
-const AuthScreen = ({ navigation, route }) => {
+const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
   const [username, setUsername] = useState<string>()
   const [password, setPassword] = useState<string>()
   const [errorMessage, setErrorMessage] = useState<string>('')

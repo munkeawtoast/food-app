@@ -18,10 +18,10 @@ import * as SplashScreen from 'expo-splash-screen'
 import { FC, useCallback } from 'react'
 import { lightTheme, defaultScreenOptions } from '../config/theme'
 import AuthNavigator from './AuthNavigator/AuthNavigator'
-import { RootStackParamList } from './types'
 import { createStackNavigator } from '@react-navigation/stack'
 import CustomerNavigator from './CustomerNavigator/CustomerNavigator'
 import MerchantNavigator from './MerchantNavigator/MerchantNavigator'
+import { RootStackParamList } from './types'
 
 const RootStack = createStackNavigator<RootStackParamList>()
 

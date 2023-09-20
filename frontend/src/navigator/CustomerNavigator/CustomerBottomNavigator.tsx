@@ -17,6 +17,7 @@ import ShopNavigator from './ShopNavigator'
 import { IconProps } from 'react-native-elements'
 import HomeScreen from '../../screens/customer/HomeScreen'
 import QueueNavigator from '../CustomerNavigator/QueueNavigator'
+import { CustomerStackProps } from '../types'
 
 const CustomerTab = createBottomTabNavigator()
 
@@ -32,7 +33,10 @@ const getIcon = (Icon: FC<PhosphorIconProps> | null) => {
     ) : undefined
 }
 
-const CustomerBottomNavigator: FC = () => {
+const CustomerBottomNavigator: FC = ({
+  navigation,
+  route,
+}: CustomerStackProps<'customer-bottom'>) => {
   return (
     <CustomerTab.Navigator
       screenOptions={{

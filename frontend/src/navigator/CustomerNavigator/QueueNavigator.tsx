@@ -6,7 +6,7 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 const Stack = createStackNavigator()
 
-const QueueNavigator = (navigation) => {
+const QueueNavigator = ({ navigation, queue }) => {
   return (
     <Stack.Navigator
       initialRouteName="Order"

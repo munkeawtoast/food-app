@@ -8,8 +8,12 @@ import {
 } from 'react-native'
 import { BarCodeScannedCallback, BarCodeScanner } from 'expo-barcode-scanner'
 import MaskedView from '@react-native-masked-view/masked-view'
+import { CustomerStackProps } from '../../navigator/types'
 
-function QrScanScreen() {
+function QrScanScreen({
+  navigation,
+  route,
+}: CustomerStackProps<'customer-scan'>) {
   const [hasPermission, setHasPermission] = useState(false)
   const [scanned, setScanned] = useState(false)
   const { width } = useWindowDimensions()

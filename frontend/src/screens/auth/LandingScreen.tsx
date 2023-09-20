@@ -3,12 +3,13 @@ import { CookingPot } from 'phosphor-react-native'
 import { Image, Pressable, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import colors from 'tailwindcss/colors'
-import { RootStackParamList } from '../../navigator/types'
+import { AuthStackProps, RootStackParamList } from '../../navigator/types'
 import { StatusBar } from 'expo-status-bar'
 
 const LandingScreen = ({
   navigation,
-}: StackScreenProps<RootStackParamList>) => {
+  route,
+}: AuthStackProps<'auth-landing'>) => {
   return (
     <>
       <StatusBar style="dark" />

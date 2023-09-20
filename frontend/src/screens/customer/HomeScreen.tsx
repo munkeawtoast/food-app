@@ -9,6 +9,7 @@ import {
   verticalScale,
 } from '../../config/scale'
 import { CaretUp } from 'phosphor-react-native'
+import { CustomerBottomTabProps } from '../../navigator/types'
 
 const height = verticalScale(225)
 
@@ -92,7 +93,7 @@ const Top: FC = () => {
   )
 }
 
-const HomeScreen: FC = (props) => {
+const HomeScreen = (props: CustomerBottomTabProps<'customer-bottom-home'>) => {
   return (
     <>
       <StatusBar style="dark" />

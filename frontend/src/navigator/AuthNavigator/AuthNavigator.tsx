@@ -1,15 +1,17 @@
 import { defaultScreenOptions } from '../../config/theme'
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack'
 import LandingScreen from '../../screens/auth/LandingScreen'
-import { AuthStackParamList, RootStackParamList } from '../types'
+import {
+  AuthStackParamList,
+  AuthStackProps,
+  RootNavigationProps,
+  RootStackParamList,
+} from '../types'
 import AuthScreen from '../../screens/auth/AuthScreen'
 
 const Stack = createStackNavigator<AuthStackParamList>()
 
-const AuthNavigator = ({
-  navigation,
-  route,
-}: StackScreenProps<RootStackParamList, 'auth'>) => {
+const AuthNavigator = ({ navigation, route }: RootNavigationProps<'auth'>) => {
   return (
     <Stack.Navigator
       screenOptions={{
