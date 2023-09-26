@@ -5,6 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import colors from 'tailwindcss/colors'
 import { AuthStackProps, RootStackParamList } from '../../navigator/types'
 import { StatusBar } from 'expo-status-bar'
+import { verticalScale } from '../../config/scale'
+import { Button } from 'react-native-ui-lib'
 
 const LandingScreen = ({
   navigation,
@@ -14,7 +16,7 @@ const LandingScreen = ({
     <>
       <StatusBar style="dark" />
       <SafeAreaView className="flex-1">
-        <View className="items-center flex-1 font-mitr4">
+        <View className="items-center font-mitr4">
           <View className="justify-start pt-4 items-end flex-row gap-2">
             <CookingPot size={40} weight="fill" />
             <Text className="text-black text-4xl translate-y-1 font-mitr5">
@@ -26,7 +28,7 @@ const LandingScreen = ({
             style={{
               resizeMode: 'contain',
               height: 150,
-              marginVertical: 120,
+              marginVertical: verticalScale(100),
             }}
           />
           <Text className="text-black font-mitr5 pt-4 text-4xl font-medium">
@@ -36,27 +38,20 @@ const LandingScreen = ({
             เพียงสแกนคิวอาร์ก็สั่งข้าวได้แล้ว
           </Text>
         </View>
-
-        <View className="items-center gap-y-2 pb-24">
+        <View className="flex-1 items-center justify-end pb-20">
           {Object.entries({ merchant: 'แม่ค้า', customer: 'ลูกค้า' }).map(
             ([route, label]) => (
-              <Pressable
+              <Button
                 key={route}
-                android_ripple={{
-                  foreground: true,
-                  color: colors.sky['200'],
-                }}
+                style={{ marginTop: 12, width: '80%', borderRadius: 12 }}
+                label={`เข้าในฐานะ${label}`}
+                backgroundColor={colors.sky[600]}
                 onPress={() => {
                   navigation.navigate('auth-auth', {
                     as: route,
                   })
                 }}
-                className="py-3 w-[80%] items-center rounded-xl bg-sky-600"
-              >
-                <Text className="font-prompt3 text-xl text-white">
-                  ล็อกอินสำหรับ{label}
-                </Text>
-              </Pressable>
+              />
             )
           )}
         </View>

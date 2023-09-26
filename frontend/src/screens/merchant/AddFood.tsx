@@ -1,6 +1,6 @@
 import { View, Text, TextInput } from 'react-native'
-import defaultScreenOptions from '../../config/theme'
 import { useState } from 'react'
+
 const AddFood = () => {
   const [foodName, setFoodName] = useState<string>()
   return (
@@ -10,13 +10,13 @@ const AddFood = () => {
         className="border w-48"
         onChangeText={setFoodName}
         value={foodName}
-      ></TextInput>
+      />
       <Text>ชื่ออาหาร</Text>
       <TextInput
         className="border w-48"
         onChangeText={setFoodName}
         value={foodName}
-      ></TextInput>
+      />
     </View>
   )
 }

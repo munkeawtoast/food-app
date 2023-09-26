@@ -8,8 +8,8 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native'
 import { moderateScale } from '../../config/scale'
-import { CheckBox } from 'react-native-elements'
 import { useState } from 'react'
+import { Checkbox } from 'react-native-ui-lib'
 
 const ListContainer = () => {
   const [modalVisible, setModalVisible] = useState(false)
@@ -73,13 +73,8 @@ const ListContainer = () => {
         <Text className="font-prompt4" style={{ fontSize: moderateScale(16) }}>
           50 บาท
         </Text>
-        <CheckBox checked={true} />
-        <CheckBox
-          checked={true}
-          checkedColor="red"
-          checkedIcon="clear"
-          iconType="material"
-        />
+        <Checkbox value={true} />
+        <Checkbox value={true} iconColor="red" />
       </View>
     </View>
   )

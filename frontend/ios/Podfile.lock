@@ -489,6 +489,8 @@ PODS:
     - React-jsi (= 0.72.4)
     - React-logger (= 0.72.4)
     - React-perflogger (= 0.72.4)
+  - ReactNativeUiLib (4.0.0):
+    - React
   - RNCAsyncStorage (1.18.2):
     - React-Core
   - RNCMaskedView (0.2.9):
@@ -597,6 +599,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - ReactNativeUiLib (from `../node_modules/react-native-ui-lib`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-masked-view/masked-view`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
@@ -730,6 +733,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  ReactNativeUiLib:
+    :path: "../node_modules/react-native-ui-lib"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCMaskedView:
@@ -811,6 +816,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 45aa21967353ba8b0087336e5bc1d33152065032
   React-utils: 5373897b6b371475b061c3862589407c67953eca
   ReactCommon: f1151ebe3b1b0a8c5f672c9a375c613c3c10e3a6
+  ReactNativeUiLib: 511a5eb03809a0b27f6aefa2b4d6f7c2d6ae4053
   RNCAsyncStorage: ddc4ee162bfd41b0d2c68bf2d95acd81dd7f1f93
   RNCMaskedView: 949696f25ec596bfc697fc88e6f95cf0c79669b6
   RNFBApp: a0bc818210d2c452461842f7a0a4e456c11ed831

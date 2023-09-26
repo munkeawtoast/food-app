@@ -1,6 +1,5 @@
 import { View, Text, Image } from 'react-native'
-import { moderateScale, verticalScale } from '../../config/scale'
-import Animated from 'react-native-reanimated'
+import { moderateScale } from '../../config/scale'
 import useOrdersStore from '../../stores/ordersStore'
 
 const HistoryScreen = () => {

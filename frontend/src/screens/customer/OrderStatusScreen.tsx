@@ -9,7 +9,7 @@ import {
   ImageSourcePropType,
   Dimensions,
 } from 'react-native'
-import { CheckBox } from 'react-native-elements'
+import { Checkbox } from 'react-native-ui-lib'
 import useTestPersistentStore from '../../stores/testPersistentStore'
 import {
   HourglassHigh,
@@ -174,7 +174,7 @@ const AddOn: FC = () => {
           marginTop: height * 0.01,
         }}
       >
-        <CheckBox
+        <Checkbox
           title="My Checkbox"
           checked={checkboxStates.checkbox1}
           onPress={() => toggleCheckBox('checkbox1')}
@@ -184,7 +184,7 @@ const AddOn: FC = () => {
             borderWidth: 0,
           }}
         />
-        <CheckBox
+        <Checkbox
           title="ไม่ผัก"
           checked={checkboxStates.checkbox2}
           onPress={() => toggleCheckBox('checkbox2')}
@@ -194,7 +194,7 @@ const AddOn: FC = () => {
             borderWidth: 0,
           }}
         />
-        <CheckBox
+        <Checkbox
           title="พิเศษ"
           checked={checkboxStates.checkbox3}
           onPress={() => toggleCheckBox('checkbox3')}
@@ -507,10 +507,10 @@ const OrderStatusScreen: FC = ({ navigation }) => {
             right: width * 0.02,
             padding: 30,
             backgroundColor: 'red',
-            borderRadius: 20
+            borderRadius: 20,
           }}
           onPress={() => {
-            navigation.navigate("Queue")
+            navigation.navigate('Queue')
           }}
         >
           <View style={{ alignContent: 'flex-end', alignItems: 'flex-end' }}>
