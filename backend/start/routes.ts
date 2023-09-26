@@ -20,8 +20,7 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', async () => {
-  return { hello: 'world' }
-})
+Route.get('/uploads/*', 'UploadsController.getFile')
+Route.put('/food/putImage', 'UploadsController.updateFoodImage')
 Route.post('/getCustomer', 'LoginController.getCustomer')
 Route.post('/getMerchant', 'LoginController.getMerchant')
