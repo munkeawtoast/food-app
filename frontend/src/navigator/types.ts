@@ -29,33 +29,74 @@ import { Item, Shop } from '../model/shop'
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
 import { StackScreenProps } from '@react-navigation/stack'
 
+type InheritParentPathing<
+  ParentParamList extends Record<string, unknown>,
+  Parent extends keyof ParentParamList & string,
+  P extends Record<string, unknown>,
+> = {
+  [Path in keyof P as `${Parent}-${Path}`]: P[Path]
+}
+
 export type RootStackParamList = {
   auth: NavigatorScreenParams<AuthStackParamList>
   customer: NavigatorScreenParams<CustomerStackParamList>
   merchant: undefined
 }
 
-export type AuthStackParamList = {
-  'auth-landing': undefined
-  'auth-auth': {
-    as: 'customer' | 'merchant'
+export type AuthStackParamList = InheritParentPathing<
+  RootStackParamList,
+  'auth',
+  {
+    landing: undefined
+    auth: {
+      as: 'customer' | 'merchant'
+    }
   }
-}
+>
 
-export type CustomerStackParamList = {
-  'customer-bottom': NavigatorScreenParams<CustomerBottomTabParamList>
-  'customer-scan': undefined
-}
+export type CustomerStackParamList = InheritParentPathing<
+  RootStackParamList,
+  'customer',
+  {
+    bottom: NavigatorScreenParams<CustomerBottomTabParamList>
+    scan: undefined
+  }
+>
 
-export type CustomerBottomTabParamList = {
-  'customer-bottom-home': undefined
-  'customer-bottom-shop': NavigatorScreenParams<CustomerShopStackParamList>
-}
+export type CustomerBottomTabParamList = InheritParentPathing<
+  CustomerStackParamList,
+  'customer-bottom',
+  {
+    home: undefined
+    shop: NavigatorScreenParams<CustomerShopStackParamList>
+  }
+>
 
-export type CustomerShopStackParamList = {
-  'customer-bottom-shop-home': Shop
-  'customer-bottom-shop-item': Item
-}
+export type CustomerShopStackParamList = InheritParentPathing<
+  CustomerBottomTabParamList,
+  'customer-bottom-shop',
+  {
+    home: Shop
+    item: Item
+  }
+>
+
+export type MerchantStackParamList = InheritParentPathing<
+  RootStackParamList,
+  'merchant',
+  {
+    bottom: undefined
+  }
+>
+
+export type MerchantBottomTabParamList = InheritParentPathing<
+  MerchantStackParamList,
+  'merchant-bottom',
+  {
+    order: undefined
+    menu_stack: undefined
+  }
+>
 
 //! Props
 
