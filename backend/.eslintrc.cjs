@@ -4,6 +4,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended-type-checked',
     'plugin:adonis/typescriptApp',
+    'prettier',
   ],
   plugins: ['@typescript-eslint', 'adonis'],
   parser: '@typescript-eslint/parser',
