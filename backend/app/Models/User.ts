@@ -1,19 +1,16 @@
 import { DateTime } from 'luxon'
 import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import Food from './Food'
+import OrderQueue from './OrderQueue'
 
-export default class Image extends BaseModel {
+export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public name: string
+  public username: string
 
   @column()
-  public mineType: string
-
-  @column()
-  public address: string
+  public password: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -21,6 +18,6 @@ export default class Image extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @hasMany(() => Food)
-  public food: HasMany<typeof Food>
+  @hasMany(() => OrderQueue)
+  public orderQueue: HasMany<typeof OrderQueue>
 }

@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, HasMany, belongsTo, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import Shop from './Shop'
-import Image from './Image'
 import OrderMenu from './OrderMenu'
 import History from './History'
 
@@ -16,19 +15,16 @@ export default class Food extends BaseModel {
   public price: number
 
   @column()
-  public options: JSON
+  public options: unknown
 
   @column()
   public shopID: number
 
-  @column()
-  public imageID: number
-
   @belongsTo(() => Shop)
   public shop: BelongsTo<typeof Shop>
 
-  @belongsTo(() => Image)
-  public image: BelongsTo<typeof Image>
+  @column()
+  public image: string
 
   @hasMany(() => OrderMenu)
   public orderMenu: HasMany<typeof OrderMenu>
