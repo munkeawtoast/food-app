@@ -19,7 +19,7 @@ export default class extends BaseSeeder {
         password: 'password',
       },
     ])
-    const userIDs = users.map((user) => ({ userID: user.id }))
-    await Customer.updateOrCreateMany('userID', userIDs)
+    const userIDs = users.map((user) => ({ userId: user.id }))
+    await Customer.updateOrCreateMany('userId', userIDs)
   }
 }

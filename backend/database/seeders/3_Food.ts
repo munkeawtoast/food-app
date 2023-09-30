@@ -12,14 +12,14 @@ export default class extends BaseSeeder {
         foodName: 'ก๋วยเตี๋ยวไก่',
         price: 50,
         options: {},
-        shopID: vasana.id,
+        shopId: vasana.id,
       },
-      { foodName: 'ก๋วยเตี๋ยวหมู', price: 50, options: {}, shopID: 1 },
+      { foodName: 'ก๋วยเตี๋ยวหมู', price: 50, options: {}, shopId: 1 },
       {
         foodName: 'ก๋วยเตี๋ยวปลา',
         price: 60,
         options: {},
-        shopID: vasana.id,
+        shopId: vasana.id,
       },
     ])
   }

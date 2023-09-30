@@ -6,7 +6,7 @@ export default class extends BaseSeeder {
     // Write your database queries inside the run method
     await Shop.updateOrCreate(
       { name: 'วาสนาก๋วยเตี๋ยว' },
-      { name: 'วาสนาก๋วยเตี๋ยว', merchantID: 1 }
+      { name: 'วาสนาก๋วยเตี๋ยว', merchantId: 1 }
     )
   }
 }
