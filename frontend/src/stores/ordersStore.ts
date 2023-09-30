@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { Order } from '../model/shop'
+import { Order } from '../models/shop'
 
 function superSlowDeepClone(value: unknown) {
   return JSON.parse(JSON.stringify(value))
@@ -17,7 +17,7 @@ const defaultOrders: Order[] = [
     customer_id: 1,
     count: 1,
     timestamp: '2023-09-17T16:08:36.977Z',
-    item: {
+    food: {
       id: 0,
       name: 'ข้าวผัด',
       'image-url':
@@ -56,7 +56,7 @@ const defaultOrders: Order[] = [
     customer_id: 1,
     count: 1,
     timestamp: '2023-09-17T16:08:36.977Z',
-    item: {
+    food: {
       id: 0,
       name: 'ข้่าวผัด',
       'image-url':
@@ -95,7 +95,7 @@ const defaultOrders: Order[] = [
     customer_id: 1,
     count: 1,
     timestamp: '2023-09-17T16:08:36.977Z',
-    item: {
+    food: {
       id: 0,
       name: 'ข้่าวผัด',
       'image-url':

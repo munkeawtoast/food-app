@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Settings } from '../model/Settings'
-import { User } from '../model/User'
+import { Settings } from '../models/Settings'
+import { User } from '../models/User'
 
 type SettingsStore = Settings & {
   setNotification: (value: boolean) => void

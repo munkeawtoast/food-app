@@ -6,7 +6,7 @@ const axios = bareAxios.create({
   baseURL:
     Platform.OS === 'android'
       ? 'http://10.0.2.2:3333'
-      : 'https://localhost:3333',
+      : 'http://midBook.local:3333',
 })
 
 // axios.interceptors.request.use(

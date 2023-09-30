@@ -1,19 +1,19 @@
 export type Shop = {
   id: number
   name: string
-  'image-url': string
-  items: Item[]
+  merchant_id: number
+  items: Food[]
 }
 
 export type Order = {
   id?: number
   customer_id: number
-  item: Item
+  food: Food
   timestamp: string
   count: number
 }
 
-export type Item = {
+export type Food = {
   id?: number
   name: string
   'image-url': string
@@ -26,13 +26,16 @@ export type Choice = {
   description?: string
   required?: boolean
   default?: unknown
-  value: unknown
 }
 
 export type BooleanChoice = Choice & {
   type: 'boolean'
   default?: boolean
   value?: boolean
+  options?: {
+    value: boolean
+    increment: number
+  }
 }
 
 export type StringChoice = Choice & {
@@ -42,29 +45,21 @@ export type StringChoice = Choice & {
 }
 
 export type RadioChoice = Choice & {
-  stype: 'radio'
+  type: 'radio'
   default?: string
-  value: string
-}
-
-export type CheckBoxesChoice = Choice & {
-  stype: 'checkboxes'
-  default?: string[]
-  value: string[]
+  value?: string
+  options?: {
+    value: string
+    increment: number
+  }
 }
 
 export type NumberChoice = Choice & {
   type: 'number'
   default?: number
   value?: number
-}
-
-// ข้างล่างทำเล่นๆ
-
-/**
- * expand-if deep equal to value of another choice
- */
-export type ExpandTarget = {
-  'expand-to': string
-  'expand-if': unknown
+  options?: {
+    value: string
+    increment: number
+  }
 }

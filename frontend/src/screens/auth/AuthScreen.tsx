@@ -1,27 +1,21 @@
+import { AxiosError } from 'axios'
+import React, { MutableRefObject, useRef, useState } from 'react'
 import {
-  Button,
-  ButtonProps,
-  Image,
-  TextField,
-  View,
-} from 'react-native-ui-lib'
-import {
-  TouchableWithoutFeedback,
-  TextInput,
   Keyboard,
   StyleSheet,
   Text,
+  TextInput,
+  TouchableWithoutFeedback,
 } from 'react-native'
-import React, { MutableRefObject, useRef, useState } from 'react'
-import { axios } from '../../api/axios'
-import { AxiosError } from 'axios'
-import { AuthStackProps } from '../../navigator/types'
+import { Button, Image, TextField, View } from 'react-native-ui-lib'
 import colors from 'tailwindcss/colors'
+import { axios } from '../../api/axios'
+import { AuthStackProps } from '../../navigator/types'
 
 const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
   const passwordRef = useRef() as MutableRefObject<TextInput | null>
-  const [username, setUsername] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [username, setUsername] = useState<string>('Someone')
+  const [password, setPassword] = useState<string>('password')
   const [errorMessage, setErrorMessage] = useState<string>('')
   async function CheckLogin() {
     if (route.params.as === 'merchant') {
@@ -49,7 +43,8 @@ const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
           username,
           password,
         })
-        .then(() => {
+        .then((res) => {
+          console.log(res.data)
           navigation.replace('customer')
         })
         .catch((e: AxiosError) => {
@@ -119,8 +114,6 @@ const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
 
 const style = StyleSheet.create({
   floaterStyle: {
-    marginLeft: -10,
-    paddingBottom: 38,
     fontSize: 16,
   },
   fieldStyle: {

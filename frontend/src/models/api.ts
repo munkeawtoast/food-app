@@ -1,4 +1,4 @@
-import { Choice, Item } from "./shop"
+import { Choice, Food } from './shop'
 
 type OrderRequest = {
   id: number

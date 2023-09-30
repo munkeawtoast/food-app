@@ -5,7 +5,7 @@ import {
   NumberChoice,
   RadioChoice,
   StringChoice,
-} from '../model/shop'
+} from '../models/shop'
 
 export function getTypedOfChoice(choice: Choice) {
   const { type } = choice
