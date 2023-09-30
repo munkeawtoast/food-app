@@ -9,10 +9,10 @@ export default class OrderQueue extends BaseModel {
   public id: number
 
   @column()
-  public shopID: number
+  public shopId: number
 
   @column()
-  public customerID: number
+  public customerId: number
 
   @column()
   public price: number

@@ -1,5 +1,6 @@
+import Hash from '@ioc:Adonis/Core/Hash'
 import { DateTime } from 'luxon'
-import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, HasMany, afterUpdate, beforeSave, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import OrderQueue from './OrderQueue'
 
 export default class User extends BaseModel {
@@ -9,7 +10,7 @@ export default class User extends BaseModel {
   @column()
   public username: string
 
-  @column()
+  @column({ serializeAs: null })
   public password: string
 
   @column.dateTime({ autoCreate: true })
@@ -20,4 +21,11 @@ export default class User extends BaseModel {
 
   @hasMany(() => OrderQueue)
   public orderQueue: HasMany<typeof OrderQueue>
+
+  @beforeSave()
+  public static async hashPassword(user: User) {
+    if (user.$dirty.password) {
+      user.password = await Hash.make(user.password)
+    }
+  }
 }

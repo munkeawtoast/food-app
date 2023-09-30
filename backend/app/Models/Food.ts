@@ -18,7 +18,7 @@ export default class Food extends BaseModel {
   public options: unknown
 
   @column()
-  public shopID: number
+  public shopId: number
 
   @belongsTo(() => Shop)
   public shop: BelongsTo<typeof Shop>

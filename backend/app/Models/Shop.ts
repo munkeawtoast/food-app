@@ -12,7 +12,7 @@ export default class Shop extends BaseModel {
   public name: string
 
   @column()
-  public merchantID: number
+  public merchantId: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

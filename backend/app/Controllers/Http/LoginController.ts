@@ -1,36 +1,60 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Customer from 'App/Models/Customer'
 import Merchant from 'App/Models/Merchant'
+import User from 'App/Models/User'
 
 export default class LoginController {
-  public async getMerchant({ request, response }: HttpContextContract) {
-    const body = request.body()
+  /**
+   *
+   * @param table
+   * @param user
+   * @returns Customer with User or Merchant with User
+   */
+  private async foundUser(table: typeof Merchant | typeof Customer, user: User) {
+    const [roledUser] = await table.query().preload('user').where('user_id', user.id)
 
-    const merchant = await Merchant.query()
-      .where('username', body.username)
-      .andWhere('password', body.password)
-      .first()
-    if (merchant) {
-      // console.log(body.username)
-      // console.log(body.password)
-      response.status(200).send(merchant)
-    } else {
-      response.status(404).send('no username')
+    if (!roledUser) {
+      throw new Error('user not found')
+    }
+    return roledUser
+  }
+  public async getMerchant({ request, response, auth }: HttpContextContract) {
+    const username = request.input('username') as string
+    const password = request.input('password') as string
+    try {
+      const token = await auth.use('api').attempt(username, password, {
+        expiresIn: '90 days',
+      })
+      const user = await this.foundUser(Merchant, token.user)
+      if (!user) {
+        return response.status(401).send('invalid credentials')
+      }
+      return response.status(200).send({
+        token: token.toJSON(),
+        customer: user,
+      })
+    } catch (e) {
+      console.log(e)
     }
   }
-  public async getCustomer({ request, response }: HttpContextContract) {
-    const body = request.body()
 
-    const customer = await Customer.query()
-      .where('username', body.username)
-      .andWhere('password', body.password)
-      .first()
-    if (customer) {
-      // console.log(body.username)
-      // console.log(body.password)
-      response.status(200).send(customer)
-    } else {
-      response.status(404).send('no username')
+  public async getCustomer({ request, response, auth }: HttpContextContract) {
+    const username = request.input('username') as string
+    const password = request.input('password') as string
+    try {
+      const token = await auth.use('api').attempt(username, password, {
+        expiresIn: '90 days',
+      })
+      const user = await this.foundUser(Customer, token.user)
+      if (!user) {
+        return response.status(401).send('invalid credentials')
+      }
+      return response.status(200).send({
+        token: token.toJSON(),
+        customer: user,
+      })
+    } catch (e) {
+      console.log(e)
     }
   }
 }

@@ -8,10 +8,10 @@ export default class Customer extends BaseModel {
   public id: number
 
   @column()
-  public shopID: number
+  public shopId: number
 
   @column()
-  public userID: number
+  public userId: number
 
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>

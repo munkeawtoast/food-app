@@ -7,7 +7,7 @@ export default class History extends BaseModel {
   public id: number
 
   @column()
-  public foodID: number
+  public foodId: number
 
   @column()
   public options: JSON

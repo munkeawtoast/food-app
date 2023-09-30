@@ -8,10 +8,10 @@ export default class OrderMenu extends BaseModel {
   public id: number
 
   @column()
-  public orderQueueID: number
+  public orderQueueId: number
 
   @column()
-  public foodID: number
+  public foodId: number
 
   @column()
   public options: JSON
