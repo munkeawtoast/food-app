@@ -5,9 +5,10 @@ import Drive from '@ioc:Adonis/Core/Drive'
 import UpdateFoodImageValidator from 'App/Validators/UpdateFoodImageValidator'
 
 export default class UploadsController {
-  public async updateFoodImage({ request }: HttpContextContract) {
+  public async updateFoodImage({ request, auth }: HttpContextContract) {
     const { id, image } = await request.validate(UpdateFoodImageValidator)
 
+    console.log(id, image)
     await image.moveToDisk('./menu', {
       name: `${id}.${image.extname}`,
       visibility: 'public',

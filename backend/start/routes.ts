@@ -24,3 +24,6 @@ Route.get('/uploads/*', 'UploadsController.getFile')
 Route.put('/food/putImage', 'UploadsController.updateFoodImage')
 Route.post('/getCustomer', 'LoginController.getCustomer')
 Route.post('/getMerchant', 'LoginController.getMerchant')
+
+// .middleware('checkMerchant')
+// .middleware('checkCustomer')

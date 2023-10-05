@@ -9,6 +9,6 @@ export default class extends BaseSeeder {
     ])
 
     const userIds = users.map((user) => ({ userId: user.id }))
-    await Merchant.updateOrCreateMany('userId', userIDs)
+    await Merchant.updateOrCreateMany('userId', userIds)
   }
 }

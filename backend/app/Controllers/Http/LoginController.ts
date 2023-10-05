@@ -26,15 +26,13 @@ export default class LoginController {
         expiresIn: '90 days',
       })
       const user = await this.foundUser(Merchant, token.user)
-      if (!user) {
-        return response.status(401).send('invalid credentials')
-      }
       return response.status(200).send({
         token: token.toJSON(),
-        customer: user,
+        merchant: user,
       })
     } catch (e) {
       console.log(e)
+      return response.status(401).send('invalid credentials')
     }
   }
 
@@ -46,15 +44,16 @@ export default class LoginController {
         expiresIn: '90 days',
       })
       const user = await this.foundUser(Customer, token.user)
-      if (!user) {
-        return response.status(401).send('invalid credentials')
-      }
+      // if (!user) {
+      // }
+      // console.log('yay')
       return response.status(200).send({
         token: token.toJSON(),
         customer: user,
       })
     } catch (e) {
       console.log(e)
+      return response.status(401).send('invalid credentials')
     }
   }
 }
