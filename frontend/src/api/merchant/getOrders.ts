@@ -5,5 +5,5 @@ import { GetOrderRequest, GetOrderResponse } from './types'
 export default async function (
   data: GetOrderRequest
 ): Promise<AxiosResponse<GetOrderResponse>> {
-  return axios.post('/merchant/food', data)
+  return axios.post('/merchant/orders', data)
 }

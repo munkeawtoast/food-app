@@ -1,4 +1,8 @@
-export type Role = 'customer' | 'merchant'
+export type CustomerRole = 'customer'
+
+export type MerchantRole = 'merchant'
+
+export type Role = CustomerRole | MerchantRole
 
 export type User = {
   id: number

@@ -5,5 +5,5 @@ import { UpdateFoodImageRequest, UpdateFoodImageResponse } from './types'
 export default async function (
   data: UpdateFoodImageRequest
 ): Promise<AxiosResponse<UpdateFoodImageResponse>> {
-  return axios.post('/merchant/food', data)
+  return axios.put('/merchant/foodImage', data)
 }

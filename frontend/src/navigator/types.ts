@@ -32,9 +32,9 @@ import { StackScreenProps } from '@react-navigation/stack'
 type InheritParentPathing<
   ParentParamList extends Record<string, unknown>,
   Parent extends keyof ParentParamList & string,
-  P extends Record<string, unknown>,
+  Params extends Record<string, unknown>,
 > = {
-  [Path in keyof P as `${Parent}-${Path}`]: P[Path]
+  [Path in keyof Params as `${Parent}-${Extract<Path, string>}`]: Params[Path]
 }
 
 export type RootStackParamList = {
