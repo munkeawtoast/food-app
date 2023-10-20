@@ -3,7 +3,7 @@ import Customer from 'App/Models/Customer'
 import Merchant from 'App/Models/Merchant'
 import User from 'App/Models/User'
 
-export default class LoginController {
+export default class AuthController {
   /**
    *
    * @param table
@@ -54,6 +54,16 @@ export default class LoginController {
     } catch (e) {
       console.log(e)
       return response.status(401).send('invalid credentials')
+    }
+  }
+  public async createCustomer({ request, response, auth }: HttpContextContract) {
+    const username = request.input('username') as string
+    const password = request.input('password') as string
+    try {
+      const token = await auth.use('api').attempt(username, password)
+      const user = await this.foundUser(Merchant, token.user)
+    } catch (e) {
+      return e
     }
   }
 }
