@@ -1,4 +1,3 @@
-import { Choice } from './choice'
 import { Food } from './food'
 
 export type Shop = {

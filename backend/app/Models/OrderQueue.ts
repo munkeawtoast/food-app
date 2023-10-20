@@ -30,5 +30,5 @@ export default class OrderQueue extends BaseModel {
   public customer: BelongsTo<typeof Customer>
 
   @hasMany(() => OrderMenu)
-  public orderQueue: HasMany<typeof OrderMenu>
+  public orderMenu: HasMany<typeof OrderMenu>
 }

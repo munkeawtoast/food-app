@@ -1,44 +1,33 @@
-export type Choice = {
+export type ChoiceBase = {
   type: string
   name: string
-  value?: unknown
-  description?: string
-  required?: boolean
-  default?: unknown
+  value: unknown
 }
 
-export type BooleanChoice = Choice & {
+export type BooleanChoice = ChoiceBase & {
   type: 'boolean'
-  default?: boolean
   value?: boolean
-  options?: {
-    value: boolean
-    increment: number
-  }
 }
 
-export type StringChoice = Choice & {
+export type StringChoice = ChoiceBase & {
   type: 'string'
-  default?: string
   value?: string
 }
 
-export type RadioChoice = Choice & {
+export type RadioChoice = ChoiceBase & {
   type: 'radio'
-  default?: string
   value?: string
-  options?: {
-    value: string
-    increment: number
-  }
 }
 
-export type NumberChoice = Choice & {
+export type NumberChoice = ChoiceBase & {
   type: 'number'
-  default?: number
   value?: number
-  options?: {
-    value: string
-    increment: number
-  }
+}
+
+export type Choice = BooleanChoice | StringChoice | RadioChoice | NumberChoice
+
+const choice: Choice = {
+  type: 'boolean',
+  name: 'พิเศษ',
+  value: true,
 }

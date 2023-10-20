@@ -22,8 +22,17 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/uploads/*', 'UploadsController.getFile')
 Route.put('/food/putImage', 'UploadsController.updateFoodImage')
-Route.post('/getCustomer', 'LoginController.getCustomer')
-Route.post('/getMerchant', 'LoginController.getMerchant')
+
+Route.get('/queue', 'QueuesController.GetQueue')
+Route.post('/confirmQueue', 'QueuesController.merchantConfirmQueue')
+
+Route.get('/food', 'FoodSController.getFood')
+Route.post('/food', 'FoodSController.createFood')
+Route.put('/food', 'FoodSController.updateFood')
+Route.delete('/food', 'FoodSController.deleteFood')
+
+Route.post('/customer', 'LoginController.getCustomer')
+Route.post('/merchant', 'LoginController.getMerchant')
 
 // .middleware('checkMerchant')
 // .middleware('checkCustomer')
