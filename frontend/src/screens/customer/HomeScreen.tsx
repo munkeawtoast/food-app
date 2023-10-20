@@ -10,6 +10,8 @@ import {
 } from '../../config/scale'
 import { CaretUp } from 'phosphor-react-native'
 import { CustomerBottomTabProps } from '../../navigator/types'
+import { NavigationProp } from '@react-navigation/native'
+import useSettingsPersistentStore from '../../stores/settingsPersistentStore'
 
 const height = verticalScale(225)
 
@@ -66,6 +68,7 @@ const FloatingInProgress = ({
 }
 
 const Top: FC = () => {
+  const { customer, user } = useSettingsPersistentStore()
   return (
     <>
       <Image
@@ -86,7 +89,7 @@ const Top: FC = () => {
         }}
       >
         <Text className="font-prompt7 text-4xl pt-20 absolute bottom-4 left-4">
-          สวัสดี ${'username'} !
+          สวัสดี ${user!.username} !
         </Text>
       </LinearGradient>
     </>

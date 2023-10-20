@@ -1,34 +1,80 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Settings } from '../models/Settings'
-import { User } from '../models/User'
+import { registerForPushNotificationsAsync } from '../utils/notifications'
+import {
+  BearerToken,
+  LoginCustomerResponse,
+  LoginMerchantResponse,
+} from '../api/auth/types'
+import { Customer, Merchant, User } from '../models/user'
+import { Role } from 'react-native'
 
-type SettingsStore = Settings & {
-  setNotification: (value: boolean) => void
-  setUser: (user: User) => void
+export type SettingsState = {
+  notificationEnabled: boolean
+  user?: User
+  type?: Role
+  merchant?: Merchant
+  customer?: Customer
+  token?: BearerToken
+  pushToken?: string
 }
 
-const useSettingsPersistentStore = create<SettingsStore>()(
+type SettingsActions = {
+  setNotification: (value: boolean) => void
+  setUserWithResponseData: (
+    res: LoginMerchantResponse | LoginCustomerResponse
+  ) => void
+}
+
+const defaultState: SettingsState = {
+  notificationEnabled: false,
+  user: undefined,
+}
+
+const useSettingsPersistentStore = create<SettingsState & SettingsActions>()(
   persist(
-    (set, get) => ({
-      notificationEnabled: false,
-      user: undefined,
-      setUser: (user) => {
+    (set) => ({
+      ...defaultState,
+      setNotification: async (enabled) => {
+        if (!enabled) {
+          set({
+            notificationEnabled: false,
+          })
+          return
+        }
+        const token = await registerForPushNotificationsAsync()
+        if (!token) {
+          alert('failed to register for push notifications')
+          return
+        }
         set({
-          user,
+          notificationEnabled: true,
         })
+        alert('registered successfully:' + token)
       },
-      setNotification: (value) => {
-        if (value) {
-          // do something
-        } else {
-          // do another sometihng
+      setUserWithResponseData(data) {
+        const { customer, merchant, token } = data
+        if (customer) {
+          const { user, ...customerWoUser } = customer
+          set({
+            customer: customerWoUser,
+            user,
+            token,
+          })
+        }
+        if (merchant) {
+          const { user, ...merchantWoUser } = merchant
+          set({
+            merchant: merchantWoUser,
+            user: user,
+            token,
+          })
         }
       },
     }),
     {
-      name: 'app-settings', // name of the item in the storage (must be unique)
+      name: 'app-settings',
       storage: createJSONStorage(() => AsyncStorage),
     }
   )

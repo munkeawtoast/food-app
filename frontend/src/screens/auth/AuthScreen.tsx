@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios'
 import React, { MutableRefObject, useRef, useState } from 'react'
 import {
   Keyboard,
@@ -11,48 +10,38 @@ import { Button, Image, TextField, View } from 'react-native-ui-lib'
 import colors from 'tailwindcss/colors'
 import { axios } from '../../api/axios'
 import { AuthStackProps } from '../../navigator/types'
+import merchantLogin from '../../api/auth/merchantLogin'
+import customerLogin from '../../api/auth/customerLogin'
+import useSettingsPersistentStore from '../../stores/settingsPersistentStore'
+
+function getLoginHandler(type: 'merchant' | 'customer') {
+  switch (type) {
+    case 'merchant':
+      return merchantLogin
+    case 'customer':
+      return customerLogin
+  }
+}
 
 const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
+  const { setUserWithResponseData } = useSettingsPersistentStore()
   const passwordRef = useRef() as MutableRefObject<TextInput | null>
   const [username, setUsername] = useState<string>('Someone')
   const [password, setPassword] = useState<string>('password')
   const [errorMessage, setErrorMessage] = useState<string>('')
-  async function CheckLogin() {
-    if (route.params.as === 'merchant') {
-      await axios
-        .post('/getMerchant', {
-          username,
-          password,
-        })
-        .then((res) => {
-          console.log(res.data)
-          // navigation.navigate('merchant', {
-          //   params: {
-          //     data: res.data,
-          //   },
-          // })
-          navigation.replace('merchant', { data: res.data })
-        })
-        .catch((e: AxiosError) => {
-          console.log(e)
-          setErrorMessage('ไอดีหรือพาสเวิร์ดไม่ถูกต้อง')
-        })
-    } else if (route.params.as === 'customer') {
-      await axios
-        .post('/getCustomer', {
-          username,
-          password,
-        })
-        .then((res) => {
-          console.log(res.data)
-          navigation.replace('customer')
-        })
-        .catch((e: AxiosError) => {
-          console.log(e)
-          setErrorMessage('ไอดีหรือพาสเวิคไม่ถูกต้อง')
-        })
+  async function doLogin() {
+    try {
+      const loginFunc = getLoginHandler(route.params.as)
+      const res = await loginFunc({ username, password })
+      console.log(res.data)
+      setUserWithResponseData(res.data)
+      navigation.replace(route.params.as)
+    } catch (er) {
+      console.log(er)
+      setErrorMessage('ไอดีหรือพาสเวิร์ดไม่ถูกต้อง')
     }
   }
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View className="flex-1 items-center">
@@ -105,7 +94,7 @@ const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
             value={password}
           />
           <Text className="text-red-600">{errorMessage}</Text>
-          <Button label="Submit" borderRadius={0} onPress={CheckLogin} />
+          <Button label="Submit" borderRadius={0} onPress={doLogin} />
         </View>
       </View>
     </TouchableWithoutFeedback>

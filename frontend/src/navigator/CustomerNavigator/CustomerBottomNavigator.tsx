@@ -33,7 +33,7 @@ const getIcon = (Icon: FC<PhosphorIconProps> | null) => {
     ) : undefined
 }
 
-const CustomerBottomNavigator: FC = ({
+const CustomerBottomNavigator = ({
   navigation,
   route,
 }: CustomerStackProps<'customer-bottom'>) => {

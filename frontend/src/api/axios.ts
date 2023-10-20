@@ -12,9 +12,10 @@ const axios = bareAxios.create({
 // axios.interceptors.request.use(
 //   (config) => {
 //     const { user } = useSettingsPersistentStore()
-//     if (user) {
-//       config.headers.Authorization = ``
+//     if (!user) {
+//       return config
 //     }
+//     // config.headers.Authorization = `Bearer ${}`
 
 //     return config
 //   },
