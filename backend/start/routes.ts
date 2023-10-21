@@ -32,8 +32,8 @@ Route.put('/food', 'FoodSController.updateFood')
 Route.delete('/food', 'FoodSController.deleteFood')
 
 Route.post('/auth/customer/login', 'AuthController.getCustomer')
+Route.post('/auth/customer/register', 'AuthController.createCustomer')
 Route.post('/auth/merchant/login', 'AuthController.getMerchant')
-Route.post('/auth/register/login', 'AuthController.createCustomer')
 
 // .middleware('checkMerchant')
 // .middleware('checkCustomer')

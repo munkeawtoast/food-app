@@ -32,7 +32,8 @@
       "@japa/preset-adonis/build/adonis-typings",
       "@adonisjs/lucid",
       "@adonisjs/drive-s3",
-      "@adonisjs/auth"
+      "@adonisjs/auth",
+      "adonis-fcm"
     ]
   }
 }

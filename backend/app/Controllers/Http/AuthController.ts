@@ -59,11 +59,31 @@ export default class AuthController {
   public async createCustomer({ request, response, auth }: HttpContextContract) {
     const username = request.input('username') as string
     const password = request.input('password') as string
-    try {
-      const token = await auth.use('api').attempt(username, password)
-      const user = await this.foundUser(Merchant, token.user)
-    } catch (e) {
-      return e
+    // const token = await auth.use('api').attempt(username, password)
+    // await User.query().where('username', username)
+    const user = await User.findBy('username', username)
+    console.log(user)
+    if (user) {
+      return response.status(405).send('User already registerd')
+    } else {
+      try {
+        const createdUser = await User.create({
+          username: username,
+          password: password,
+        })
+        await Customer.create({
+          userId: createdUser.id,
+        })
+        return response.status(200).send(
+          // token: token.toJSON(),
+          // customer: registedUser,
+          'yay'
+        )
+      } catch (e) {
+        return e
+      }
     }
+    // console.log(e)
+    // return response.status(405).send('User already registered')
   }
 }
