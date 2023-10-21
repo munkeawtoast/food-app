@@ -31,7 +31,7 @@ const MerchantNavigator = () => {
       <BottomBar.Screen
         name="merchant-add_food"
         component={AddFood}
-        options={{ headerTitle: 'เพิ่มเมนู' }}
+        options={{ headerTitle: 'เมนู' }}
       />
       <BottomBar.Screen
         name="merchant-queue_screen"

@@ -62,7 +62,7 @@ export default class AuthController {
     // const token = await auth.use('api').attempt(username, password)
     // await User.query().where('username', username)
     const user = await User.findBy('username', username)
-    console.log(user)
+    // console.log(user)
     if (user) {
       return response.status(405).send('User already registerd')
     } else {

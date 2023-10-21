@@ -21,7 +21,7 @@ export type DeleteFoodRequest = {
 
 export type DeleteFoodResponse = never
 
-export type GetFoodRequest = never
+// export type GetFoodRequest = never
 
 export type GetFoodResponse = {
   foods: Food[]

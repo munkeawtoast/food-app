@@ -2,8 +2,7 @@ import { AxiosResponse } from 'axios'
 import { axios } from '../axios'
 import { GetFoodRequest, GetFoodResponse } from './types'
 
-export default async function (
-  data: GetFoodRequest
-): Promise<AxiosResponse<GetFoodResponse>> {
-  return axios.post('/merchant/food', data)
+export default async function () // data: GetFoodRequest
+: Promise<AxiosResponse<GetFoodResponse>> {
+  return axios.get('/food')
 }
