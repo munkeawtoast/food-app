@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useRef, useState } from 'react'
+import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
 import {
   Keyboard,
   StyleSheet,
@@ -8,11 +8,12 @@ import {
 } from 'react-native'
 import { Button, Image, TextField, View } from 'react-native-ui-lib'
 import colors from 'tailwindcss/colors'
-import { axios } from '../../api/axios'
 import { AuthStackProps } from '../../navigator/types'
 import merchantLogin from '../../api/auth/merchantLogin'
 import customerLogin from '../../api/auth/customerLogin'
 import useSettingsPersistentStore from '../../stores/settingsPersistentStore'
+import { buttonStyles } from '../../components/ui/styles/buttonStyles'
+import bypass from '../../dev/bypass'
 
 function getLoginHandler(type: 'merchant' | 'customer') {
   switch (type) {
@@ -26,10 +27,33 @@ function getLoginHandler(type: 'merchant' | 'customer') {
 const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
   const { setUserWithResponseData } = useSettingsPersistentStore()
   const passwordRef = useRef() as MutableRefObject<TextInput | null>
-  const [username, setUsername] = useState<string>('Someone')
-  const [password, setPassword] = useState<string>('password')
+  const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
-  async function doLogin() {
+
+  function bypassLogin() {
+    if (!bypass.login) {
+      return
+    }
+    const { cred } = bypass.login
+    setUsername(cred.username)
+    setPassword(cred.password)
+    doLogin(cred)
+  }
+  useEffect(() => {
+    bypassLogin()
+  }, [])
+  async function doLogin({
+    username,
+    password,
+  }: {
+    username?: string
+    password?: string
+  }) {
+    if (!username || !password) {
+      setErrorMessage('กรุณากรอกข้อมูลให้ครบถ้วน')
+      return
+    }
     try {
       const loginFunc = getLoginHandler(route.params.as)
       const res = await loginFunc({ username, password })
@@ -57,7 +81,7 @@ const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
           </View>
           <TextField
             maxLength={32}
-            placeholder="username"
+            placeholder="ชื่อผู้ใช้"
             style={{ fontSize: 18 }}
             floatingPlaceholder
             floatOnFocus
@@ -94,7 +118,13 @@ const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
             value={password}
           />
           <Text className="text-red-600">{errorMessage}</Text>
-          <Button label="Submit" borderRadius={0} onPress={doLogin} />
+          <Button
+            label="Submit"
+            style={buttonStyles.style}
+            labelStyle={buttonStyles.labelStyle}
+            backgroundColor={colors.sky[600]}
+            onPress={() => doLogin({ password, username })}
+          />
         </View>
       </View>
     </TouchableWithoutFeedback>

@@ -7,13 +7,13 @@ const HistoryScreen = () => {
   return (
     <View className="flex-1 h-full">
       {orders.map((order) => {
-        const { item } = order
+        const { food } = order
         return (
           <View key={order.timestamp + order.id} className="my-2 mx-2 flex-row">
             <Image
               className="resize-center w-16 h-16"
               source={{
-                uri: item['image-url'],
+                uri: food['image-url'],
               }}
             />
             <View className="pl-2">
@@ -21,9 +21,9 @@ const HistoryScreen = () => {
                 className="font-prompt4"
                 style={{ fontSize: moderateScale(20) }}
               >
-                {item.name}
+                {food.name}
               </Text>
-              {item.choices.map((choice) => (
+              {food.choices.map((choice) => (
                 <View key={choice.name}>
                   <Text
                     className="font-prompt3 text-gray-600"

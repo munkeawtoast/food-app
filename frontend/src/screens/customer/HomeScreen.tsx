@@ -68,7 +68,7 @@ const FloatingInProgress = ({
 }
 
 const Top: FC = () => {
-  const { customer, user } = useSettingsPersistentStore()
+  const { user } = useSettingsPersistentStore()
   return (
     <>
       <Image

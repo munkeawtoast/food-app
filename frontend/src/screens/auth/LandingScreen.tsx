@@ -7,11 +7,27 @@ import { AuthStackProps, RootStackParamList } from '../../navigator/types'
 import { StatusBar } from 'expo-status-bar'
 import { verticalScale } from '../../config/scale'
 import { Button } from 'react-native-ui-lib'
+import { buttonStyles } from '../../components/ui/styles/buttonStyles'
+import { useEffect } from 'react'
+import bypass from '../../dev/bypass'
 
 const LandingScreen = ({
   navigation,
   route,
 }: AuthStackProps<'auth-landing'>) => {
+  function bypassLogin() {
+    if (!bypass.login) {
+      return
+    }
+    const { target } = bypass.login
+    navigation.navigate('auth-auth', {
+      as: target,
+    })
+  }
+
+  useEffect(() => {
+    bypassLogin()
+  }, [])
   return (
     <>
       <StatusBar style="dark" />
@@ -39,21 +55,24 @@ const LandingScreen = ({
           </Text>
         </View>
         <View className="flex-1 items-center justify-end pb-20">
-          {Object.entries({ merchant: 'แม่ค้า', customer: 'ลูกค้า' }).map(
-            ([route, label]) => (
-              <Button
-                key={route}
-                style={{ marginTop: 12, width: '80%', borderRadius: 12 }}
-                label={`เข้าในฐานะ${label}`}
-                backgroundColor={colors.sky[600]}
-                onPress={() => {
-                  navigation.navigate('auth-auth', {
-                    as: route,
-                  })
-                }}
-              />
-            )
-          )}
+          <View className="w-80">
+            {Object.entries({ merchant: 'แม่ค้า', customer: 'ลูกค้า' }).map(
+              ([route, label]) => (
+                <Button
+                  key={route}
+                  style={buttonStyles.style}
+                  labelStyle={buttonStyles.labelStyle}
+                  label={`เข้าในฐานะ${label}`}
+                  backgroundColor={colors.sky[600]}
+                  onPress={() => {
+                    navigation.navigate('auth-auth', {
+                      as: route as 'merchant' | 'customer',
+                    })
+                  }}
+                />
+              )
+            )}
+          </View>
         </View>
       </SafeAreaView>
     </>

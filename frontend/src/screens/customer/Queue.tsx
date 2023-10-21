@@ -122,7 +122,7 @@ const OrderQueueView: FC = ({ navigation }) => {
                 fontSize: moderateScale(20),
               }}
             >
-              XXX นาที
+              นาที
             </Text>
             <TouchableOpacity>
               <View
@@ -141,7 +141,10 @@ const OrderQueueView: FC = ({ navigation }) => {
                 >
                   ดูคิวของร้าน
                 </Text>
-                <CaretRight style={{ marginTop: 5, marginLeft: 5}} size={22}></CaretRight>
+                <CaretRight
+                  style={{ marginTop: 5, marginLeft: 5 }}
+                  size={22}
+                ></CaretRight>
               </View>
             </TouchableOpacity>
           </View>
