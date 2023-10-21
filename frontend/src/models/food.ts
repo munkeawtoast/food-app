@@ -1,11 +1,15 @@
 import { Choice } from './choice'
+import { Option } from './option'
 
 export type Food = {
-  id?: number
-  name: string
-  'image-url': string
+  id: number
+  foodName: string
+  price: number
+  'image-url'?: string
 }
 
-export type FoodWithChoices = Food & {
-  choices: Choice[]
+export type FoodWithOptions = Food & {
+  options: {
+    options: Option[]
+  }
 }

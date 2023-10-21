@@ -6,17 +6,10 @@ import {
   House,
   QrCode,
 } from 'phosphor-react-native'
-import { memo, type FC } from 'react'
-import MaskedTest from '../../screens/customer/MaskedTest'
-import OrderStatusScreen from '../../screens/customer/OrderStatusScreen'
-import QrScanScreen from '../../screens/customer/QrScanScreen'
-import ShopScreen from '../../screens/customer/ShopScreen'
-import colors from 'tailwindcss/colors'
-import { View } from 'react-native'
-import ShopNavigator from './ShopNavigator'
-import { IconProps } from 'react-native-elements'
+import { type FC } from 'react'
+import DontKnowYet from './DontKnowNavigator'
 import HomeScreen from '../../screens/customer/HomeScreen'
-import QueueNavigator from '../CustomerNavigator/QueueNavigator'
+import ShopNavigator from './ShopNavigator'
 import { CustomerStackProps } from '../types'
 
 const CustomerTab = createBottomTabNavigator()
@@ -65,7 +58,7 @@ const CustomerBottomNavigator = ({
         options={{
           tabBarIcon: getIcon(Fish),
         }}
-        component={QueueNavigator}
+        component={DontKnowYet}
       />
     </CustomerTab.Navigator>
   )

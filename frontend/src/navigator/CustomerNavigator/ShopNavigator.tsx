@@ -1,30 +1,29 @@
-import { StackScreenProps, createStackNavigator } from '@react-navigation/stack'
-import colors from 'tailwindcss/colors'
+import OrderQueueView from '../../screens/customer/Queue'
 import ShopScreen from '../../screens/customer/ShopScreen'
-import ShopQueueScreen from '../../screens/customer/ShopQueueScreen'
 
+import { createStackNavigator } from '@react-navigation/stack'
+import React from 'react'
+import { CustomerBottomTabProps } from '../types'
+import { defaultScreenOptions } from '../../config/theme'
 const Stack = createStackNavigator()
 
-const ShopNavigator = ({ navigation, route }) => {
+const ShopNavigator = ({
+  navigation,
+  queue,
+}: CustomerBottomTabProps<'customer-bottom-shop'>) => {
   return (
     <Stack.Navigator
-      initialRouteName="customer-bottom-shop-queue"
+      initialRouteName="Order"
       screenOptions={{
-        headerTitleStyle: {
-          fontFamily: 'Prompt_400Regular',
-          color: colors.white,
-          fontSize: 20,
-        },
-        headerStyle: {
-          backgroundColor: colors.sky[900],
-        },
+        ...defaultScreenOptions,
       }}
     >
-      <Stack.Screen name="customer-bottom-shop-main" component={ShopScreen} />
       <Stack.Screen
-        name="customer-bottom-shop-queue"
-        component={ShopQueueScreen}
+        options={({ route }) => ({ headerShown: true, title: 'a' })}
+        name="Order"
+        component={ShopScreen}
       />
+      <Stack.Screen name="Queue" component={OrderQueueView} />
     </Stack.Navigator>
   )
 }

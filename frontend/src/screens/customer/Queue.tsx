@@ -141,10 +141,7 @@ const OrderQueueView: FC = ({ navigation }) => {
                 >
                   ดูคิวของร้าน
                 </Text>
-                <CaretRight
-                  style={{ marginTop: 5, marginLeft: 5 }}
-                  size={22}
-                ></CaretRight>
+                <CaretRight style={{ marginTop: 5, marginLeft: 5 }} size={22} />
               </View>
             </TouchableOpacity>
           </View>

@@ -1,9 +1,9 @@
-import { FoodWithChoices } from './food'
+import { FoodWithOptions } from './food'
 
 export type Order = {
   id?: number
   customer_id: number
-  food: FoodWithChoices
+  food: FoodWithOptions
   timestamp: string
   count: number
 }
