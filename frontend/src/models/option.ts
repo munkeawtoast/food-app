@@ -25,42 +25,15 @@ export type StringOption = OptionBase & {
 export type RadioOption = OptionBase & {
   type: 'radio'
   default?: string
-  choice: string[]
+  choices: string[]
   priceAdjust?: AdjustPriceBy<string>[]
 }
 
 export type NumberOption = OptionBase & {
   type: 'number'
   default?: number
-  increment?: AdjustPriceBy<number>
+  limit: number
+  pricePerUnit?: number
 }
 
 export type Option = BooleanOption | NumberOption | RadioOption | StringOption
-
-const options: Record<string, Option> = {
-  พิเศษ: {
-    name: 'พิเศษ',
-    type: 'boolean',
-    default: false,
-    description: 'test',
-    priceAdjust: {
-      by: 30,
-      whenEqual: true,
-    },
-  },
-  a: {
-    choice: ['ธรรมดา', 'พิ', 'extra'],
-    name: 'a',
-    type: 'radio',
-    priceAdjust: [
-      {
-        by: 10,
-        whenEqual: 'พิ',
-      },
-      {
-        by: 20,
-        whenEqual: 'extra',
-      },
-    ],
-  },
-}
