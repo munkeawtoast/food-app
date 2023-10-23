@@ -19,8 +19,8 @@ export default class User extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @hasMany(() => OrderQueue)
-  public orderQueue: HasMany<typeof OrderQueue>
+  // @hasMany(() => OrderQueue)
+  // public orderQueue: HasMany<typeof OrderQueue>
 
   @beforeSave()
   public static async hashPassword(user: User) {

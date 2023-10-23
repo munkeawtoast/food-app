@@ -19,7 +19,8 @@ export default class QueuesController {
   // }
 
   public async GetQueue({ request, response, auth }: HttpContextContract) {
-    return await OrderMenu.query().preload('orderQueue')
+    const allQueue = await OrderQueue.all()
+    return allQueue.map((queue) => queue.serialize())
   }
 
   public async merchantConfirmQueue({ request, response, auth }: HttpContextContract) {

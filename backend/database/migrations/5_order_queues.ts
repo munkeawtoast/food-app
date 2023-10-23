@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id').primary()
       table.integer('shop_id').references('id').inTable('shops').notNullable()
       table.integer('customer_id').references('id').inTable('customers').notNullable()
-      table.integer('price').notNullable()
+      table.json('food_data').notNullable()
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

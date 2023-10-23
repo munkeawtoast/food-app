@@ -9,6 +9,7 @@ export default class extends BaseSchema {
       table.text('food_name').notNullable()
       table.float('price').notNullable()
       table.json('options').notNullable()
+      table.float('estimated_time').notNullable()
       table.integer('shop_id').references('id').inTable('shops').notNullable()
       table.text('image_path')
 

@@ -1,12 +1,12 @@
-import { Food } from '../../models/food'
+import { FoodWithOptions } from '../../models/food'
 import { Order } from '../../models/order'
 
 export type CreateFoodRequest = {
-  food: Food
+  food: FoodWithOptions
 }
 
 export type CreateFoodResponse = {
-  food: Food
+  food: FoodWithOptions
 }
 
 export type DeclareOrderDoneRequest = {
@@ -23,9 +23,7 @@ export type DeleteFoodResponse = never
 
 // export type GetFoodRequest = never
 
-export type GetFoodResponse = {
-  foods: Food[]
-}
+export type GetFoodResponse = FoodWithOptions[]
 
 export type GetOrderRequest = never
 
@@ -34,11 +32,11 @@ export type GetOrderResponse = {
 }
 
 export type UpdateFoodRequest = {
-  food: Food
+  food: FoodWithOptions
 }
 
 export type UpdateFoodResponse = {
-  food: Food
+  food: FoodWithOptions
 }
 
 export type UpdateFoodImageRequest = {

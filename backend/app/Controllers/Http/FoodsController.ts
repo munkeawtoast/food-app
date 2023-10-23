@@ -35,7 +35,7 @@ export default class FoodsController {
   }
   public async getFood({ request, response, auth }: HttpContextContract) {
     const foods = await Food.all()
-    console.log(foods.map((food) => food.serialize()))
+    // console.log(foods.map((food) => food.serialize()))
     return foods.map((food) => food.serialize())
   }
   public async updateFood({ request, response, auth }: HttpContextContract) {

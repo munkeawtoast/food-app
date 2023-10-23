@@ -24,13 +24,7 @@ export default class Food extends BaseModel {
   public shop: BelongsTo<typeof Shop>
 
   @column()
-  public image: string
-
-  @hasMany(() => OrderMenu)
-  public orderMenu: HasMany<typeof OrderMenu>
-
-  @hasMany(() => History)
-  public history: HasMany<typeof History>
+  public imagePath: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

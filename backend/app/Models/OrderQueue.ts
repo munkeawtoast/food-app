@@ -15,7 +15,7 @@ export default class OrderQueue extends BaseModel {
   public customerId: number
 
   @column()
-  public price: number
+  public foodData: JSON
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -28,7 +28,4 @@ export default class OrderQueue extends BaseModel {
 
   @belongsTo(() => Customer)
   public customer: BelongsTo<typeof Customer>
-
-  @hasMany(() => OrderMenu)
-  public orderMenu: HasMany<typeof OrderMenu>
 }
