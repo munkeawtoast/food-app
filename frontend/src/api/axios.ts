@@ -1,12 +1,10 @@
 import bareAxios from 'axios'
 import { Platform } from 'react-native'
 import useSettingsPersistentStore from '../stores/settingsPersistentStore'
+import getApiUrl from '../utils/getApiUrl'
 
 const axios = bareAxios.create({
-  baseURL:
-    Platform.OS === 'android'
-      ? 'http://10.0.2.2:3333'
-      : 'http://midBook.local:3333',
+  baseURL: getApiUrl(),
 })
 
 // axios.interceptors.request.use(

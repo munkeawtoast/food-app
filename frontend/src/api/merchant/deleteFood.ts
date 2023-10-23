@@ -5,5 +5,7 @@ import { DeleteFoodRequest, DeleteFoodResponse } from './types'
 export default async function (
   data: DeleteFoodRequest
 ): Promise<AxiosResponse<DeleteFoodResponse>> {
-  return axios.post('/merchant/food', data)
+  return axios.delete('/food', {
+    data: data,
+  })
 }

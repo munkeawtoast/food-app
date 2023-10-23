@@ -16,7 +16,7 @@ export type DeclareOrderDoneRequest = {
 export type DeclareOrderDoneResponse = never
 
 export type DeleteFoodRequest = {
-  foodId: number
+  id: number
 }
 
 export type DeleteFoodResponse = never

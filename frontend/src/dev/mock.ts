@@ -3,7 +3,7 @@ import { FoodWithOptions } from '../models/food'
 export const mockFoods: FoodWithOptions[] = [
   {
     id: 1,
-    foodName: 'ก๋วยเตี๋ยวไก่',
+    food_name: 'ก๋วยเตี๋ยวไก่',
     price: 50,
     options: {
       options: [
@@ -44,7 +44,7 @@ export const mockFoods: FoodWithOptions[] = [
   },
   {
     id: 2,
-    foodName: 'ก๋วยเตี๋ยวหมู',
+    food_name: 'ก๋วยเตี๋ยวหมู',
     price: 50,
     options: {
       options: [
@@ -90,7 +90,7 @@ export const mockFoods: FoodWithOptions[] = [
     },
   },
   {
-    foodName: 'เกาเหลา',
+    food_name: 'เกาเหลา',
     price: 55,
     id: 3,
     options: {

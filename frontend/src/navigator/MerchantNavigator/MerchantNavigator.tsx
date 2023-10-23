@@ -1,9 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import HomeScreen from '../../screens/merchant/HomeScreen'
-import AddFood from '../../screens/merchant/AddFood'
 import QueueList from '../../screens/merchant/QueueList'
 import colors from 'tailwindcss/colors'
 import MerchantLogin from '../../screens/merchant/MerchantLogin'
+import MerchantFoodNavigator from './MerchantFoodNavigator'
 
 const BottomBar = createBottomTabNavigator()
 
@@ -29,8 +29,8 @@ const MerchantNavigator = () => {
         options={{ headerTitle: 'Home' }}
       />
       <BottomBar.Screen
-        name="merchant-add_food"
-        component={AddFood}
+        name="merchant-food"
+        component={MerchantFoodNavigator}
         options={{ headerTitle: 'เมนู' }}
       />
       <BottomBar.Screen

@@ -1,15 +1,19 @@
 // import { View, Text, TextInput } from 'react-native'
 
-import { useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Text, TextField, View, Card } from 'react-native-ui-lib'
-import { Image } from 'react-native'
+import { Image, Pressable } from 'react-native'
 import textInputStyles from '../../components/ui/styles/textInputStyles'
 import { Keyboard, TouchableNativeFeedback } from 'react-native'
 import { Food } from '../../models/food'
 // import getFood from '../../api/merchant/getFood'
 import useFoodStore from '../../stores/foodStore'
+import getApiUrl from '../../utils/getApiUrl'
 
-const FoodLoop = ({ foods }: { foods: Food[] }) => {
+const FoodLoop: FC<{ foods: Food[]; navigation: any }> = ({
+  foods,
+  navigation,
+}) => {
   if (!foods) {
     return (
       <View className="w-32 h-28 flex m-4">
@@ -22,24 +26,31 @@ const FoodLoop = ({ foods }: { foods: Food[] }) => {
     )
   } else {
     return foods.map((food) => (
-      <View className="w-32 h-28 flex-col m-4" key={food.id}>
-        <Image
-          className="flex-grow rounded-3x"
-          source={{ uri: food['image-url'] }}
-        />
-        {/* <View className="flex-grow bg-slate-400 rounded-3xl"></View> */}
-        <View className="absolute bg-gray-300 w-32 h-8 bottom-0 rounded-b-3xl flex-row justify-center items-center">
-          <Text>{food.food_name}</Text>
-          <Text className="text-4xl bottom-1">&#187;</Text>
+      <Pressable
+        key={food.id}
+        onPress={() => navigation.navigate('merchant-food_detail', food)}
+      >
+        <View className="w-32 h-28 flex-col m-4 rounded-3x">
+          <Image
+            className="flex-grow"
+            source={{ uri: getApiUrl() + '/uploads/menu/' + food.id + '.jpg' }}
+          />
+          {/* <View className="flex-grow bg-slate-400 rounded-3xl"></View> */}
+          <View className="absolute bg-gray-300 w-32 h-8 bottom-0 rounded-b-3xl flex-row justify-center items-center">
+            <Text>{food.food_name}</Text>
+            <Text className="text-4xl bottom-1">&#187;</Text>
+          </View>
         </View>
-      </View>
+      </Pressable>
     ))
   }
 }
 
-export default function AddFood() {
-  const { foods } = useFoodStore()
-
+export default function AddFood({ navigation }) {
+  const { foods, fetch } = useFoodStore()
+  useEffect(() => {
+    fetch()
+  }, [])
   const [foodName, setFoodName] = useState<string>()
   return (
     // <TouchableNativeFeedback onPress={Keyboard.dismiss}>
@@ -55,7 +66,7 @@ export default function AddFood() {
           style={{ fontFamily: 'Prompt_400Regular' }}
         />
       </View> */}
-      <FoodLoop foods={foods}></FoodLoop>
+      <FoodLoop foods={foods} navigation={navigation}></FoodLoop>
     </View>
     // </TouchableNativeFeedback>
     // <View className="flex-1 justify-center items-center">

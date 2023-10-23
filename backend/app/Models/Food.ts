@@ -26,6 +26,9 @@ export default class Food extends BaseModel {
   @column()
   public imagePath: string
 
+  @column()
+  public estimatedTime: number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

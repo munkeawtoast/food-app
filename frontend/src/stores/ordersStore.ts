@@ -23,7 +23,7 @@ const defaultOrders: Order[] = [
     timestamp: '2023-09-17T16:08:36.977Z',
     food: {
       id: 0,
-      foodName: 'ข้าวผัด',
+      food_name: 'ข้าวผัด',
       'image-url':
         'https://foodienotachef.com/wp-content/uploads/2020/08/4.2.jpg',
       choices: [

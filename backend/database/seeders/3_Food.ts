@@ -48,6 +48,7 @@ export default class extends BaseSeeder {
           ],
         },
         shopId: vasana!.id,
+        estimatedTime: 7,
       },
       {
         foodName: 'ก๋วยเตี๋ยวหมู',
@@ -97,6 +98,7 @@ export default class extends BaseSeeder {
           ],
         },
         shopId: vasana!.id,
+        estimatedTime: 7,
       },
       {
         foodName: 'เกาเหลา',
@@ -144,6 +146,7 @@ export default class extends BaseSeeder {
           ],
         },
         shopId: vasana!.id,
+        estimatedTime: 7,
       },
     ])
   }
