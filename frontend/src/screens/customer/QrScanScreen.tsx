@@ -3,15 +3,9 @@ import { Text, View, StyleSheet, useWindowDimensions } from 'react-native'
 import { BarCodeScannedCallback, BarCodeScanner } from 'expo-barcode-scanner'
 import { Button } from 'react-native-ui-lib'
 import MaskedView from '@react-native-masked-view/masked-view'
-import {
-  CustomerShopStackProps,
-  CustomerStackProps,
-} from '../../navigator/types'
-import { buttonStyles } from '../../components/ui/styles/buttonStyles'
-import { ArrowBendUpLeft } from 'phosphor-react-native'
+import { CustomerStackProps } from '../../navigator/types'
 import useCurrentShopStore from '../../stores/customer/currentShopStore'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import colors from 'tailwindcss/colors'
+import { StatusBar } from 'expo-status-bar'
 
 function QrScanScreen({
   navigation,
@@ -42,9 +36,12 @@ function QrScanScreen({
       }
       setScanned(true)
       setShopWithShopId(Number(shopId))
-      navigation.navigate('customer-shop', {
-        path: 'customer-shop',
-        screen: 'customer-shop-home',
+      console.log(JSON.stringify(navigation.getState(), null, 2))
+      navigation.navigate('customer', {
+        screen: 'customer-shop',
+        params: {
+          screen: 'customer-shop-home',
+        },
       })
     }
   }
@@ -57,8 +54,10 @@ function QrScanScreen({
   }
 
   return (
-    <View className="flex-1 bg-black">
-      {/* <SafeAreaView>
+    <>
+      <StatusBar style="light" />
+      <View className="flex-1 bg-black">
+        {/* <SafeAreaView>
         <Button
           backgroundColor="red"
           label="กลับ"
@@ -79,33 +78,37 @@ function QrScanScreen({
           }}
         />
       </SafeAreaView> */}
-      <MaskedView
-        style={{
-          flex: 1,
-        }}
-        maskElement={
-          <View className="flex-1 justify-center items-center bg-[#ffffff99]">
-            <View
-              className="bg-black"
-              style={{
-                width: width * 0.8,
-                height: width * 0.8,
-              }}
+        <MaskedView
+          style={{
+            flex: 1,
+          }}
+          maskElement={
+            <View className="flex-1 justify-center items-center bg-[#ffffff99]">
+              <View
+                className="bg-black"
+                style={{
+                  width: width * 0.8,
+                  height: width * 0.8,
+                }}
+              />
+            </View>
+          }
+        >
+          <BarCodeScanner
+            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+            style={StyleSheet.absoluteFillObject}
+          />
+          {scanned ? (
+            <Button
+              label="Tap to Scan Again"
+              onPress={() => setScanned(false)}
             />
-          </View>
-        }
-      >
-        <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={StyleSheet.absoluteFillObject}
-        />
-        {scanned ? (
-          <Button label="Tap to Scan Again" onPress={() => setScanned(false)} />
-        ) : (
-          <View className="w-full h-full"></View>
-        )}
-      </MaskedView>
-    </View>
+          ) : (
+            <View className="w-full h-full"></View>
+          )}
+        </MaskedView>
+      </View>
+    </>
   )
 }
 

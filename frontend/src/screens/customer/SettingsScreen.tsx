@@ -44,9 +44,9 @@ export default function SettingsScreen() {
             onValueChange={onValueChange}
             defaultValue={defaultValue}
           />
-          {!(index === settings.length - 1) ? (
-            <View className="h-0.5 bg-gray-200"></View>
-          ) : null}
+          {!(index === settings.length - 1) ?? (
+            <View className="h-0.5 bg-gray-200" />
+          )}
         </>
       ))}
     </ScrollView>

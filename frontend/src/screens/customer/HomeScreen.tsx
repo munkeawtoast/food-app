@@ -108,14 +108,19 @@ const HomeScreen = ({
       <ScrollView className="flex-1 flex-col" bounces={false}>
         <Top />
         <Padding />
-        <View className="">
-          <Button
-            label="แสกน QR"
-            onPress={() => navigation.navigate('customer-scan')}
-            labelStyle={buttonStyles.labelStyle}
-            style={buttonStyles.style}
-            iconSource={() => <QrCode weight="regular" color="white" />}
-          />
+        <View className="items-center">
+          <View className="w-11/12">
+            <Button
+              label="แสกน QR"
+              onPress={() => navigation.navigate('customer-scan')}
+              labelStyle={buttonStyles.labelStyle}
+              style={{
+                ...buttonStyles.style,
+                backgroundColor: colors.orange['400'],
+              }}
+              iconSource={() => <QrCode weight="regular" color="white" />}
+            />
+          </View>
         </View>
       </ScrollView>
       <FloatingInProgress navigation={navigation} />
