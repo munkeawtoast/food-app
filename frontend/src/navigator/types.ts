@@ -25,9 +25,10 @@ import {
   CompositeScreenProps,
   NavigatorScreenParams,
 } from '@react-navigation/native'
-import { Item, Shop } from '../model/shop'
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
 import { StackScreenProps } from '@react-navigation/stack'
+import { Shop } from '../models/shop'
+import { ItemLayout } from 'react-native-ui-lib/src/components/sortableGridList/types'
 
 type InheritParentPathing<
   ParentParamList extends Record<string, unknown>,
@@ -40,6 +41,7 @@ type InheritParentPathing<
 export type RootStackParamList = {
   auth: NavigatorScreenParams<AuthStackParamList>
   customer: NavigatorScreenParams<CustomerStackParamList>
+
   merchant: undefined
 }
 
@@ -58,7 +60,9 @@ export type CustomerStackParamList = InheritParentPathing<
   RootStackParamList,
   'customer',
   {
+    in_progress: undefined
     bottom: NavigatorScreenParams<CustomerBottomTabParamList>
+    shop: NavigatorScreenParams<CustomerShopStackParamList>
     scan: undefined
   }
 >
@@ -68,16 +72,18 @@ export type CustomerBottomTabParamList = InheritParentPathing<
   'customer-bottom',
   {
     home: undefined
-    shop: NavigatorScreenParams<CustomerShopStackParamList>
+    settings: undefined
+    queue: undefined
   }
 >
 
 export type CustomerShopStackParamList = InheritParentPathing<
-  CustomerBottomTabParamList,
-  'customer-bottom-shop',
+  CustomerStackParamList,
+  'customer-shop',
   {
-    home: Shop
-    item: Item
+    home: undefined
+    queue: undefined
+    item: ItemLayout
   }
 >
 
@@ -116,6 +122,13 @@ export type CustomerBottomTabProps<
 > = CompositeScreenProps<
   BottomTabScreenProps<CustomerBottomTabParamList, CurrentScreen>,
   CustomerStackProps<'customer-bottom'>
+>
+
+export type CustomerShopStackProps<
+  CurrentScreen extends keyof CustomerShopStackParamList,
+> = CompositeScreenProps<
+  StackScreenProps<CustomerShopStackParamList, CurrentScreen>,
+  CustomerStackProps<'customer-shop'>
 >
 
 export type AuthStackProps<CurrentScreen extends keyof AuthStackParamList> =

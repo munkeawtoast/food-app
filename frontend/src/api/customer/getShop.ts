@@ -5,5 +5,5 @@ import { GetShopRequest, GetShopResponse } from './types'
 export default async function (
   data: GetShopRequest
 ): Promise<AxiosResponse<GetShopResponse>> {
-  return axios.post('/customer/orders', data)
+  return axios.get('/customer/shop', { params: data })
 }

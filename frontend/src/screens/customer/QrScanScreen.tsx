@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react'
-import {
-  Text,
-  View,
-  StyleSheet,
-  Button,
-  useWindowDimensions,
-} from 'react-native'
+import { Text, View, StyleSheet, useWindowDimensions } from 'react-native'
 import { BarCodeScannedCallback, BarCodeScanner } from 'expo-barcode-scanner'
+import { Button } from 'react-native-ui-lib'
 import MaskedView from '@react-native-masked-view/masked-view'
-import { CustomerStackProps } from '../../navigator/types'
+import {
+  CustomerShopStackProps,
+  CustomerStackProps,
+} from '../../navigator/types'
+import { buttonStyles } from '../../components/ui/styles/buttonStyles'
+import { ArrowBendUpLeft } from 'phosphor-react-native'
+import useCurrentShopStore from '../../stores/customer/currentShopStore'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import colors from 'tailwindcss/colors'
 
 function QrScanScreen({
   navigation,
@@ -17,6 +20,7 @@ function QrScanScreen({
   const [hasPermission, setHasPermission] = useState(false)
   const [scanned, setScanned] = useState(false)
   const { width } = useWindowDimensions()
+  const { setShopWithShopId } = useCurrentShopStore()
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -28,8 +32,21 @@ function QrScanScreen({
   }, [])
 
   const handleBarCodeScanned: BarCodeScannedCallback = ({ type, data }) => {
-    setScanned(true)
     alert(`Bar code with type ${type} and data ${data} has been scanned!`)
+    const shopPrefix = 'qr_food_app-'
+    if (data.startsWith(shopPrefix)) {
+      const shopId = data.split(shopPrefix)[1]
+      console.log(shopId)
+      if (!shopId) {
+        return
+      }
+      setScanned(true)
+      setShopWithShopId(Number(shopId))
+      navigation.navigate('customer-shop', {
+        path: 'customer-shop',
+        screen: 'customer-shop-home',
+      })
+    }
   }
 
   if (hasPermission === null) {
@@ -41,6 +58,27 @@ function QrScanScreen({
 
   return (
     <View className="flex-1 bg-black">
+      {/* <SafeAreaView>
+        <Button
+          backgroundColor="red"
+          label="กลับ"
+          style={{
+            ...buttonStyles.style,
+            // width: 0,
+          }}
+          onPress={() => {
+            console.log('asdjoaisji')
+            navigation.navigate('customer-bottom', {
+              screen: 'customer-bottom-home',
+            })
+          }}
+          iconSource={() => <ArrowBendUpLeft color="white" weight="bold" />}
+          labelStyle={{
+            ...buttonStyles.labelStyle,
+            color: colors.white,
+          }}
+        />
+      </SafeAreaView> */}
       <MaskedView
         style={{
           flex: 1,
@@ -62,12 +100,9 @@ function QrScanScreen({
           style={StyleSheet.absoluteFillObject}
         />
         {scanned ? (
-          <Button
-            title={'Tap to Scan Again'}
-            onPress={() => setScanned(false)}
-          />
+          <Button label="Tap to Scan Again" onPress={() => setScanned(false)} />
         ) : (
-          <View className="w-full h-full" />
+          <View className="w-full h-full"></View>
         )}
       </MaskedView>
     </View>

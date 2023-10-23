@@ -3,27 +3,20 @@ import ShopScreen from '../../screens/customer/ShopScreen'
 
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-import { CustomerBottomTabProps } from '../types'
+import { CustomerShopStackParamList } from '../types'
 import { defaultScreenOptions } from '../../config/theme'
-const Stack = createStackNavigator()
+const Stack = createStackNavigator<CustomerShopStackParamList>()
 
-const ShopNavigator = ({
-  navigation,
-  queue,
-}: CustomerBottomTabProps<'customer-bottom-shop'>) => {
+const ShopNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Order"
+      initialRouteName="customer-shop-home"
       screenOptions={{
         ...defaultScreenOptions,
       }}
     >
-      <Stack.Screen
-        options={({ route }) => ({ headerShown: true, title: 'a' })}
-        name="Order"
-        component={ShopScreen}
-      />
-      <Stack.Screen name="Queue" component={OrderQueueView} />
+      <Stack.Screen name="customer-shop-home" component={ShopScreen} />
+      <Stack.Screen name="customer-shop-queue" component={OrderQueueView} />
     </Stack.Navigator>
   )
 }

@@ -22,6 +22,9 @@ export const lightTheme: Theme = {
 }
 
 export const defaultScreenOptions = {
+  tabBarLabelStyle: {
+    fontFamily: 'Prompt_400Regular',
+  },
   headerTitleStyle: {
     fontFamily: 'Prompt_400Regular',
     color: colors.white,
