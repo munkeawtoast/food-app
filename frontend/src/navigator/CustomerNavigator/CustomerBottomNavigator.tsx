@@ -5,14 +5,21 @@ import {
   IconProps as PhosphorIconProps,
   House,
   QrCode,
+  Gear,
 } from 'phosphor-react-native'
 import { type FC } from 'react'
 import DontKnowYet from './DontKnowNavigator'
 import HomeScreen from '../../screens/customer/HomeScreen'
 import ShopNavigator from './ShopNavigator'
-import { CustomerStackProps } from '../types'
+import {
+  CustomerBottomTabParamList,
+  CustomerStackParamList,
+  CustomerStackProps,
+} from '../types'
+import SettingsScreen from '../../screens/customer/SettingsScreen'
+import { defaultScreenOptions } from '../../config/theme'
 
-const CustomerTab = createBottomTabNavigator()
+const CustomerTab = createBottomTabNavigator<CustomerBottomTabParamList>()
 
 const getIcon = (Icon: FC<PhosphorIconProps> | null) => {
   // eslint-disable-next-line react/display-name
@@ -25,7 +32,6 @@ const getIcon = (Icon: FC<PhosphorIconProps> | null) => {
       />
     ) : undefined
 }
-
 const CustomerBottomNavigator = ({
   navigation,
   route,
@@ -34,8 +40,9 @@ const CustomerBottomNavigator = ({
     <CustomerTab.Navigator
       screenOptions={{
         headerShown: false,
+        ...defaultScreenOptions,
       }}
-      initialRouteName="home"
+      initialRouteName="customer-bottom-home"
     >
       <CustomerTab.Screen
         name="customer-bottom-home"
@@ -46,19 +53,22 @@ const CustomerBottomNavigator = ({
         }}
       />
       <CustomerTab.Screen
-        name="customer-bottom-shop"
+        name="customer-bottom-queue"
         options={{
-          tabBarIcon: getIcon(Fish),
-          title: 'ร้านค้า',
-        }}
-        component={ShopNavigator}
-      />
-      <CustomerTab.Screen
-        name="สั่งอาหาร"
-        options={{
+          title: 'เช็คสถานะ',
           tabBarIcon: getIcon(Fish),
         }}
         component={DontKnowYet}
+      />
+      <CustomerTab.Screen
+        name="customer-bottom-settings"
+        options={{
+          title: 'ตั้งค่า',
+          tabBarIcon: getIcon(Gear),
+          ...defaultScreenOptions,
+          headerShown: true,
+        }}
+        component={SettingsScreen}
       />
     </CustomerTab.Navigator>
   )

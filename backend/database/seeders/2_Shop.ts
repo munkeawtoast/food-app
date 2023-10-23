@@ -4,9 +4,6 @@ import Shop from 'App/Models/Shop'
 export default class extends BaseSeeder {
   public async run() {
     // Write your database queries inside the run method
-    await Shop.updateOrCreate(
-      { name: 'วาสนาก๋วยเตี๋ยว' },
-      { name: 'วาสนาก๋วยเตี๋ยว', merchantId: 1 }
-    )
+    await Shop.updateOrCreate({ name: 'วาสนาก๋วยเตี๋ยว', merchantId: 1 })
   }
 }

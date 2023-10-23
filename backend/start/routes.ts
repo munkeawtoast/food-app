@@ -35,5 +35,7 @@ Route.post('/auth/customer/login', 'AuthController.getCustomer')
 Route.post('/auth/customer/register', 'AuthController.createCustomer')
 Route.post('/auth/merchant/login', 'AuthController.getMerchant')
 
+Route.get('/customer/shop', 'ShopsController.getShop')
+
 // .middleware('checkMerchant')
 // .middleware('checkCustomer')

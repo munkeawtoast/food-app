@@ -3,7 +3,7 @@ import { Option } from './option'
 
 export type Food = {
   id: number
-  foodName: string
+  food_name: string
   price: number
   'image-url'?: string
 }

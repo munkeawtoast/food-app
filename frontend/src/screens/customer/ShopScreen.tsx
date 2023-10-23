@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, Suspense, useEffect, useState } from 'react'
 import {
   View,
   Text,
@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native'
-import { Checkbox } from 'react-native-ui-lib'
 import useTestPersistentStore from '../../stores/testPersistentStore'
 import {
   HourglassHigh,
@@ -24,6 +23,13 @@ import { FoodWithOptions } from '../../models/food'
 import { Choice } from '../../models/choice'
 import FoodListings from '../../components/Shop/FoodListing'
 import { mockFoods } from '../../dev/mock'
+import useCurrentShopStore from '../../stores/customer/currentShopStore'
+import { CustomerShopStackProps } from '../../navigator/types'
+import {
+  AddOn,
+  ChoicesHandler,
+  RadioButtonGroup,
+} from '../../components/Shop/Inputs'
 
 interface QueueShownProps {
   isAccordionOpen: boolean
@@ -49,77 +55,8 @@ const Title: FC<{ title: string }> = ({ title }) => (
 
 const Split: FC = () => {
   return (
-    <View
-      style={{
-        marginTop: height * 0.03,
-        marginLeft: width * 0.1,
-        width: width * 0.8,
-        height: height * 0.002,
-        backgroundColor: '#D9D9D9',
-      }}
-    ></View>
-  )
-}
-
-const AddOn: FC = () => {
-  const [checkboxStates, setCheckboxStates] = useState<{
-    checkbox1: boolean
-    checkbox2: boolean
-    checkbox3: boolean
-  }>({
-    checkbox1: false,
-    checkbox2: false,
-    checkbox3: false,
-  })
-
-  const toggleCheckBox = (checkboxName: keyof typeof checkboxStates) => {
-    setCheckboxStates({
-      ...checkboxStates,
-      [checkboxName]: !checkboxStates[checkboxName],
-    })
-  }
-
-  return (
-    <View style={{ flexGrow: 1 }}>
-      <Title title="เพิ่มเติม" />
-      <View
-        style={{
-          flexGrow: 1,
-          marginLeft: width * 0.02,
-          marginTop: height * 0.01,
-        }}
-      >
-        <Checkbox
-          label="My Checkbox"
-          value={checkboxStates.checkbox1}
-          onValueChange={() => toggleCheckBox('checkbox1')}
-          containerStyle={{
-            padding: 3,
-            backgroundColor: 'transparent', // Background color of the container
-            borderWidth: 0,
-          }}
-        />
-        <Checkbox
-          label="ไม่ผัก"
-          value={checkboxStates.checkbox2}
-          onValueChange={() => toggleCheckBox('checkbox2')}
-          containerStyle={{
-            padding: 3,
-            backgroundColor: 'transparent', // Background color of the container
-            borderWidth: 0,
-          }}
-        />
-        <Checkbox
-          label="พิเศษ"
-          value={checkboxStates.checkbox3}
-          onValueChange={() => toggleCheckBox('checkbox3')}
-          containerStyle={{
-            padding: 3,
-            backgroundColor: 'transparent', // Background color of the container
-            borderWidth: 0,
-          }}
-        />
-      </View>
+    <View className="mt-5 items-center">
+      <View className="bg-gray-200 w-4/5 h-0.5" />
     </View>
   )
 }
@@ -206,7 +143,7 @@ const HeaderDescription: FC<{
 
 const Accordion: FC<{ isAccordionOpen: boolean }> = ({ isAccordionOpen }) => (
   <View className="relative z-10 bg-slate-400">
-    {isAccordionOpen ? (
+    {isAccordionOpen ?? (
       <View
         style={{
           zIndex: 100,
@@ -223,7 +160,7 @@ const Accordion: FC<{ isAccordionOpen: boolean }> = ({ isAccordionOpen }) => (
         <People />
         <People />
       </View>
-    ) : undefined}
+    )}
   </View>
 )
 
@@ -279,7 +216,21 @@ const QueueShown: FC<QueueShownProps> = ({
   )
 }
 
-const ShopScreen: FC = ({ navigation }) => {
+const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
+  navigation,
+  route,
+}) => {
+  const { shop, resetShop } = useCurrentShopStore()
+  function onUnmount() {
+    resetShop()
+  }
+  useEffect(() => {
+    console.log(shop)
+  }, [shop])
+
+  useEffect(() => {
+    return onUnmount
+  }, [])
   const [isAccordionOpen, setIsAccordionOpen] = useState(false)
   const [foods] = useState<FoodWithOptions[]>(mockFoods)
   const [activeFoodIndex, setActiveFoodIndex] = useState<FoodWithOptions['id']>(
@@ -312,33 +263,36 @@ const ShopScreen: FC = ({ navigation }) => {
             onActiveFoodChange={setActiveFoodIndex}
           />
         </View>
-        <AddOn />
+        <ChoicesHandler
+          options={foods[activeFoodIndex].options.options}
+          setChoices={setChoices}
+        />
         {/* <AA navigation={navigation} /> */}
       </View>
     </ScrollView>
   )
 }
-const AA = (navigation) => (
-  <View style={styles.container}>
-    <TouchableOpacity
-      style={{
-        position: 'absolute',
-        bottom: 0,
-        right: width * 0.02,
-        padding: 30,
-        backgroundColor: 'red',
-        borderRadius: 20,
-      }}
-      onPress={() => {
-        navigation.navigate('Queue')
-      }}
-    >
-      <View style={{ alignContent: 'flex-end', alignItems: 'flex-end' }}>
-        <Text>Clicked</Text>
-      </View>
-    </TouchableOpacity>
-  </View>
-)
+// const AA = (navigation) => (
+//   <View style={styles.container}>
+//     <TouchableOpacity
+//       style={{
+//         position: 'absolute',
+//         bottom: 0,
+//         right: width * 0.02,
+//         padding: 30,
+//         backgroundColor: 'red',
+//         borderRadius: 20,
+//       }}
+//       onPress={() => {
+//         navigation.navigate('Queue')
+//       }}
+//     >
+//       <View style={{ alignContent: 'flex-end', alignItems: 'flex-end' }}>
+//         <Text>Clicked</Text>
+//       </View>
+//     </TouchableOpacity>
+//   </View>
+// )
 
 const styles = StyleSheet.create({
   content: {

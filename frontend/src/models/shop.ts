@@ -1,8 +1,8 @@
-import { Food } from './food'
+import { FoodWithOptions } from './food'
 
 export type Shop = {
   id: number
   name: string
   merchant_id: number
-  items: Food[]
+  food: FoodWithOptions[]
 }

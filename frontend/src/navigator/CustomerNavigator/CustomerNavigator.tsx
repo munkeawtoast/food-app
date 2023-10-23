@@ -8,14 +8,12 @@ import {
   lightTheme,
 } from '../../config/theme'
 import HistoryScreen from '../../screens/customer/HistoryScreen'
-import { RootNavigationProps } from '../types'
+import { CustomerStackParamList } from '../types'
+import ShopNavigator from './ShopNavigator'
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator<CustomerStackParamList>()
 
-const CustomerNavigator = ({
-  navigation,
-  route,
-}: RootNavigationProps<'customer'>) => {
+const CustomerNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -32,7 +30,22 @@ const CustomerNavigator = ({
       <Stack.Screen name="customer-in_progress" component={HistoryScreen} />
       {/* <Stack.Screen name="customer-in_progress" component={InProgressScreen} /> */}
 
-      <Stack.Screen name="customer-qr" component={QrScanScreen} />
+      <Stack.Screen
+        name="customer-scan"
+        options={{
+          headerShown: true,
+          title: 'QR Code Scanner',
+        }}
+        component={QrScanScreen}
+      />
+      <Stack.Screen
+        name="customer-shop"
+        options={{
+          title: 'ร้านค้า',
+          headerShown: false,
+        }}
+        component={ShopNavigator}
+      />
     </Stack.Navigator>
   )
 }

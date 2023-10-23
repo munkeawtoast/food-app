@@ -8,10 +8,12 @@ import {
   moderateScale,
   verticalScale,
 } from '../../config/scale'
-import { CaretUp } from 'phosphor-react-native'
+import { Button } from 'react-native-ui-lib'
+import { CaretUp, QrCode } from 'phosphor-react-native'
 import { CustomerBottomTabProps } from '../../navigator/types'
 import { NavigationProp } from '@react-navigation/native'
 import useSettingsPersistentStore from '../../stores/settingsPersistentStore'
+import { buttonStyles } from '../../components/ui/styles/buttonStyles'
 
 const height = verticalScale(225)
 
@@ -96,16 +98,27 @@ const Top: FC = () => {
   )
 }
 
-const HomeScreen = (props: CustomerBottomTabProps<'customer-bottom-home'>) => {
+const HomeScreen = ({
+  navigation,
+  route,
+}: CustomerBottomTabProps<'customer-bottom-home'>) => {
   return (
     <>
       <StatusBar style="dark" />
       <ScrollView className="flex-1 flex-col" bounces={false}>
         <Top />
         <Padding />
-        <View className="flex-1"></View>
+        <View className="">
+          <Button
+            label="แสกน QR"
+            onPress={() => navigation.navigate('customer-scan')}
+            labelStyle={buttonStyles.labelStyle}
+            style={buttonStyles.style}
+            iconSource={() => <QrCode weight="regular" color="white" />}
+          />
+        </View>
       </ScrollView>
-      <FloatingInProgress navigation={props.navigation} />
+      <FloatingInProgress navigation={navigation} />
     </>
   )
 }
