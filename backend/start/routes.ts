@@ -23,7 +23,7 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/uploads/*', 'UploadsController.getFile')
 Route.put('/food/image', 'UploadsController.updateFoodImage')
 
-Route.get('/queue', 'QueuesController.GetQueue')
+Route.get('/queue', 'QueuesController.getQueue')
 Route.post('/confirmQueue', 'QueuesController.merchantConfirmQueue')
 
 Route.get('/food', 'FoodSController.getFood')

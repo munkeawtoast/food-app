@@ -15,7 +15,7 @@ export default class OrderQueue extends BaseModel {
   public customerId: number
 
   @column()
-  public foodData: JSON
+  public foodData: object & { length?: never }
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

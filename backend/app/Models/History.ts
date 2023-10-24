@@ -9,7 +9,7 @@ export default class History extends BaseModel {
   public id: number
 
   @column()
-  public foodData: JSON
+  public foodData: object & { length?: never }
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -17,8 +17,14 @@ export default class History extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
+  @column()
+  public shopId: number
+
   @belongsTo(() => Shop)
   public shop: BelongsTo<typeof Shop>
+
+  @column()
+  public customerId: number
 
   @belongsTo(() => Customer)
   public customer: BelongsTo<typeof Customer>

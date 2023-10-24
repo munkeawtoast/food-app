@@ -15,7 +15,7 @@ export default class Food extends BaseModel {
   public price: number
 
   @column()
-  public options: unknown
+  public options: object & { length?: never }
 
   @column()
   public shopId: number

@@ -1,14 +1,15 @@
 // import { View, Text, TextInput } from 'react-native'
 
 import { FC, useEffect, useState } from 'react'
-import { Text, TextField, View, Card } from 'react-native-ui-lib'
-import { Image, Pressable } from 'react-native'
+import { Text, TextField, View, Card, Button } from 'react-native-ui-lib'
+import { Image, Pressable, StyleSheet } from 'react-native'
 import textInputStyles from '../../components/ui/styles/textInputStyles'
 import { Keyboard, TouchableNativeFeedback } from 'react-native'
 import { Food } from '../../models/food'
 // import getFood from '../../api/merchant/getFood'
 import useFoodStore from '../../stores/foodStore'
 import getApiUrl from '../../utils/getApiUrl'
+import colors from 'tailwindcss/colors'
 
 const FoodLoop: FC<{ foods: Food[]; navigation: any }> = ({
   foods,
@@ -29,14 +30,19 @@ const FoodLoop: FC<{ foods: Food[]; navigation: any }> = ({
       <Pressable
         key={food.id}
         onPress={() => navigation.navigate('merchant-food_detail', food)}
+        // className="m-2"
       >
-        <View className="w-32 h-28 flex-col m-4 rounded-3x">
+        <View className="w-28 h-24 flex-col rounded-3xl overflow-hidden">
           <Image
-            className="flex-grow"
+            // className="w-full h-20 rounded"
             source={{ uri: getApiUrl() + '/uploads/menu/' + food.id + '.jpg' }}
+            style={{
+              width: '100%',
+              height: 60,
+            }}
           />
           {/* <View className="flex-grow bg-slate-400 rounded-3xl"></View> */}
-          <View className="absolute bg-gray-300 w-32 h-8 bottom-0 rounded-b-3xl flex-row justify-center items-center">
+          <View className=" bg-gray-300 w-auto h-9 bottom-0 flex-row justify-center items-center">
             <Text>{food.food_name}</Text>
             <Text className="text-4xl bottom-1">&#187;</Text>
           </View>
@@ -54,7 +60,7 @@ export default function AddFood({ navigation }) {
   const [foodName, setFoodName] = useState<string>()
   return (
     // <TouchableNativeFeedback onPress={Keyboard.dismiss}>
-    <View className="m-4">
+    <View className="gap-4">
       {/* <View width={'90%'}>
         <TextField
           onChangeText={setFoodName}
@@ -66,7 +72,16 @@ export default function AddFood({ navigation }) {
           style={{ fontFamily: 'Prompt_400Regular' }}
         />
       </View> */}
-      <FoodLoop foods={foods} navigation={navigation}></FoodLoop>
+      <View className="w-auto h-auto flex-row">
+        <FoodLoop foods={foods} navigation={navigation} />
+      </View>
+      <Button
+        label="เพิ่มเมนู"
+        backgroundColor={colors.blue[500]}
+        onPress={() => {
+          navigation.navigate('merchant-add_food')
+        }}
+      />
     </View>
     // </TouchableNativeFeedback>
     // <View className="flex-1 justify-center items-center">
@@ -85,3 +100,9 @@ export default function AddFood({ navigation }) {
     // </View>
   )
 }
+
+const styles = StyleSheet.create({
+  foodLoopContainer: {
+    gap: 4,
+  },
+})

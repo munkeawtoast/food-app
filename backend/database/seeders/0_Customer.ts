@@ -22,4 +22,4 @@ export default class extends BaseSeeder {
     const userIDs = users.map((user) => ({ userId: user.id }))
     await Customer.updateOrCreateMany('userId', userIDs)
   }
-}
+}   
