@@ -10,7 +10,6 @@ import {
 import HistoryScreen from '../../screens/customer/HistoryScreen'
 import { CustomerStackParamList, RootNavigationProps } from '../types'
 import ShopNavigator from './ShopNavigator'
-import createNavigateToShopStore from '../../stores/navigateToShop'
 
 const Stack = createStackNavigator<CustomerStackParamList>()
 
@@ -18,7 +17,6 @@ const CustomerNavigator = ({
   route,
   navigation,
 }: RootNavigationProps<'customer'>) => {
-  createNavigateToShopStore(navigation)
   return (
     <Stack.Navigator
       screenOptions={{
@@ -47,7 +45,7 @@ const CustomerNavigator = ({
         name="customer-shop"
         options={{
           title: 'ร้านค้า',
-          // headerShown: false,
+          headerShown: false,
         }}
         component={ShopNavigator}
       />

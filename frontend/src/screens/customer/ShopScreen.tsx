@@ -27,7 +27,9 @@ import useCurrentShopStore from '../../stores/customer/currentShopStore'
 import { CustomerShopStackProps } from '../../navigator/types'
 import {
   AddOn,
-  ChoicesHandler,
+  BooleanInput,
+  NumberInput,
+  TextInput,
   RadioButtonGroup,
 } from '../../components/Shop/Inputs'
 
@@ -171,7 +173,7 @@ const QueueShown: FC<QueueShownProps> = ({
   const { addABear, bears } = useTestPersistentStore()
 
   return (
-    <View>
+    <View className="bg-white">
       <View
         style={{
           marginTop: moderateScale(20),
@@ -225,7 +227,7 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
     resetShop()
   }
   useEffect(() => {
-    console.log(shop)
+    console.log(JSON.stringify(shop, null, 2))
   }, [shop])
 
   useEffect(() => {
@@ -233,10 +235,42 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
   }, [])
   const [isAccordionOpen, setIsAccordionOpen] = useState(false)
   const [foods] = useState<FoodWithOptions[]>(mockFoods)
-  const [activeFoodIndex, setActiveFoodIndex] = useState<FoodWithOptions['id']>(
+  const [activeFoodId, setActiveFoodId] = useState<FoodWithOptions['id']>(
     mockFoods[0].id
   )
   const [choices, setChoices] = useState<Choice[]>([])
+
+  function handleChoice(
+    type: Choice['type'],
+    optionName: Choice['name'],
+    newValue: Choice['value']
+  ) {
+    console.log('handling')
+    console.log(JSON.stringify(choices, null, 2))
+    console.log('---')
+    choices.find((choice) => choice.name === optionName)!.value = newValue
+    console.log('---')
+    console.log(JSON.stringify(choices, null, 2))
+    setChoices(choices)
+  }
+
+  useEffect(() => {
+    console.log(JSON.stringify(choices, null, 2))
+  }, [choices])
+
+  useEffect(() => {
+    const { options } = foods.find((food) => food.id === activeFoodId)!.options
+    setChoices(
+      options.map(
+        (option) =>
+          ({
+            name: option.name,
+            type: option.type,
+            value: option.default,
+          }) as Choice
+      )
+    )
+  }, [activeFoodId])
 
   return (
     <ScrollView
@@ -251,24 +285,85 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
       }}
     >
       <View style={styles.content}>
-        <View>
-          <QueueShown
-            isAccordionOpen={isAccordionOpen}
-            setIsAccordionOpen={setIsAccordionOpen}
-          />
-          <Split />
-          <FoodListings
-            activeFoodIndex={activeFoodIndex}
-            foods={foods}
-            onActiveFoodChange={setActiveFoodIndex}
-          />
-        </View>
-        <ChoicesHandler
-          options={foods[activeFoodIndex].options.options}
-          setChoices={setChoices}
+        <QueueShown
+          isAccordionOpen={isAccordionOpen}
+          setIsAccordionOpen={setIsAccordionOpen}
         />
-        {/* <AA navigation={navigation} /> */}
+        <Split />
       </View>
+      <View>
+        <FoodListings
+          activeFoodIndex={activeFoodId}
+          foods={foods}
+          onActiveFoodChange={setActiveFoodId}
+        />
+      </View>
+      <View style={styles.content}>
+        {choices.map((choice) => {
+          const option = foods
+            .find((food) => food.id === activeFoodId)!
+            .options.options.find((op) => op.name === choice.name)
+          if (!option) {
+            return
+          }
+          if (option.type === 'radio') {
+            const availOptions = option.choices.map((ch) => ({
+              label: ch,
+              value: ch,
+            }))
+            return (
+              <RadioButtonGroup
+                key={option.name}
+                value={choice.value as string}
+                choices={availOptions}
+                label={option.name}
+                onValueChange={(newValue) => {
+                  handleChoice(option.type, option.name, newValue)
+                }}
+              />
+            )
+          }
+          if (option.type === 'boolean') {
+            return (
+              <BooleanInput
+                key={option.name}
+                value={choice.value as boolean}
+                label={option.name}
+                onValueChange={(newValue) => {
+                  console.log(newValue)
+                  handleChoice(option.type, option.name, newValue)
+                }}
+              />
+            )
+          }
+          if (option.type === 'string') {
+            return (
+              <TextInput
+                key={option.name}
+                value={choice.value as string}
+                label={option.name}
+                onValueChange={(newValue) => {
+                  handleChoice(option.type, option.name, newValue)
+                }}
+              />
+            )
+          }
+          if (option.type === 'number') {
+            return (
+              <NumberInput
+                key={option.name}
+                value={choice.value as number}
+                label={option.name}
+                onValueChange={(newValue) => {
+                  handleChoice(option.type, option.name, newValue)
+                }}
+              />
+            )
+          }
+          return null
+        })}
+      </View>
+      <View className="h-40" />
     </ScrollView>
   )
 }

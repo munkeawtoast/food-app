@@ -37,11 +37,8 @@ function QrScanScreen({
       setScanned(true)
       setShopWithShopId(Number(shopId))
       console.log(JSON.stringify(navigation.getState(), null, 2))
-      navigation.navigate('customer', {
-        screen: 'customer-shop',
-        params: {
-          screen: 'customer-shop-home',
-        },
+      navigation.replace('customer-shop', {
+        screen: 'customer-shop-home',
       })
     }
   }

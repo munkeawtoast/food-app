@@ -1,9 +1,12 @@
-import { Text } from 'react-native'
-import React, { FC } from 'react'
+import { Text, View } from 'react-native'
+import React, { Component, FC, LegacyRef, useRef } from 'react'
 import {
+  Checkbox,
+  CheckboxProps,
   NumberInput as NumberInputRN,
   RadioButton,
   RadioGroup,
+  Switch,
   TextField,
 } from 'react-native-ui-lib'
 import textInputStyles from '../ui/styles/textInputStyles'
@@ -15,7 +18,7 @@ type RadioProps<T> = {
   label: string
   choices: { value: T; label: string }[]
   onValueChange: (value: T) => void
-  initialValue?: T
+  value?: T
 }
 
 const Title: FC<{ title: string }> = ({ title }) => (
@@ -36,13 +39,13 @@ const Title: FC<{ title: string }> = ({ title }) => (
 const RadioButtonGroup: FC<RadioProps<string>> = ({
   onValueChange,
   choices,
-  initialValue,
+  value: value,
   label,
 }) => {
   return (
     <>
       <Title title={label} />
-      <RadioGroup initialValue={initialValue} onValueChange={onValueChange}>
+      <RadioGroup initialValue={value} onValueChange={onValueChange}>
         {choices.map(({ value, label }) => {
           return <RadioButton key={label} value={value} label={label} />
         })}
@@ -53,21 +56,20 @@ const RadioButtonGroup: FC<RadioProps<string>> = ({
 
 type TextInputProps = {
   onValueChange: (value: string) => void
-  initialValue?: string
+  value?: string
   label: string
 }
 
 const TextInput: FC<TextInputProps> = ({
   onValueChange,
-  initialValue,
+  value: value,
   label,
 }) => (
   <>
     <Title title={label} />
     <TextField
       onChangeText={onValueChange}
-      value={initialValue}
-      label={label}
+      value={value}
       placeholder={label}
       fieldStyle={textInputStyles.fieldStyle}
       labelStyle={textInputStyles.labelStyle}
@@ -78,47 +80,45 @@ const TextInput: FC<TextInputProps> = ({
 
 type NumberInputProps = {
   onValueChange: (value: number) => void
-  initialValue?: number
+  value?: number
   label: string
 }
 
 const NumberInput: FC<NumberInputProps> = ({
   onValueChange,
-  initialValue,
+  value: value,
   label,
 }) => (
   <>
     <Title title={label} />
     <NumberInputRN
+      fractionDigits={0}
+      containerStyle={textInputStyles.fieldStyle}
       onChangeNumber={(ev) => {
         if (ev.type === 'error') {
           return
         }
         onValueChange(ev.number)
       }}
-      initialNumber={initialValue}
+      initialNumber={value}
     />
   </>
 )
 
 type BooleanInputProps = {
-  onValueChange: (value: string) => void
-  initialValue?: boolean
+  onValueChange: (value: boolean) => void
+  value?: boolean
   label: string
 }
 
 const BooleanInput: FC<BooleanInputProps> = ({
   label,
   onValueChange,
-  initialValue,
+  value: value,
 }) => (
   <>
     <Title title={label} />
-    <BooleanInput
-      initialValue={initialValue}
-      onValueChange={onValueChange}
-      label=""
-    />
+    <Checkbox value={value} onValueChange={onValueChange} label={label} />
   </>
 )
 
@@ -188,87 +188,14 @@ const BooleanInput: FC<BooleanInputProps> = ({
 const AddOn = () => {
   return <></>
 }
-type Setter = (oldChoices: Choice[]) => Choice[]
+// type Setter = (oldChoices: Choice[]) => Choice[]
 
-const ChoicesHandler: FC<{
-  options: Option[]
-  setChoices: (setter: Setter) => void
-}> = ({ options, setChoices }) => {
-  function handleChoice(
-    type: Choice['type'],
-    optionName: Choice['name'],
-    newValue: Choice['value']
-  ) {
-    setChoices((prev) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
-      const newChoice: Choice = {
-        name: optionName,
-        value: newValue,
-        type: type,
-      }
-      const newChoices = prev.filter((ch) => ch.name !== optionName)
-      newChoices.push(newChoice)
-      return newChoices
-    })
-  }
+// const ChoicesHandler: FC<{
+//   options: Option[]
+//   setChoices: (setter: Setter) => void
+// }> = ({ options, setChoices }) => {
 
-  function optionMapper(option: Option) {
-    if (option.type === 'radio') {
-      const availOptions = option.choices.map((ch) => ({
-        label: ch,
-        value: ch,
-      }))
-      return (
-        <RadioButtonGroup
-          key={option.name}
-          initialValue={option.default}
-          choices={availOptions}
-          label={option.name}
-          onValueChange={(newValue) => {
-            handleChoice(option.type, option.name, newValue)
-          }}
-        />
-      )
-    }
-    if (option.type === 'boolean') {
-      return (
-        <BooleanInput
-          key={option.name}
-          initialValue={option.default}
-          label={option.name}
-          onValueChange={(newValue) => {
-            handleChoice(option.type, option.name, newValue)
-          }}
-        />
-      )
-    }
-    if (option.type === 'string') {
-      return (
-        <TextInput
-          key={option.name}
-          initialValue={option.default}
-          label={option.name}
-          onValueChange={(newValue) => {
-            handleChoice(option.type, option.name, newValue)
-          }}
-        />
-      )
-    }
-    if (option.type === 'number') {
-      return (
-        <NumberInput
-          key={option.name}
-          initialValue={option.default}
-          label={option.name}
-          onValueChange={(newValue) => {
-            handleChoice(option.type, option.name, newValue)
-          }}
-        />
-      )
-    }
-  }
-  return options.map(optionMapper)
-}
+//   return <View>{options.map(optionMapper)}</View>
+// }
 
-export { RadioButtonGroup, ChoicesHandler, AddOn, TextInput, Title }
+export { RadioButtonGroup, BooleanInput, NumberInput, AddOn, TextInput, Title }

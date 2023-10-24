@@ -60,7 +60,7 @@ const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
       setUserWithResponseData(res.data)
       navigation.replace(route.params.as)
     } catch (er) {
-      console.log(er)
+      console.log(JSON.stringify(er, null, 2))
       setErrorMessage('ไอดีหรือพาสเวิร์ดไม่ถูกต้อง')
     }
   }

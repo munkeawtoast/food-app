@@ -6,6 +6,7 @@ import colors from 'tailwindcss/colors'
 import { moderateScale } from '../../config/scale'
 import { View } from 'react-native-ui-lib'
 import { Title } from './Inputs'
+import getApiUrl from '../../utils/getApiUrl'
 type FoodListingsProps = {
   onActiveFoodChange: (active: FoodWithOptions['id']) => void
   activeFoodIndex: FoodWithOptions['id']
@@ -30,15 +31,12 @@ const Item: FC<ItemProps> = ({ item, activeItemIndex, handleViewPress }) => {
         },
       ]}
     >
-      <Text>{activeItemIndex}</Text>
       <Image
-        source={{
-          uri: 'https://lindseyeatsla.com/wp-content/uploads/2021/11/LindseyEats_Spicy_Garlic_Noodles-3.jpg',
-        }}
+        source={{ uri: getApiUrl() + '/uploads/menu/' + item.id + '.jpg' }}
         width={moderateScale(60)}
         height={moderateScale(60)}
       />
-      <Text style={{ fontSize: 16 }}> ก๋วยเตี๋ยว </Text>
+      <Text className="font-prompt4">{item.food_name}</Text>
     </TouchableOpacity>
   )
 }
@@ -51,8 +49,8 @@ const FoodListings: FC<FoodListingsProps> = ({
     onActiveFoodChange(foodId)
   }
   return (
-    <View>
-      <Title title="เทส" />
+    <View className="bg-white pb-2 border-b-gray-200 border-b-2">
+      <Title title="เมนูทั้งหมด" />
       <ScrollView horizontal contentContainerStyle={styles.foodCategory}>
         <View style={{ gap: 5, flexDirection: 'row' }}>
           {foods.map((food) => (

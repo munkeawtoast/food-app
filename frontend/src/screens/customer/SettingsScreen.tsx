@@ -45,7 +45,7 @@ export default function SettingsScreen() {
             defaultValue={defaultValue}
           />
           {!(index === settings.length - 1) ?? (
-            <View className="h-0.5 bg-gray-200" />
+            <View key={label + 'separator'} className="h-0.5 bg-gray-200" />
           )}
         </>
       ))}
