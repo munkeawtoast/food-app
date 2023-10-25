@@ -18,7 +18,7 @@ export default class extends BaseSeeder {
               isSingle: true,
               options: [
                 {
-                  name: 'พิิเศษ',
+                  name: 'พิเศษ',
                   price: 10,
                 },
               ],
