@@ -30,9 +30,7 @@ export type GetOrderRequest = {
   shopId: Shop['id']
 }
 
-export type GetOrderResponse = {
-  orders: Order[]
-}
+export type GetOrderResponse = Order[]
 
 export type UpdateFoodRequest = {
   food: FoodWithOptions

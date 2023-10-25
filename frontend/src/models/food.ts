@@ -1,4 +1,3 @@
-import { Choice } from './choice'
 import { Option } from './option'
 
 export type Food = {
@@ -6,6 +5,9 @@ export type Food = {
   food_name: string
   price: number
   'image-url'?: string
+  options: {
+    options: Option[]
+  }
   estimated_time: number
   created_at: string
   updated_at: string

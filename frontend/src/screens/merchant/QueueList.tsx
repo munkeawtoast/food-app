@@ -8,13 +8,21 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native'
 import { moderateScale } from '../../config/scale'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Checkbox } from 'react-native-ui-lib'
 import getOrders from '../../api/merchant/getOrders'
+import { Order } from '../../models/order'
 
 const ListContainer = () => {
   const [modalVisible, setModalVisible] = useState(false)
-  getOrders({ shopId: 1 })
+  const [queue, setQueue] = useState<Array<Order>>([])
+  useEffect(() => {
+    ;(async () => {
+      console.log('adfas')
+      const res = await getOrders({ shopId: 1 })
+      setQueue(res.data)
+    })()
+  }, [])
   return (
     <View className="flex-1">
       <Modal
@@ -35,7 +43,7 @@ const ListContainer = () => {
         >
           <TouchableWithoutFeedback>
             <View className="bg-white h-96 w-96 rounded  p-4">
-              <Text>- ก๋วยเตี๋ยวหมูน้ำใส 2</Text>
+              <Text>{queue[0]?.food_data.food_name}</Text>
               <Text>ไม่ผัก</Text>
               <Text>แห้ง</Text>
               <Text>- ก๋วยเตี๋ยวไก่ต้มยำ 1</Text>
