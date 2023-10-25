@@ -25,7 +25,7 @@ function getLoginHandler(type: 'merchant' | 'customer') {
 }
 
 const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
-  const { setUserWithResponseData } = useSettingsPersistentStore()
+  const { setUserWithResponseData, reset } = useSettingsPersistentStore()
   const passwordRef = useRef() as MutableRefObject<TextInput | null>
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -50,6 +50,7 @@ const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
     username?: string
     password?: string
   }) {
+    reset()
     if (!username || !password) {
       setErrorMessage('กรุณากรอกข้อมูลให้ครบถ้วน')
       return
@@ -60,7 +61,8 @@ const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
       setUserWithResponseData(res.data)
       navigation.replace(route.params.as)
     } catch (er) {
-      console.log(JSON.stringify(er, null, 2))
+      console.log(er)
+      console.log('bad login')
       setErrorMessage('ไอดีหรือพาสเวิร์ดไม่ถูกต้อง')
     }
   }
@@ -118,7 +120,7 @@ const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
           />
           <Text className="text-red-600">{errorMessage}</Text>
           <Button
-            label="Submit"
+            label="เข้าสู่ระบบ"
             style={buttonStyles.style}
             labelStyle={buttonStyles.labelStyle}
             backgroundColor={colors.sky[600]}

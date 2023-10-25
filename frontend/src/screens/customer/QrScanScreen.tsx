@@ -14,7 +14,6 @@ function QrScanScreen({
   const [hasPermission, setHasPermission] = useState(false)
   const [scanned, setScanned] = useState(false)
   const { width } = useWindowDimensions()
-  const { setShopWithShopId } = useCurrentShopStore()
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -35,10 +34,12 @@ function QrScanScreen({
         return
       }
       setScanned(true)
-      setShopWithShopId(Number(shopId))
       console.log(JSON.stringify(navigation.getState(), null, 2))
       navigation.replace('customer-shop', {
         screen: 'customer-shop-home',
+        params: {
+          shopId: Number(shopId),
+        },
       })
     }
   }

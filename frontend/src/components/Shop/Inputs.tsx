@@ -13,10 +13,12 @@ import textInputStyles from '../ui/styles/textInputStyles'
 import { moderateScale } from '../../config/scale'
 import { Choice } from '../../models/choice'
 import { Option } from '../../models/option'
+import { buttonStyles } from '../ui/styles/buttonStyles'
+import colors from 'tailwindcss/colors'
 
 type RadioProps<T> = {
   label: string
-  choices: { value: T; label: string }[]
+  choices: { value: T; label: string; pricesIncrease: number }[]
   onValueChange: (value: T) => void
   value?: T
 }
@@ -36,7 +38,14 @@ const Title: FC<{ title: string }> = ({ title }) => (
   </Text>
 )
 
-const RadioButtonGroup: FC<RadioProps<string>> = ({
+type CheckboxProps = {
+  label: string
+  onValueChange: (value: boolean) => void
+  value?: boolean
+  choices: { value: boolean; label: string }[]
+}
+
+const CheckboxGroup: FC<RadioProps<string>> = ({
   onValueChange,
   choices,
   value: value,
@@ -47,7 +56,44 @@ const RadioButtonGroup: FC<RadioProps<string>> = ({
       <Title title={label} />
       <RadioGroup initialValue={value} onValueChange={onValueChange}>
         {choices.map(({ value, label }) => {
-          return <RadioButton key={label} value={value} label={label} />
+          return (
+            <RadioButton
+              labelStyle={{ ...buttonStyles.labelStyle, fontSize: 18 }}
+              key={label}
+              value={value}
+              label={label}
+            />
+          )
+        })}
+      </RadioGroup>
+    </>
+  )
+}
+
+const RadioButtonGroup: FC<RadioProps<string>> = ({
+  onValueChange,
+  choices,
+  value: value,
+  label,
+}) => {
+  return (
+    <>
+      <Title title={label} />
+      <RadioGroup
+        style={{ gap: 8 }}
+        initialValue={value}
+        onValueChange={onValueChange}
+      >
+        {choices.map(({ value, label }) => {
+          return (
+            <RadioButton
+              color={colors.orange[400]}
+              labelStyle={{ ...buttonStyles.labelStyle, fontSize: 18 }}
+              key={label}
+              value={value}
+              label={label}
+            />
+          )
         })}
       </RadioGroup>
     </>
@@ -108,17 +154,28 @@ const NumberInput: FC<NumberInputProps> = ({
 type BooleanInputProps = {
   onValueChange: (value: boolean) => void
   value?: boolean
+  price?: number
   label: string
 }
 
 const BooleanInput: FC<BooleanInputProps> = ({
   label,
+  price,
   onValueChange,
   value: value,
 }) => (
   <>
     <Title title={label} />
-    <Checkbox value={value} onValueChange={onValueChange} label={label} />
+    <Checkbox
+      labelStyle={{
+        ...buttonStyles.labelStyle,
+        fontSize: 18,
+      }}
+      color={colors.orange[400]}
+      value={value}
+      onValueChange={onValueChange}
+      label={label + (price ? ` (+${price} บาท)` : '')}
+    />
   </>
 )
 
@@ -198,4 +255,12 @@ const AddOn = () => {
 //   return <View>{options.map(optionMapper)}</View>
 // }
 
-export { RadioButtonGroup, BooleanInput, NumberInput, AddOn, TextInput, Title }
+export {
+  RadioButtonGroup,
+  BooleanInput,
+  NumberInput,
+  CheckboxGroup,
+  AddOn,
+  TextInput,
+  Title,
+}

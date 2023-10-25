@@ -2,8 +2,8 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Shop from 'App/Models/Shop'
 
 export default class ShopsController {
-  public async getShop({ request, response }: HttpContextContract) {
-    console.log(request.input('shopId'))
+  public async getShop({ request, response, auth }: HttpContextContract) {
+    console.log(auth.user?.toJSON())
     const id = request.input('shopId') as string
     const shop = await Shop.query().where('id', id).preload('food')
     if (!shop[0]) {

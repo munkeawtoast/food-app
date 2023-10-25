@@ -2,8 +2,6 @@ import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, HasMany, belongsTo, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import Shop from './Shop'
 import Customer from './Customer'
-import OrderMenu from './OrderMenu'
-import Food from './Food'
 
 export default class OrderQueue extends BaseModel {
   @column({ isPrimary: true })

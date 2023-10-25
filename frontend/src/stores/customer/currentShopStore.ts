@@ -3,6 +3,7 @@ import { Order } from '../models/order'
 import getShop from '../../api/customer/getShop'
 import { Shop } from '../../models/shop'
 import { RefreshControlComponent } from 'react-native'
+import { mockSlow } from '../../dev/dev'
 
 type Success = true
 type Failed = false
@@ -27,6 +28,9 @@ const useCurrentShopStore = create<Actions & State>()((set) => ({
       ...initialStates,
     }),
   setShopWithShopId: async (shopId) => {
+    if (mockSlow.shop) {
+      await new Promise((resolve) => setTimeout(resolve, 3000))
+    }
     const { data } = await getShop({
       shopId,
     })

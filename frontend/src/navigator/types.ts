@@ -29,6 +29,7 @@ import { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
 import { StackScreenProps } from '@react-navigation/stack'
 import { Shop } from '../models/shop'
 import { ItemLayout } from 'react-native-ui-lib/src/components/sortableGridList/types'
+import { Order } from '../models/order'
 
 type InheritParentPathing<
   ParentParamList extends Record<string, unknown>,
@@ -81,9 +82,12 @@ export type CustomerShopStackParamList = InheritParentPathing<
   CustomerStackParamList,
   'customer-shop',
   {
-    home: undefined
+    home: {
+      shopId: Shop['id']
+    }
     queue: undefined
     item: ItemLayout
+    payment: Order
   }
 >
 

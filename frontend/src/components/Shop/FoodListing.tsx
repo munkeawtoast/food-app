@@ -49,7 +49,7 @@ const FoodListings: FC<FoodListingsProps> = ({
     onActiveFoodChange(foodId)
   }
   return (
-    <View className="bg-white pb-2 border-b-gray-200 border-b-2">
+    <View className="bg-white px-4 pb-2">
       <Title title="เมนูทั้งหมด" />
       <ScrollView horizontal contentContainerStyle={styles.foodCategory}>
         <View style={{ gap: 5, flexDirection: 'row' }}>

@@ -1,20 +1,22 @@
-import { StackScreenProps, createStackNavigator } from '@react-navigation/stack'
 import { CookingPot } from 'phosphor-react-native'
-import { Image, Pressable, Text, View } from 'react-native'
+import { Image, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import colors from 'tailwindcss/colors'
-import { AuthStackProps, RootStackParamList } from '../../navigator/types'
+import { AuthStackProps } from '../../navigator/types'
 import { StatusBar } from 'expo-status-bar'
 import { verticalScale } from '../../config/scale'
 import { Button } from 'react-native-ui-lib'
 import { buttonStyles } from '../../components/ui/styles/buttonStyles'
 import { useEffect } from 'react'
 import bypass from '../../dev/bypass'
+import useSettingsPersistentStore from '../../stores/settingsPersistentStore'
+import { noSession } from '../../dev/dev'
 
 const LandingScreen = ({
   navigation,
   route,
 }: AuthStackProps<'auth-landing'>) => {
+  const { customer, merchant, user, token } = useSettingsPersistentStore()
   function bypassLogin() {
     if (!bypass.login) {
       return
@@ -26,6 +28,22 @@ const LandingScreen = ({
   }
 
   useEffect(() => {
+    if (!noSession) {
+      if (customer) {
+        navigation.navigate('customer', {
+          screen: 'customer-bottom',
+          params: {
+            screen: 'customer-bottom-home',
+          },
+        })
+        return
+      }
+      if (merchant) {
+        navigation.navigate('merchant')
+        return
+      }
+      return
+    }
     bypassLogin()
   }, [])
   return (

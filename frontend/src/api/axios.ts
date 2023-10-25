@@ -7,19 +7,18 @@ const axios = bareAxios.create({
   baseURL: getApiUrl(),
 })
 
-// axios.interceptors.request.use(
-//   (config) => {
-//     const { user } = useSettingsPersistentStore()
-//     if (!user) {
-//       return config
-//     }
-//     // config.headers.Authorization = `Bearer ${}`
-
-//     return config
-//   },
-//   (error) => {
-//     return Promise.reject(error)
-//   }
-// )
+axios.interceptors.request.use(
+  (config) => {
+    const { token, user } = useSettingsPersistentStore.getState()
+    if (!token) {
+      return config
+    }
+    config.headers.Authorization = `Bearer ${token.token}`
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
 
 export { axios }

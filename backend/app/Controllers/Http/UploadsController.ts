@@ -1,5 +1,4 @@
 import { extname } from 'path'
-import Drive from '@ioc:Adonis/Core/Drive'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Drive from '@ioc:Adonis/Core/Drive'
 import UpdateFoodImageValidator from 'App/Validators/UpdateFoodImageValidator'

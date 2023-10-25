@@ -26,7 +26,7 @@ const customer: BypassLogin = {
 }
 
 const bypass: Bypass = {
-  login: vasana,
+  login: customer,
 }
 
 export default bypass

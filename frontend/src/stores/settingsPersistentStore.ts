@@ -25,17 +25,23 @@ type SettingsActions = {
   setUserWithResponseData: (
     res: LoginMerchantResponse | LoginCustomerResponse
   ) => void
+  reset: () => void
 }
 
-const defaultState: SettingsState = {
+const initialState: SettingsState = {
   notificationEnabled: false,
   user: undefined,
+  merchant: undefined,
+  customer: undefined,
+  pushToken: undefined,
+  token: undefined,
+  type: undefined,
 }
 
 const useSettingsPersistentStore = create<SettingsState & SettingsActions>()(
   persist(
     (set) => ({
-      ...defaultState,
+      ...initialState,
       setNotification: async (enabled) => {
         if (!enabled) {
           set({
@@ -53,8 +59,16 @@ const useSettingsPersistentStore = create<SettingsState & SettingsActions>()(
         })
         alert('registered successfully:' + token)
       },
+      reset: () => {
+        set({
+          ...initialState,
+        })
+      },
       setUserWithResponseData(data) {
         const { customer, merchant, token } = data
+        set({
+          ...initialState,
+        })
         if (customer) {
           const { user, ...customerWoUser } = customer
           set({

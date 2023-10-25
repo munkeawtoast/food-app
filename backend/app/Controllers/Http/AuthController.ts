@@ -39,20 +39,18 @@ export default class AuthController {
   public async getCustomer({ request, response, auth }: HttpContextContract) {
     const username = request.input('username') as string
     const password = request.input('password') as string
+
     try {
       const token = await auth.use('api').attempt(username, password, {
         expiresIn: '90 days',
       })
       const user = await this.foundUser(Customer, token.user)
-      // if (!user) {
-      // }
-      // console.log('yay')
       return response.status(200).send({
         token: token.toJSON(),
         customer: user,
       })
     } catch (e) {
-      console.log(e)
+      console.log('bad login')
       return response.status(401).send('invalid credentials')
     }
   }

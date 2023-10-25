@@ -24,6 +24,7 @@ Route.get('/uploads/*', 'UploadsController.getFile')
 Route.put('/food/image', 'UploadsController.updateFoodImage')
 
 Route.post('/merchant/orders', 'QueuesController.merchantGetQueue')
+Route.post('/customer/orders', 'QueuesController.customerCreateQueue')
 Route.get('/customer/orders', 'QueuesController.customerGetQueue')
 Route.post('/confirmQueue', 'QueuesController.merchantConfirmQueue')
 

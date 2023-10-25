@@ -3,9 +3,9 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   TouchableOpacity,
   Dimensions,
+  Pressable,
 } from 'react-native'
 import useTestPersistentStore from '../../stores/testPersistentStore'
 import {
@@ -22,7 +22,6 @@ import colors from 'tailwindcss/colors'
 import { FoodWithOptions } from '../../models/food'
 import { Choice } from '../../models/choice'
 import FoodListings from '../../components/Shop/FoodListing'
-import { mockFoods } from '../../dev/mock'
 import useCurrentShopStore from '../../stores/customer/currentShopStore'
 import { CustomerShopStackProps } from '../../navigator/types'
 import {
@@ -32,6 +31,15 @@ import {
   TextInput,
   RadioButtonGroup,
 } from '../../components/Shop/Inputs'
+import {
+  Button,
+  KeyboardAwareScrollView,
+  LoaderScreen,
+} from 'react-native-ui-lib'
+import { buttonStyles } from '../../components/ui/styles/buttonStyles'
+import { StatusBar } from 'expo-status-bar'
+import createOrder from '../../api/customer/createOrder'
+import { Order } from '../../models/order'
 
 interface QueueShownProps {
   isAccordionOpen: boolean
@@ -143,22 +151,27 @@ const HeaderDescription: FC<{
   </View>
 )
 
-const Accordion: FC<{ isAccordionOpen: boolean }> = ({ isAccordionOpen }) => (
+const AccordionContent: FC<{ isAccordionOpen: boolean }> = ({
+  isAccordionOpen,
+}) => (
   <View className="relative z-10 bg-slate-400">
     {isAccordionOpen ?? (
       <View
-        style={{
-          zIndex: 100,
-          right: 0,
-          top: 0,
-          width: '100%',
-          position: 'absolute',
-          marginLeft: -40,
-          padding: 20,
-          backgroundColor: '#E5E7EB',
-          borderRadius: 20,
-        }}
+        style={
+          {
+            // zIndex: 100,
+            // right: 0,
+            // top: 0,
+            // width: '100%',
+            // position: 'absolute',
+            // marginLeft: -40,
+            // padding: 20,
+            // backgroundColor: '#E5E7EB',
+            // borderRadius: 20,
+          }
+        }
       >
+        <View className="bg-red-400 h-40 w-40" />
         <People />
         <People />
       </View>
@@ -173,47 +186,52 @@ const QueueShown: FC<QueueShownProps> = ({
   const { addABear, bears } = useTestPersistentStore()
 
   return (
-    <View className="bg-white">
+    <View className="relative">
       <View
         style={{
           marginTop: moderateScale(20),
           flexDirection: 'row',
+          justifyContent: 'space-between',
         }}
       >
-        <HourGlassContianer />
-        <View>
-          <Text
-            style={{
-              fontFamily: 'Prompt_400Regular',
-              fontSize: moderateScale(16),
-              textAlign: 'left',
-              paddingLeft: 10,
-            }}
-          >
-            คิวก่อนหน้า
-          </Text>
-          <HeaderDescription estimatedTime={bears} queueBefore={bears} />
+        <View className="flex-row">
+          <HourGlassContianer />
+          <View>
+            <Text
+              style={{
+                fontFamily: 'Prompt_400Regular',
+                fontSize: moderateScale(16),
+                textAlign: 'left',
+                paddingLeft: 10,
+              }}
+            >
+              คิวก่อนหน้า
+            </Text>
+            <HeaderDescription estimatedTime={bears} queueBefore={bears} />
+          </View>
         </View>
 
         <TouchableOpacity
           onPress={() => setIsAccordionOpen(!isAccordionOpen)} // Toggle accordion state
         >
-          {isAccordionOpen ? (
-            <View>
-              <CaretUp weight="bold" size={moderateScale(40)} color="#6B7280" />
-            </View>
-          ) : (
-            <View>
+          <View className="p-2">
+            {isAccordionOpen ? (
+              <CaretUp
+                weight="bold"
+                size={moderateScale(30)}
+                color={colors.gray[400]}
+              />
+            ) : (
               <CaretDown
                 weight="bold"
                 size={moderateScale(30)}
-                color="#6B7280"
+                color={colors.gray[400]}
               />
-            </View>
-          )}
+            )}
+          </View>
         </TouchableOpacity>
       </View>
-      <Accordion isAccordionOpen={isAccordionOpen} />
+      <AccordionContent isAccordionOpen={isAccordionOpen} />
     </View>
   )
 }
@@ -222,149 +240,193 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
   navigation,
   route,
 }) => {
-  // const { shop, resetShop } = useCurrentShopStore()
-  // function onUnmount() {
-  //   resetShop()
-  // }
-  // useEffect(() => {
-  //   console.log(JSON.stringify(shop, null, 2))
-  // }, [shop])
-
-  // useEffect(() => {
-  //   return onUnmount
-  // }, [])
-  // const [isAccordionOpen, setIsAccordionOpen] = useState(false)
-  // const [foods] = useState<FoodWithOptions[]>(mockFoods)
-  // const [activeFoodId, setActiveFoodId] = useState<FoodWithOptions['id']>(
-  //   mockFoods[0].id
-  // )
-  // const [choices, setChoices] = useState<Choice[]>([])
-
-  return null
-
-  function handleChoice() {
-    // type: Choice['type'],
-    // optionName: Choice['name'],
-    // newValue: Choice['value']
-    //   console.log('handling')
-    //   console.log(JSON.stringify(choices, null, 2))
-    //   console.log('---')
-    //   choices.find((choice) => choice.name === optionName)!.value = newValue
-    //   console.log('---')
-    //   console.log(JSON.stringify(choices, null, 2))
-    //   setChoices(choices)
-    // }
-    // useEffect(() => {
-    //   console.log(JSON.stringify(choices, null, 2))
-    // }, [choices])
-    // useEffect(() => {
-    //   const { options } = foods.find((food) => food.id === activeFoodId)!.options
-    //   setChoices(
-    //     options.map(
-    //       (option) =>
-    //         ({
-    //           name: option.name,
-    //           type: option.type,
-    //           value: option.default,
-    //         }) as Choice
-    //     )
-    //   )
-    // }, [activeFoodId])
-    // return (
-    //   <ScrollView
-    //     showsVerticalScrollIndicator={false}
-    //     contentContainerStyle={{ flexGrow: 1 }}
-    //     style={{
-    //       backgroundColor: colors.white,
-    //       height: height * 0.05,
-    //       flex: 1,
-    //       flexShrink: 1,
-    //       flexDirection: 'column',
-    //     }}
-    //   >
-    //     <View style={styles.content}>
-    //       <QueueShown
-    //         isAccordionOpen={isAccordionOpen}
-    //         setIsAccordionOpen={setIsAccordionOpen}
-    //       />
-    //       <Split />
-    //     </View>
-    //     <View>
-    //       <FoodListings
-    //         activeFoodIndex={activeFoodId}
-    //         foods={foods}
-    //         onActiveFoodChange={setActiveFoodId}
-    //       />
-    //     </View>
-    //     <View style={styles.content}>
-    //       {choices.map((choice) => {
-    //         const option = foods
-    //           .find((food) => food.id === activeFoodId)!
-    //           .options.options.find((op) => op.name === choice.name)
-    //         if (!option) {
-    //           return
-    //         }
-    //         if (option.type === 'radio') {
-    //           const availOptions = option.choices.map((ch) => ({
-    //             label: ch,
-    //             value: ch,
-    //           }))
-    //           return (
-    //             <RadioButtonGroup
-    //               key={option.name}
-    //               value={choice.value as string}
-    //               choices={availOptions}
-    //               label={option.name}
-    //               onValueChange={(newValue) => {
-    //                 handleChoice(option.type, option.name, newValue)
-    //               }}
-    //             />
-    //           )
-    //         }
-    //         if (option.type === 'boolean') {
-    //           return (
-    //             <BooleanInput
-    //               key={option.name}
-    //               value={choice.value as boolean}
-    //               label={option.name}
-    //               onValueChange={(newValue) => {
-    //                 console.log(newValue)
-    //                 handleChoice(option.type, option.name, newValue)
-    //               }}
-    //             />
-    //           )
-    //         }
-    //         if (option.type === 'string') {
-    //           return (
-    //             <TextInput
-    //               key={option.name}
-    //               value={choice.value as string}
-    //               label={option.name}
-    //               onValueChange={(newValue) => {
-    //                 handleChoice(option.type, option.name, newValue)
-    //               }}
-    //             />
-    //           )
-    //         }
-    //         if (option.type === 'number') {
-    //           return (
-    //             <NumberInput
-    //               key={option.name}
-    //               value={choice.value as number}
-    //               label={option.name}
-    //               onValueChange={(newValue) => {
-    //                 handleChoice(option.type, option.name, newValue)
-    //               }}
-    //             />
-    //           )
-    //         }
-    //         return null
-    //       })}
-    //     </View>
-    //     <View className="h-40" />
-    //   </ScrollView>
-    // )
+  const { shop, resetShop, setShopWithShopId } = useCurrentShopStore()
+  function onUnmount() {
+    resetShop()
   }
+  useEffect(() => {
+    setShopWithShopId(route.params.shopId)
+    return onUnmount
+  }, [])
+
+  useEffect(() => {
+    // Use `setOptions` to update the button that we previously specified
+    // Now the button includes an `onPress` handler to update the count
+    navigation.setOptions({
+      headerRight: () => (
+        <Pressable
+          onPress={async () => {
+            const res = await createOrder(order!)
+            navigation.navigate('customer-shop-payment', res.data)
+          }}
+          className="px-3"
+        >
+          <Text className="text-white font-prompt4 text-xl">จ่ายเงิน</Text>
+        </Pressable>
+      ),
+    })
+  }, [navigation])
+
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false)
+  const [activeFoodId, setActiveFoodId] = useState<FoodWithOptions['id']>(-1)
+  const [activeFood, setActiveFood] = useState<FoodWithOptions | null>(null)
+  const [choices, setChoices] = useState<Choice[]>([])
+  const [message, setMessage] = useState('')
+  const [order, setOrder] = useState<Order['food_data'] | null>(null)
+
+  useEffect(() => {
+    const order: Order['food_data'] = {
+      ...activeFood!,
+      choices,
+      comment: message,
+    }
+    setOrder(order)
+  }, [activeFood, choices, message])
+
+  useEffect(() => {
+    if (!shop) {
+      return
+    }
+
+    setActiveFoodId(shop.food[0].id)
+  }, [shop])
+
+  useEffect(() => {
+    if (!shop) {
+      return
+    }
+    setActiveFood(shop.food.find((food) => food.id === activeFoodId)!)
+  }, [activeFoodId])
+
+  useEffect(() => {
+    if (!activeFood) {
+      return
+    }
+    const choices: Choice[] = activeFood.options.options.map((option) => ({
+      name: option.name,
+      value: undefined,
+      price: undefined,
+    }))
+    setChoices(choices)
+  }, [activeFood])
+
+  function handleChoice(choice: Choice) {
+    setChoices((oldChoice) => {
+      const newChoices = oldChoice.map((ch) => {
+        if (ch.name === choice.name) {
+          return choice
+        }
+        return ch
+      })
+      return newChoices
+    })
+  }
+  useEffect(() => {
+    console.log('choices ' + JSON.stringify(choices, null, 2))
+    console.log('options ' + JSON.stringify(activeFood?.options, null, 2))
+  }, [choices])
+  return (
+    <>
+      <StatusBar style="light" />
+      {shop ? (
+        <KeyboardAwareScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ flexGrow: 1 }}
+          style={{
+            backgroundColor: colors.white,
+            height: height * 0.05,
+            flex: 1,
+            flexShrink: 1,
+            flexDirection: 'column',
+          }}
+        >
+          <View style={styles.content}>
+            <QueueShown
+              isAccordionOpen={isAccordionOpen}
+              setIsAccordionOpen={setIsAccordionOpen}
+            />
+            <Split />
+          </View>
+          <View>
+            <FoodListings
+              activeFoodIndex={activeFoodId}
+              foods={shop.food}
+              onActiveFoodChange={setActiveFoodId}
+            />
+          </View>
+          <View style={styles.content}>
+            {choices.map((choice) => {
+              const options = shop.food
+                .find((food) => food.id === activeFoodId)!
+                .options.options.find((op) => op.name === choice.name)
+              if (!options) {
+                return
+              }
+              if (options.options.length > 1 && options.isSingle) {
+                return (
+                  <RadioButtonGroup
+                    key={options.name}
+                    value={options.name}
+                    choices={options.options.map((op) => ({
+                      label: op.name + (op.price ? ` +${op.price} บาท` : ''),
+                      pricesIncrease: op.price == null ? 0 : op.price,
+                      value: op.name,
+                    }))}
+                    label={options.name}
+                    onValueChange={(newValue) => {
+                      handleChoice({
+                        name: options.name,
+                        value: newValue,
+                        price: options.options.find(
+                          (op) => op.name === newValue
+                        )!.price,
+                      })
+                    }}
+                  />
+                )
+              }
+              if (options.options.length === 1 && options.isSingle) {
+                return (
+                  <BooleanInput
+                    key={options.name}
+                    price={options.options[0]?.price}
+                    value={choice.value === options.options[0]?.name}
+                    label={options.name}
+                    onValueChange={(newValue) => {
+                      if (newValue) {
+                        handleChoice({
+                          name: options.name,
+                          value: options.name,
+                          price: options.options.find(
+                            (op) => op.name === choice.name
+                          )?.price,
+                        })
+                      } else {
+                        handleChoice({
+                          name: options.name,
+                          value: undefined,
+                          price: options.options.find(
+                            (op) => op.name === choice.name
+                          )?.price,
+                        })
+                      }
+                    }}
+                  />
+                )
+              }
+            })}
+            <TextInput
+              label="คำแนะนำเพิ่มเติมให้ทางร้าน"
+              onValueChange={setMessage}
+            />
+          </View>
+          <View className="h-20" />
+        </KeyboardAwareScrollView>
+      ) : (
+        <LoaderScreen color={colors.sky[800]} />
+      )}
+    </>
+  )
 }
 // const AA = (navigation) => (
 //   <View style={styles.container}>

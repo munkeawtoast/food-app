@@ -5,9 +5,12 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import { CustomerShopStackParamList } from '../types'
 import { defaultScreenOptions } from '../../config/theme'
+import useCurrentShopStore from '../../stores/customer/currentShopStore'
+import PaymentView from '../../screens/customer/PaymentView'
 const Stack = createStackNavigator<CustomerShopStackParamList>()
 
 const ShopNavigator = () => {
+  const { shop } = useCurrentShopStore()
   return (
     <Stack.Navigator
       initialRouteName="customer-shop-home"
@@ -15,8 +18,15 @@ const ShopNavigator = () => {
         ...defaultScreenOptions,
       }}
     >
-      <Stack.Screen name="customer-shop-home" component={ShopScreen} />
+      <Stack.Screen
+        name="customer-shop-home"
+        options={{
+          title: shop ? 'ร้าน' + shop?.name : 'กำลังโหลด',
+        }}
+        component={ShopScreen}
+      />
       <Stack.Screen name="customer-shop-queue" component={OrderQueueView} />
+      <Stack.Screen name="customer-shop-payment" component={PaymentView} />
     </Stack.Navigator>
   )
 }
