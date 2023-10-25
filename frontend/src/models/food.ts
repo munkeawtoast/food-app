@@ -1,4 +1,3 @@
-import { Choice } from './choice'
 import { Option } from './option'
 
 export type Food = {
