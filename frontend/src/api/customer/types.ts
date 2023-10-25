@@ -4,7 +4,7 @@ import { Shop } from '../../models/shop'
 
 export type CreateOrderRequest = {
   foodId: number
-  choices: Exclude<Choice, 'description' | 'required' | 'default'>
+  choices: Array<Choice>
   count: number
 }
 

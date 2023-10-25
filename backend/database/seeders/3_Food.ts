@@ -15,35 +15,65 @@ export default class extends BaseSeeder {
           options: [
             {
               name: 'พิเศษ',
-              type: 'boolean',
-              default: false,
-              priceAdjust: {
-                by: 10,
-                whenEqual: true,
-              },
-            },
-            {
-              type: 'radio',
-              name: 'เส้นก๋วยเตี๋ยว',
-              choices: [
-                'เส้นเล็ก',
-                'เส้นใหญ่',
-                'เส้นหมี่',
-                'เส้นบะหมี่',
-                'เส้นวุ้นเส้น',
-                'เส้นแก้ว',
-                'เส้นมาม่า',
+              isSingle: true,
+              options: [
+                {
+                  name: 'พิิเศษ',
+                  price: 10,
+                },
               ],
+              required: true,
             },
             {
-              type: 'radio',
+              isSingle: true,
+              name: 'เส้นก๋วยเตี๋ยว',
+              options: [
+                {
+                  name: 'เส้นเล็ก',
+                },
+                {
+                  name: 'เส้นใหญ่',
+                },
+                {
+                  name: 'เส้นหมี่',
+                },
+                {
+                  name: 'เส้นบะหมี่',
+                },
+                {
+                  name: 'เส้นวุ้นเส้น',
+                },
+                {
+                  name: 'เส้นแก้ว',
+                },
+                {
+                  name: 'เส้นมาม่า',
+                },
+              ],
+              required: true,
+            },
+            {
+              isSingle: true,
               name: 'ระดับความเผ็ด',
-              choices: ['ไม่เผ็ด', 'เผ็ดน้อย', 'เผ็ด', 'เผ็ดมาก'],
-            },
-            {
-              type: 'string',
-              name: 'คำแนะนำพิเศษ',
-              description: 'คำแนะนำพิเศษสำหรับร้านค้า',
+              options: [
+                {
+                  name: 'ไม่เผ็ด',
+                  price: 0,
+                },
+                {
+                  name: 'เผ็ดน้อย',
+                  price: 0,
+                },
+                {
+                  name: 'เผ็ด',
+                  price: 0,
+                },
+                {
+                  name: 'เผ็ดมาก',
+                  price: 0,
+                },
+              ],
+              required: true,
             },
           ],
         },
@@ -56,16 +86,16 @@ export default class extends BaseSeeder {
         options: {
           options: [
             {
-              optionTitle: 'เพิ่มปริมาณ',
-              isMultple: false,
-              mustSelected: false,
-              optionData: [{ name: 'พิเศษ', price: 10 }],
+              name: 'เพิ่มปริมาณ',
+              isSingle: true,
+              required: false,
+              options: [{ name: 'พิเศษ', price: 10 }],
             },
             {
-              optionTitle: 'ระดับความเผ็ด',
-              isMultple: false,
-              mustSelected: true,
-              optionData: [
+              name: 'ระดับความเผ็ด',
+              isSingle: true,
+              required: true,
+              options: [
                 { name: 'ไม่เผ็ด', price: 0 },
                 { name: 'เผ็ดน้อย', price: 0 },
                 { name: 'เผ็ดกลาง', price: 0 },
