@@ -3,6 +3,7 @@ import { BaseModel, BelongsTo, HasMany, belongsTo, column, hasMany } from '@ioc:
 import Shop from './Shop'
 import OrderMenu from './OrderMenu'
 import History from './History'
+import { Choice } from './OrderQueue'
 
 export default class Food extends BaseModel {
   @column({ isPrimary: true })
@@ -15,7 +16,9 @@ export default class Food extends BaseModel {
   public price: number
 
   @column()
-  public options: object & { length?: never }
+  public options: {
+    options: Array<Option>
+  }
 
   @column()
   public shopId: number
@@ -34,4 +37,11 @@ export default class Food extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+}
+
+export type Option = {
+  required: boolean
+  name: string
+  isSingle: boolean
+  options: Array<Choice>
 }

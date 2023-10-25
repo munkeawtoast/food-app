@@ -12,10 +12,11 @@ const FoodsDetail: FC<{ route: { params: FoodWithOptions } }> = ({
   navigation,
 }) => {
   const foodDetail = route.params
+  const options = foodDetail.options.option
   const { removeById } = useFoodStore()
-  console.log(JSON.stringify(foodDetail, null, 2))
+  // console.log(options)
   return (
-    <View className="p-4 w-full">
+    <View className="p-4 w-full flex-1">
       <Text className="font-bold text-3xl pt-4">{foodDetail.food_name}</Text>
       <Image
         source={{
@@ -25,7 +26,29 @@ const FoodsDetail: FC<{ route: { params: FoodWithOptions } }> = ({
       />
       <Text>ราคา: {foodDetail.price} บาท</Text>
       <Text>เวลาที่ทำ: {foodDetail.estimated_time} นาที</Text>
-      <Text>{JSON.stringify(foodDetail.options.options)}</Text>
+      <Text>ตัวเลือก</Text>
+      {options.map((option) => {
+        return (
+          <View key={option.optionTitle}>
+            <Text>{option.optionTitle}</Text>
+            <Text>
+              {option.isMultiple == true
+                ? 'เสือกได้หลายอย่าง'
+                : 'เลือกได้อย่างเดียว'}{' '}
+              {option.mustSelected == true ?? 'ต้องเลือก'}
+            </Text>
+            <View className="flex-row px-4 flex-wrap">
+              {option.optionData.map((optiondata) => {
+                return (
+                  <Text key={optiondata.name}>
+                    +{optiondata.name} {optiondata.price} บาท{' '}
+                  </Text>
+                )
+              })}
+            </View>
+          </View>
+        )
+      })}
       <Text>สร้างเมื่อ: {foodDetail.created_at.slice(0, 10)}</Text>
       <Text>แก้ไขเมื่อ: {foodDetail.updated_at.slice(0, 10)}</Text>
       <View className="flex-row gap-4 justify-center">

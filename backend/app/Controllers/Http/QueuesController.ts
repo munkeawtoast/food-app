@@ -11,8 +11,8 @@ export default class QueuesController {
   //   return response.status(200).send({})
   // }
 
-  public async getQueue({ request, response, auth }: HttpContextContract) {
-    const allQueue = await OrderQueue.all()
+  public async merchantGetQueue({ request, response, auth }: HttpContextContract) {
+    const allQueue = await OrderQueue.findMany('shopId', request.body().shopId)
     return allQueue.map((queue) => queue.serialize())
   }
 

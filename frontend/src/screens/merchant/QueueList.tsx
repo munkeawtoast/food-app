@@ -10,11 +10,13 @@ import {
 import { moderateScale } from '../../config/scale'
 import { useState } from 'react'
 import { Checkbox } from 'react-native-ui-lib'
+import getOrders from '../../api/merchant/getOrders'
 
 const ListContainer = () => {
   const [modalVisible, setModalVisible] = useState(false)
+  getOrders({ shopId: 1 })
   return (
-    <View>
+    <View className="flex-1">
       <Modal
         animationType="fade"
         transparent={true}

@@ -54,7 +54,7 @@ export default class extends BaseSeeder {
         foodName: 'ก๋วยเตี๋ยวหมู',
         price: 50,
         options: {
-          option: [
+          options: [
             {
               optionTitle: 'เพิ่มปริมาณ',
               isMultple: false,

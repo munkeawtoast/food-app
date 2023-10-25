@@ -30,7 +30,7 @@ const FoodLoop: FC<{ foods: Food[]; navigation: any }> = ({
       <Pressable
         key={food.id}
         onPress={() => navigation.navigate('merchant-food_detail', food)}
-        // className="m-2"
+        className="m-2"
       >
         <View className="w-28 h-24 flex-col rounded-3xl overflow-hidden">
           <Image
@@ -52,7 +52,7 @@ const FoodLoop: FC<{ foods: Food[]; navigation: any }> = ({
   }
 }
 
-export default function AddFood({ navigation }) {
+export default function MerchantFood({ navigation }) {
   const { foods, fetch } = useFoodStore()
   useEffect(() => {
     fetch()
@@ -60,7 +60,7 @@ export default function AddFood({ navigation }) {
   const [foodName, setFoodName] = useState<string>()
   return (
     // <TouchableNativeFeedback onPress={Keyboard.dismiss}>
-    <View className="gap-4">
+    <View className="gap-4 flex-1">
       {/* <View width={'90%'}>
         <TextField
           onChangeText={setFoodName}
@@ -72,7 +72,7 @@ export default function AddFood({ navigation }) {
           style={{ fontFamily: 'Prompt_400Regular' }}
         />
       </View> */}
-      <View className="w-auto h-auto flex-row">
+      <View className="w-auto h-auto flex-row flex-wrap justify-center">
         <FoodLoop foods={foods} navigation={navigation} />
       </View>
       <Button
