@@ -6,6 +6,7 @@ export default class CheckMerchant {
     // code for middleware goes here. ABOVE THE NEXT CALL
 
     const userId = auth.user?.id
+    console.log(userId)
     if ((await Merchant.findBy('user_id', userId)) === null) {
       return response.unauthorized({ error: 'Must be Merchant' })
     }

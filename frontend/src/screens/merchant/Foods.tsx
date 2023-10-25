@@ -34,7 +34,6 @@ const FoodLoop: FC<{ foods: Food[]; navigation: any }> = ({
       >
         <View className="w-28 h-24 flex-col rounded-3xl overflow-hidden">
           <Image
-            // className="w-full h-20 rounded"
             source={{ uri: getApiUrl() + '/uploads/menu/' + food.id + '.jpg' }}
             style={{
               width: '100%',
