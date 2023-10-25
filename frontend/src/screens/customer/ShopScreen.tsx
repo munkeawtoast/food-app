@@ -222,150 +222,149 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
   navigation,
   route,
 }) => {
-  const { shop, resetShop } = useCurrentShopStore()
-  function onUnmount() {
-    resetShop()
+  // const { shop, resetShop } = useCurrentShopStore()
+  // function onUnmount() {
+  //   resetShop()
+  // }
+  // useEffect(() => {
+  //   console.log(JSON.stringify(shop, null, 2))
+  // }, [shop])
+
+  // useEffect(() => {
+  //   return onUnmount
+  // }, [])
+  // const [isAccordionOpen, setIsAccordionOpen] = useState(false)
+  // const [foods] = useState<FoodWithOptions[]>(mockFoods)
+  // const [activeFoodId, setActiveFoodId] = useState<FoodWithOptions['id']>(
+  //   mockFoods[0].id
+  // )
+  // const [choices, setChoices] = useState<Choice[]>([])
+
+  return null
+
+  function handleChoice() {
+    // type: Choice['type'],
+    // optionName: Choice['name'],
+    // newValue: Choice['value']
+    //   console.log('handling')
+    //   console.log(JSON.stringify(choices, null, 2))
+    //   console.log('---')
+    //   choices.find((choice) => choice.name === optionName)!.value = newValue
+    //   console.log('---')
+    //   console.log(JSON.stringify(choices, null, 2))
+    //   setChoices(choices)
+    // }
+    // useEffect(() => {
+    //   console.log(JSON.stringify(choices, null, 2))
+    // }, [choices])
+    // useEffect(() => {
+    //   const { options } = foods.find((food) => food.id === activeFoodId)!.options
+    //   setChoices(
+    //     options.map(
+    //       (option) =>
+    //         ({
+    //           name: option.name,
+    //           type: option.type,
+    //           value: option.default,
+    //         }) as Choice
+    //     )
+    //   )
+    // }, [activeFoodId])
+    // return (
+    //   <ScrollView
+    //     showsVerticalScrollIndicator={false}
+    //     contentContainerStyle={{ flexGrow: 1 }}
+    //     style={{
+    //       backgroundColor: colors.white,
+    //       height: height * 0.05,
+    //       flex: 1,
+    //       flexShrink: 1,
+    //       flexDirection: 'column',
+    //     }}
+    //   >
+    //     <View style={styles.content}>
+    //       <QueueShown
+    //         isAccordionOpen={isAccordionOpen}
+    //         setIsAccordionOpen={setIsAccordionOpen}
+    //       />
+    //       <Split />
+    //     </View>
+    //     <View>
+    //       <FoodListings
+    //         activeFoodIndex={activeFoodId}
+    //         foods={foods}
+    //         onActiveFoodChange={setActiveFoodId}
+    //       />
+    //     </View>
+    //     <View style={styles.content}>
+    //       {choices.map((choice) => {
+    //         const option = foods
+    //           .find((food) => food.id === activeFoodId)!
+    //           .options.options.find((op) => op.name === choice.name)
+    //         if (!option) {
+    //           return
+    //         }
+    //         if (option.type === 'radio') {
+    //           const availOptions = option.choices.map((ch) => ({
+    //             label: ch,
+    //             value: ch,
+    //           }))
+    //           return (
+    //             <RadioButtonGroup
+    //               key={option.name}
+    //               value={choice.value as string}
+    //               choices={availOptions}
+    //               label={option.name}
+    //               onValueChange={(newValue) => {
+    //                 handleChoice(option.type, option.name, newValue)
+    //               }}
+    //             />
+    //           )
+    //         }
+    //         if (option.type === 'boolean') {
+    //           return (
+    //             <BooleanInput
+    //               key={option.name}
+    //               value={choice.value as boolean}
+    //               label={option.name}
+    //               onValueChange={(newValue) => {
+    //                 console.log(newValue)
+    //                 handleChoice(option.type, option.name, newValue)
+    //               }}
+    //             />
+    //           )
+    //         }
+    //         if (option.type === 'string') {
+    //           return (
+    //             <TextInput
+    //               key={option.name}
+    //               value={choice.value as string}
+    //               label={option.name}
+    //               onValueChange={(newValue) => {
+    //                 handleChoice(option.type, option.name, newValue)
+    //               }}
+    //             />
+    //           )
+    //         }
+    //         if (option.type === 'number') {
+    //           return (
+    //             <NumberInput
+    //               key={option.name}
+    //               value={choice.value as number}
+    //               label={option.name}
+    //               onValueChange={(newValue) => {
+    //                 handleChoice(option.type, option.name, newValue)
+    //               }}
+    //             />
+    //           )
+    //         }
+    //         return null
+    //       })}
+    //     </View>
+    //     <View className="h-40" />
+    //   </ScrollView>
+    // )
   }
-  useEffect(() => {
-    console.log(JSON.stringify(shop, null, 2))
-  }, [shop])
-
-  useEffect(() => {
-    return onUnmount
-  }, [])
-  const [isAccordionOpen, setIsAccordionOpen] = useState(false)
-  const [foods] = useState<FoodWithOptions[]>(mockFoods)
-  const [activeFoodId, setActiveFoodId] = useState<FoodWithOptions['id']>(
-    mockFoods[0].id
-  )
-  const [choices, setChoices] = useState<Choice[]>([])
-
-  function handleChoice(
-    type: Choice['type'],
-    optionName: Choice['name'],
-    newValue: Choice['value']
-  ) {
-    console.log('handling')
-    console.log(JSON.stringify(choices, null, 2))
-    console.log('---')
-    choices.find((choice) => choice.name === optionName)!.value = newValue
-    console.log('---')
-    console.log(JSON.stringify(choices, null, 2))
-    setChoices(choices)
-  }
-
-  useEffect(() => {
-    console.log(JSON.stringify(choices, null, 2))
-  }, [choices])
-
-  useEffect(() => {
-    const { options } = foods.find((food) => food.id === activeFoodId)!.options
-    setChoices(
-      options.map(
-        (option) =>
-          ({
-            name: option.name,
-            type: option.type,
-            value: option.default,
-          }) as Choice
-      )
-    )
-  }, [activeFoodId])
-
-  return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ flexGrow: 1 }}
-      style={{
-        backgroundColor: colors.white,
-        height: height * 0.05,
-        flex: 1,
-        flexShrink: 1,
-        flexDirection: 'column',
-      }}
-    >
-      <View style={styles.content}>
-        <QueueShown
-          isAccordionOpen={isAccordionOpen}
-          setIsAccordionOpen={setIsAccordionOpen}
-        />
-        <Split />
-      </View>
-      <View>
-        <FoodListings
-          activeFoodIndex={activeFoodId}
-          foods={foods}
-          onActiveFoodChange={setActiveFoodId}
-        />
-      </View>
-      <View style={styles.content}>
-        {choices.map((choice) => {
-          const option = foods
-            .find((food) => food.id === activeFoodId)!
-            .options.options.find((op) => op.name === choice.name)
-          if (!option) {
-            return
-          }
-          if (option.type === 'radio') {
-            const availOptions = option.choices.map((ch) => ({
-              label: ch,
-              value: ch,
-            }))
-            return (
-              <RadioButtonGroup
-                key={option.name}
-                value={choice.value as string}
-                choices={availOptions}
-                label={option.name}
-                onValueChange={(newValue) => {
-                  handleChoice(option.type, option.name, newValue)
-                }}
-              />
-            )
-          }
-          if (option.type === 'boolean') {
-            return (
-              <BooleanInput
-                key={option.name}
-                value={choice.value as boolean}
-                label={option.name}
-                onValueChange={(newValue) => {
-                  console.log(newValue)
-                  handleChoice(option.type, option.name, newValue)
-                }}
-              />
-            )
-          }
-          if (option.type === 'string') {
-            return (
-              <TextInput
-                key={option.name}
-                value={choice.value as string}
-                label={option.name}
-                onValueChange={(newValue) => {
-                  handleChoice(option.type, option.name, newValue)
-                }}
-              />
-            )
-          }
-          if (option.type === 'number') {
-            return (
-              <NumberInput
-                key={option.name}
-                value={choice.value as number}
-                label={option.name}
-                onValueChange={(newValue) => {
-                  handleChoice(option.type, option.name, newValue)
-                }}
-              />
-            )
-          }
-          return null
-        })}
-      </View>
-      <View className="h-40" />
-    </ScrollView>
-  )
 }
 // const AA = (navigation) => (
 //   <View style={styles.container}>
