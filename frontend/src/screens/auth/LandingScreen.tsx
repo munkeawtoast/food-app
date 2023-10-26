@@ -66,7 +66,7 @@ const LandingScreen = ({
             }}
           />
           <Text className="text-black font-mitr5 pt-4 text-4xl font-medium">
-            motto ซักอย่าง
+            Food App
           </Text>
           <Text className="text-black text-xl font-prompt3 font-light">
             เพียงสแกนคิวอาร์ก็สั่งข้าวได้แล้ว

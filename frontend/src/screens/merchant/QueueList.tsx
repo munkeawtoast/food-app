@@ -56,7 +56,7 @@ const ListContainer = () => {
   // console.log(queue)
   return (
     <View className="flex-1 flex-wrap ">
-      {queue == null ? (
+      {Array.isArray(queue) ? (
         queue.map((queue, index) => {
           return (
             <Fragment key={queue.id}>

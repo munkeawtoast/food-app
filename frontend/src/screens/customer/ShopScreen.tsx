@@ -1,4 +1,4 @@
-import { FC, Suspense, useEffect, useState } from 'react'
+import { FC, Suspense, useEffect, useLayoutEffect, useState } from 'react'
 import {
   View,
   Text,
@@ -263,7 +263,7 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
   const [activeFood, setActiveFood] = useState<FoodWithOptions | null>(null)
   const [choices, setChoices] = useState<Choice[]>([])
   const [message, setMessage] = useState('')
-  const [order, setOrder] = useState<Order['food_data'] | undefined>()
+  const [order, setOrder] = useState<Order['food_data'] | undefined>({})
 
   function onUnmount() {
     resetShop()
@@ -288,20 +288,17 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
     setActiveFood(shop.food.find((food) => food.id === activeFoodId)!)
   }, [activeFoodId])
 
-  function orderRelayBecusUseEffectSucks() {
-    console.log('sending', order)
-    return order
-  }
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Use `setOptions` to update the button that we previously specified
     // Now the button includes an `onPress` handler to update the count
     navigation.setOptions({
       headerRight: () => (
         <Pressable
-          onPress={async () => {
-            const res = await createOrder(orderRelayBecusUseEffectSucks()!)
-            navigation.navigate('customer-shop-payment', res.data)
+          onPress={() => {
+            console.log('sending', order)
+            createOrder(order!).then((res) => {
+              navigation.navigate('customer-shop-payment', res.data)
+            })
           }}
           className="px-3"
         >
@@ -309,7 +306,7 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
         </Pressable>
       ),
     })
-  }, [navigation])
+  }, [navigation, order])
 
   useEffect(() => {
     if (!activeFood) {
@@ -344,6 +341,9 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
     console.log('setting new order to be ', newOrder)
     setOrder(newOrder)
   }, [activeFood, choices, message, shop])
+  useEffect(() => {
+    console.log(order)
+  }, [order])
   useEffect(() => {
     // console.log('choices ' + JSON.stringify(choices, null, 2))
     // console.log('options ' + JSON.stringify(activeFood?.options, null, 2))
