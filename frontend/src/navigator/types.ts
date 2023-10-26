@@ -61,7 +61,7 @@ export type CustomerStackParamList = InheritParentPathing<
   RootStackParamList,
   'customer',
   {
-    in_progress: undefined
+    listing: undefined
     info: {
       id: number
     }
@@ -76,8 +76,10 @@ export type CustomerBottomTabParamList = InheritParentPathing<
   'customer-bottom',
   {
     home: undefined
-    settings: undefined
-    queue: undefined
+    settings: {
+      for: 'customer' | 'merchant'
+    }
+    history: undefined
   }
 >
 

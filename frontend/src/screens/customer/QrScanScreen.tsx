@@ -25,7 +25,6 @@ function QrScanScreen({
   }, [])
 
   const handleBarCodeScanned: BarCodeScannedCallback = ({ type, data }) => {
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`)
     const shopPrefix = 'qr_food_app-'
     if (data.startsWith(shopPrefix)) {
       const shopId = data.split(shopPrefix)[1]

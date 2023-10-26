@@ -26,7 +26,14 @@ const ShopNavigator = () => {
         component={ShopScreen}
       />
       <Stack.Screen name="customer-shop-queue" component={OrderQueueView} />
-      <Stack.Screen name="customer-shop-payment" component={PaymentView} />
+      <Stack.Screen
+        name="customer-shop-payment"
+        options={{
+          title: 'ชำระเงินสำเร็จ',
+          headerLeft: () => null,
+        }}
+        component={PaymentView}
+      />
     </Stack.Navigator>
   )
 }

@@ -16,8 +16,9 @@ import {
   CustomerStackParamList,
   CustomerStackProps,
 } from '../types'
-import SettingsScreen from '../../screens/customer/SettingsScreen'
+import SettingsScreen from '../../screens/shared/SettingsScreen'
 import { defaultScreenOptions } from '../../config/theme'
+import HistoryScreen from '../../screens/customer/HistoryScreen'
 
 const CustomerTab = createBottomTabNavigator<CustomerBottomTabParamList>()
 
@@ -50,12 +51,12 @@ const CustomerBottomNavigator = () => {
         }}
       />
       <CustomerTab.Screen
-        name="customer-bottom-queue"
+        name="customer-bottom-history"
         options={{
-          title: 'เช็คสถานะ',
+          title: 'ประวัติการซื้อ',
           tabBarIcon: getIcon(Fish),
         }}
-        component={DontKnowYet}
+        component={HistoryScreen}
       />
       <CustomerTab.Screen
         name="customer-bottom-settings"
@@ -64,6 +65,9 @@ const CustomerBottomNavigator = () => {
           tabBarIcon: getIcon(Gear),
           ...defaultScreenOptions,
           headerShown: true,
+        }}
+        initialParams={{
+          for: 'customer',
         }}
         component={SettingsScreen}
       />

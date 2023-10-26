@@ -4,6 +4,7 @@ import QueueList from '../../screens/merchant/QueueList'
 import colors from 'tailwindcss/colors'
 import MerchantLogin from '../../screens/merchant/MerchantLogin'
 import MerchantFoodNavigator from './MerchantFoodNavigator'
+import SettingsScreen from '../../screens/shared/SettingsScreen'
 
 const BottomBar = createBottomTabNavigator()
 
@@ -18,11 +19,6 @@ const MerchantNavigator = () => {
         },
       }}
     >
-      {/* <BottomBar.Screen
-        name="merchant-login"
-        component={MerchantLogin}
-        options={{ headerShown: false }}
-      /> */}
       <BottomBar.Screen
         name="merchant-home"
         component={HomeScreen}
@@ -37,6 +33,13 @@ const MerchantNavigator = () => {
         name="merchant-queue_screen"
         component={QueueList}
         options={{ headerTitle: 'ดูคิว' }}
+      />
+      <BottomBar.Screen
+        name="merchant-settings"
+        component={SettingsScreen}
+        initialParams={{
+          for: 'merchant',
+        }}
       />
     </BottomBar.Navigator>
   )
