@@ -40,6 +40,7 @@ import { buttonStyles } from '../../components/ui/styles/buttonStyles'
 import { StatusBar } from 'expo-status-bar'
 import createOrder from '../../api/customer/createOrder'
 import { Order } from '../../models/order'
+import getOrders from '../../api/customer/getOrders'
 
 interface QueueShownProps {
   isAccordionOpen: boolean
@@ -71,7 +72,7 @@ const Split: FC = () => {
   )
 }
 
-const People: FC = () => {
+const People: FC<{ queue: Order }> = ({ queue }) => {
   return (
     <View style={{ flexDirection: 'row', marginTop: height * 0.02 }}>
       <View style={{ flexDirection: 'column', padding: 10, borderWidth: 3 }}>
@@ -85,13 +86,15 @@ const People: FC = () => {
         }}
       >
         <Text style={{ fontSize: 20 }}>คิวที่</Text>
-        <Text>เตี่ยววว</Text>
+        <Text>{queue.food_data.food_name}</Text>
       </View>
       <View
         style={{ flexDirection: 'column', marginLeft: width * 0.35, gap: 5 }}
       >
         <Clock size={35} color="black" />
-        <Text style={{ fontSize: 16 }}>2 นาที</Text>
+        <Text style={{ fontSize: 16 }}>
+          {queue.food_data.estimated_time} นาที
+        </Text>
       </View>
     </View>
   )
@@ -151,26 +154,45 @@ const HeaderDescription: FC<{
   </View>
 )
 
+function useTimedQueueGetter(): [Order[], () => void] {
+  const [queue, setQueue] = useState<Array<Order>>([])
+  async function caller() {
+    const res = await getOrders(1)
+    setQueue(res.data)
+    console.log(JSON.stringify(res.data, null, 2))
+  }
+  useEffect(() => {
+    const intervalId = setInterval(caller, 10000)
+    caller()
+    return () => clearInterval(intervalId)
+  }, [])
+  return [queue, caller]
+}
+
 const AccordionContent: FC<{ isAccordionOpen: boolean }> = ({
   isAccordionOpen,
-}) => (
-  <View className="relative z-10 bg-slate-400">
-    <View className="bg-red-400 h-40 w-40" />
-    {true ?? (
-      <View
-        style={{
-          right: 0,
-          top: 0,
-          width: '100%',
-          position: 'absolute',
-          marginLeft: -40,
-          padding: 20,
-          borderRadius: 20,
-        }}
-      ></View>
-    )}
-  </View>
-)
+}) => {
+  const [queue, caller] = useTimedQueueGetter()
+  const [filteredQ, setFilteredQ] = useState<Order[]>([])
+  useEffect(() => {
+    setFilteredQ(
+      queue.filter(
+        (q) => new Date(q.created_at) > new Date(Date.now() - 1000 * 60 * 60)
+      )
+    )
+  }, [queue])
+  return (
+    <>
+      {isAccordionOpen ? (
+        <View className="relative z-10 items-center">
+          {queue.map((or) => {
+            return <People queue={or} key={or.id} />
+          })}
+        </View>
+      ) : null}
+    </>
+  )
+}
 
 const QueueShown: FC<QueueShownProps> = ({
   isAccordionOpen,
@@ -204,7 +226,7 @@ const QueueShown: FC<QueueShownProps> = ({
           </View>
         </View>
 
-        {/* <TouchableOpacity
+        <TouchableOpacity
           onPress={() => setIsAccordionOpen(!isAccordionOpen)} // Toggle accordion state
         >
           <View className="p-2">
@@ -222,10 +244,10 @@ const QueueShown: FC<QueueShownProps> = ({
               />
             )}
           </View>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
 
-      {/* <AccordionContent isAccordionOpen={isAccordionOpen} /> */}
+      <AccordionContent isAccordionOpen={isAccordionOpen} />
     </View>
   )
 }
@@ -241,16 +263,7 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
   const [activeFood, setActiveFood] = useState<FoodWithOptions | null>(null)
   const [choices, setChoices] = useState<Choice[]>([])
   const [message, setMessage] = useState('')
-  const [order, setOrder] = useState<Order['food_data'] | null>(null)
-
-  useEffect(() => {
-    const order: Order['food_data'] = {
-      ...activeFood!,
-      choices,
-      comment: message,
-    }
-    setOrder(order)
-  }, [activeFood, choices, message])
+  const [order, setOrder] = useState<Order['food_data'] | undefined>()
 
   function onUnmount() {
     resetShop()
@@ -302,12 +315,12 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
     if (!activeFood) {
       return
     }
-    const choices: Choice[] = activeFood.options.options.map((option) => ({
+    const newChoices: Choice[] = activeFood.options.options.map((option) => ({
       name: option.name,
       value: undefined,
       price: undefined,
     }))
-    setChoices(choices)
+    setChoices(newChoices)
   }, [activeFood])
 
   function handleChoice(choice: Choice) {
@@ -321,6 +334,16 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
       return newChoices
     })
   }
+
+  useEffect(() => {
+    const newOrder: Order['food_data'] = {
+      ...activeFood!,
+      choices,
+      comment: message,
+    }
+    console.log('setting new order to be ', newOrder)
+    setOrder(newOrder)
+  }, [activeFood, choices, message, shop])
   useEffect(() => {
     // console.log('choices ' + JSON.stringify(choices, null, 2))
     // console.log('options ' + JSON.stringify(activeFood?.options, null, 2))

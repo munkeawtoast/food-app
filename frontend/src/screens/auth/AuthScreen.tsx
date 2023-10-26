@@ -59,6 +59,8 @@ const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
     }
     try {
       const loginFunc = getLoginHandler(route.params.as)
+
+      console.log({ username, password })
       const res = await loginFunc({ username, password })
       setUserWithResponseData(res.data)
       navigation.replace(route.params.as)

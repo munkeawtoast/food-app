@@ -7,7 +7,8 @@ import OrderQueue from 'App/Models/OrderQueue'
 
 export default class QueuesController {
   public async customerGetQueue({ request, response, auth }: HttpContextContract) {
-    const allQueue = await OrderQueue.all()
+    const allQueue = await OrderQueue.query().where('shop_id', request.input('shopId'))
+
     return allQueue.map((queue) => queue.serialize())
   }
 
