@@ -6,6 +6,7 @@ import {
   Modal,
   Alert,
   TouchableWithoutFeedback,
+  ScrollView,
 } from 'react-native'
 import { moderateScale } from '../../config/scale'
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react'
@@ -55,7 +56,7 @@ const ListContainer = () => {
 
   // console.log(queue)
   return (
-    <View className="flex-1 flex-wrap ">
+    <ScrollView className="flex-1 flex-wrap ">
       {Array.isArray(queue) ? (
         queue.map((queue, index) => {
           return (
@@ -148,7 +149,7 @@ const ListContainer = () => {
       ) : (
         <Text>ยังไม่มีคิวในขณะนี้</Text>
       )}
-    </View>
+    </ScrollView>
   )
 }
 
