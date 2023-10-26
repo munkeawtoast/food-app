@@ -62,6 +62,9 @@ export type CustomerStackParamList = InheritParentPathing<
   'customer',
   {
     in_progress: undefined
+    info: {
+      id: number
+    }
     bottom: NavigatorScreenParams<CustomerBottomTabParamList>
     shop: NavigatorScreenParams<CustomerShopStackParamList>
     scan: undefined

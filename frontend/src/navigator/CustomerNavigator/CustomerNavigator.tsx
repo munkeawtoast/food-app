@@ -1,22 +1,18 @@
 import CustomerBottomNavigator from './CustomerBottomNavigator'
 import QrScanScreen from '../../screens/customer/QrScanScreen'
-import InProgressScreen from '../../screens/customer/InProgressScreen'
+import FoodInfoScreen from '../../screens/customer/FoodInfoScreen'
+
 import { createStackNavigator } from '@react-navigation/stack'
-import {
-  animationFromBottom,
-  defaultScreenOptions,
-  lightTheme,
-} from '../../config/theme'
-import HistoryScreen from '../../screens/customer/HistoryScreen'
-import { CustomerStackParamList, RootNavigationProps } from '../types'
+import { animationFromBottom, defaultScreenOptions } from '../../config/theme'
+import ListingScreen from '../../screens/customer/ListingScreen'
+import { CustomerStackParamList } from '../types'
 import ShopNavigator from './ShopNavigator'
+import useCustomerOrderStore from '../../stores/customer/customerOrdersStore'
 
 const Stack = createStackNavigator<CustomerStackParamList>()
 
-const CustomerNavigator = ({
-  route,
-  navigation,
-}: RootNavigationProps<'customer'>) => {
+const CustomerNavigator = () => {
+  const { orders } = useCustomerOrderStore()
   return (
     <Stack.Navigator
       screenOptions={{
@@ -30,7 +26,21 @@ const CustomerNavigator = ({
         component={CustomerBottomNavigator}
       />
       {/* !  */}
-      <Stack.Screen name="customer-in_progress" component={HistoryScreen} />
+      <Stack.Screen
+        name="customer-info"
+        options={({ route }) => ({
+          title: orders.find((order) => order.id === route.params.id)?.food_data
+            .food_name,
+        })}
+        component={FoodInfoScreen}
+      />
+      <Stack.Screen
+        name="customer-in_progress"
+        options={{
+          title: 'รายการที่กำลังทำ',
+        }}
+        component={ListingScreen}
+      />
       {/* <Stack.Screen name="customer-in_progress" component={InProgressScreen} /> */}
 
       <Stack.Screen

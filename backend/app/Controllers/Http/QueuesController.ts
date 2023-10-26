@@ -7,8 +7,16 @@ import OrderQueue from 'App/Models/OrderQueue'
 
 export default class QueuesController {
   public async customerGetQueue({ request, response, auth }: HttpContextContract) {
-    const allQueue = await OrderQueue.all()
-    return allQueue.map((queue) => queue.serialize())
+    if (request.input('self')) {
+      const customer = await Customer.findByOrFail('user_id', auth.user.id)
+      const allQueue = await OrderQueue.query()
+        .where('shop_id', request.input('shopId'))
+        .where('customer_id', customer.id)
+      return allQueue.map((queue) => queue.serialize())
+    } else {
+      const allQueue = await OrderQueue.query().where('shop_id', request.input('shopId'))
+      return allQueue.map((queue) => queue.serialize())
+    }
   }
 
   public async merchantGetQueue({ request, response, auth }: HttpContextContract) {

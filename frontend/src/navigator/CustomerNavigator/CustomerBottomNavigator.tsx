@@ -32,10 +32,7 @@ const getIcon = (Icon: FC<PhosphorIconProps> | null) => {
       />
     ) : undefined
 }
-const CustomerBottomNavigator = ({
-  navigation,
-  route,
-}: CustomerStackProps<'customer-bottom'>) => {
+const CustomerBottomNavigator = () => {
   return (
     <CustomerTab.Navigator
       screenOptions={{

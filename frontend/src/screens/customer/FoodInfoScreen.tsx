@@ -2,6 +2,14 @@ import { View, Text, Image } from 'react-native'
 import { moderateScale } from '../../config/scale'
 import useOrdersStore from '../../stores/ordersStore'
 import ContentSeparator from '../../components/ui/ContentSeparator'
+import useCustomerOrderStore from '../../stores/customer/customerOrdersStore'
+import { FC, useEffect, useState } from 'react'
+import getApiUrl from '../../utils/getApiUrl'
+import {
+  CustomerStackParamList,
+  CustomerStackProps,
+} from '../../navigator/types'
+import { StatusBar } from 'expo-status-bar'
 
 const FloatingTime = () => {
   return (
@@ -57,23 +65,42 @@ const TwoCol = (props: { label: string; value: string; isTitle?: boolean }) => {
   )
 }
 
-const InProgressScreen = () => {
-  const { orders } = useOrdersStore()
-  const order = orders[0]
-  const { item, count, customer_id, timestamp, id } = order
+const FoodInfoScreen: FC<CustomerStackProps<'customer-info'>> = ({ route }) => {
+  const { myOrders: orders, fetch } = useCustomerOrderStore()
+  const order = orders.find((or) => route.params.id === or.id)!
+  const [sumPrices, setSumPrices] = useState(0)
+  useEffect(() => {
+    let basePrice = order.food_data.price
+    if (!order.food_data.choices) {
+      return setSumPrices(basePrice)
+    }
+    basePrice += order.food_data.choices.reduce(
+      (acc, cur) => acc + (cur.price ? cur.price : 0),
+      0
+    )
+    setSumPrices(basePrice)
+  }, [])
+  useEffect(() => {
+    const intervalId = setInterval(async () => {
+      await fetch()
+    }, 4000)
+    fetch()
+    return () => clearInterval(intervalId)
+  }, [])
   return (
     <View className="flex-1 h-full">
+      <StatusBar style="light" />
       <FloatingTime />
       <Image
         className="resize-center w-full h-20"
         source={{
-          uri: item['image-url'],
+          uri: getApiUrl() + '/uploads/menu/' + order.food_data.id + '.jpg',
         }}
       />
       <View className="my-2">
         <TwoCol
           label="วันเวลาที่สั่ง"
-          value={new Date(order.timestamp).toLocaleDateString('th-TH', {
+          value={new Date(order.created_at).toLocaleDateString('th-TH', {
             weekday: 'narrow',
             hour: '2-digit',
             minute: '2-digit',
@@ -83,32 +110,33 @@ const InProgressScreen = () => {
           })}
         />
         <View className="h-2" />
-        <TwoCol isTitle label="ราคาสุทธิ" value={300 + ' บาท'} />
+        <TwoCol isTitle label="ราคาสุทธิ" value={sumPrices + ' บาท'} />
       </View>
       <ContentSeparator label="ข้อมูลเพิ่มเติม" width="screen" />
-      <View key={order.timestamp + order.id} className="my-2 mx-2 flex-row">
+      <View key={order.created_at + order.id} className="my-2 mx-2 flex-row">
         <View className="pl-2">
           <Text
             className="font-prompt4"
             style={{ fontSize: moderateScale(20) }}
           >
-            {item.name}
+            {order.food_data.food_name}
           </Text>
-          {item.choices.map((choice) => (
-            <View key={choice.name}>
-              <Text
-                className="font-prompt3 text-gray-600"
-                style={{ fontSize: moderateScale(16) }}
-              >
-                {choice.name}: {choice.value as string}
-                {choice.value === true && 'ใช่'}
-                {choice.value === false && 'ไม่'}
-              </Text>
-            </View>
-          ))}
+          {order.food_data.choices &&
+            order.food_data.choices.map((choice) => (
+              <View key={choice.name}>
+                <Text
+                  className="font-prompt3 text-gray-600"
+                  style={{ fontSize: moderateScale(16) }}
+                >
+                  {choice.name}: {choice.value as string}
+                  {/* {choice.value === true && 'ใช่'}
+                {choice.value === false && 'ไม่'} */}
+                </Text>
+              </View>
+            ))}
         </View>
       </View>
     </View>
   )
 }
-export default InProgressScreen
+export default FoodInfoScreen

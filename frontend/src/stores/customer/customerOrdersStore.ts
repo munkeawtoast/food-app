@@ -1,9 +1,11 @@
 import { create } from 'zustand'
 import { Order } from '../../models/order'
 import getOrders from '../../api/customer/getOrders'
+import useSettingsPersistentStore from '../settingsPersistentStore'
 
 type State = {
   orders: Order[]
+  myOrders: Order[]
 }
 
 type Actions = {
@@ -13,9 +15,10 @@ type Actions = {
 
 const initialStates: State = {
   orders: [],
+  myOrders: [],
 }
 
-const useCurrentShopStore = create<Actions & State>()((set) => ({
+const useCustomerOrderStore = create<Actions & State>()((set) => ({
   ...initialStates,
   resetOrder: () => {
     set({
@@ -23,10 +26,18 @@ const useCurrentShopStore = create<Actions & State>()((set) => ({
     })
   },
   fetch: async () => {
-    const res = await getOrders()
+    const res = await getOrders(1)
     const orders = res.data
-    set({ orders })
+    const myOrders = orders.filter(
+      (or) =>
+        or.customer_id === useSettingsPersistentStore.getState()?.customer?.id
+    )
+    if (myOrders.length > 0) {
+      set({ orders, myOrders })
+    } else {
+      set({ orders })
+    }
   },
 }))
 
-export default useCurrentShopStore
+export default useCustomerOrderStore
