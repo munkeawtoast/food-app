@@ -63,6 +63,7 @@ export type CustomerStackParamList = InheritParentPathing<
   {
     listing: undefined
     info: {
+      for: 'queue' | 'history'
       id: number
     }
     bottom: NavigatorScreenParams<CustomerBottomTabParamList>

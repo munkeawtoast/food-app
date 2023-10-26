@@ -104,14 +104,16 @@ type TextInputProps = {
   onValueChange: (value: string) => void
   value?: string
   label: string
+  widthFull?: boolean
 }
 
 const TextInput: FC<TextInputProps> = ({
   onValueChange,
   value: value,
+  widthFull = false,
   label,
 }) => (
-  <>
+  <View style={{ flex: widthFull ? '1' : undefined }}>
     <Title title={label} />
     <TextField
       onChangeText={(value) => {
@@ -119,11 +121,14 @@ const TextInput: FC<TextInputProps> = ({
       }}
       value={value}
       placeholder={label}
-      fieldStyle={textInputStyles.fieldStyle}
+      fieldStyle={{
+        ...textInputStyles.fieldStyle,
+        width: widthFull ? '100%' : undefined,
+      }}
       labelStyle={textInputStyles.labelStyle}
       style={{ fontFamily: 'Prompt_400Regular' }}
     />
-  </>
+  </View>
 )
 
 type NumberInputProps = {

@@ -10,6 +10,8 @@ import {
   CustomerStackProps,
 } from '../../navigator/types'
 import { StatusBar } from 'expo-status-bar'
+import { AxiosError } from 'axios'
+import useHistoryListingStore from '../../stores/customer/historyStore'
 
 const FloatingTime = () => {
   return (
@@ -66,14 +68,17 @@ const TwoCol = (props: { label: string; value: string; isTitle?: boolean }) => {
 }
 
 const FoodInfoScreen: FC<CustomerStackProps<'customer-info'>> = ({ route }) => {
-  const { myOrders: orders, fetch } = useCustomerOrderStore()
-  const order = orders.find((or) => route.params.id === or.id)!
+  const { myOrders: orders, fetch: orderFetch } = useCustomerOrderStore()
+  const { fetch: historyFetch, histories } = useHistoryListingStore()
+  const target = route.params.for === 'history' ? histories : orders
+  const order = target.find((or) => route.params.id === or.id)!
   const [sumPrices, setSumPrices] = useState(0)
   useEffect(() => {
-    let basePrice = order.food_data.price
-    if (!order.food_data.choices) {
+    if (!order.food_data.choices || !order) {
+      const basePrice = order.food_data.price
       return setSumPrices(basePrice)
     }
+    let basePrice = order.food_data.price
     basePrice += order.food_data.choices.reduce(
       (acc, cur) => acc + (cur.price ? cur.price : 0),
       0
@@ -83,9 +88,16 @@ const FoodInfoScreen: FC<CustomerStackProps<'customer-info'>> = ({ route }) => {
   useEffect(() => {
     //error
     const intervalId = setInterval(async () => {
-      await fetch()
+      try {
+        await orderFetch()
+        await historyFetch()
+      } catch (e) {
+        const a = e as AxiosError
+        console.log(a.toJSON())
+      }
     }, 4000)
-    fetch()
+    orderFetch()
+    historyFetch()
     return () => clearInterval(intervalId)
   }, [])
   return (

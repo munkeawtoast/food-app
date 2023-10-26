@@ -14,11 +14,8 @@ export default class HistoriesController {
   }
   public async customerGetHistories({ request, response, auth }: HttpContextContract) {
     const customerId = auth.user?.id
-    const shopId = await request.input('shopId')
     try {
-      const histories = await History.query()
-        .where('shop_id', Number(shopId))
-        .where('customer_id', customerId)
+      const histories = await History.query().where('customer_id', customerId)
       return response.status(200).send(histories.map((history) => history.serialize()))
     } catch (e) {
       return response.status(400).send('fail')

@@ -25,47 +25,51 @@ const FloatingInProgress: FC<
 > = ({ navigation, route }) => {
   const { myOrders } = useCustomerOrderStore()
   return (
-    <View className="absolute bottom-0 w-full p-4">
-      <Pressable
-        onPress={() => {
-          navigation.navigate('customer-listing')
-        }}
-      >
-        <View className="bg-sky-100 h-16 items-center rounded-lg flex-row overflow-hidden shadow-black shadow-md">
-          <Image
-            source={require('../../../assets/home-background.png')}
-            style={{
-              width: horizontalScale(80),
-              height: '100%',
-              resizeMode: 'cover',
+    <>
+      {myOrders.length > 0 && (
+        <View className="absolute bottom-0 w-full p-4">
+          <Pressable
+            onPress={() => {
+              navigation.navigate('customer-listing')
             }}
-          />
-          <View className="bg-current flex-1 h-full justify-center px-2 py-1">
-            <Text
-              className="font-prompt5 text-gray-700"
-              style={{ fontSize: moderateScale(16) }}
-            >
-              กำลังทำ
-            </Text>
-          </View>
-          <View className="p-0.5 flex-row items-center gap-2">
-            <Text
-              style={{
-                color: colors.orange['500'],
-                fontSize: moderateScale(24),
-              }}
-              className="font-prompt7"
-            >
-              {myOrders.length}
-            </Text>
-            <Text className="font-prompt3">เมนู</Text>
-          </View>
-          <View className=" rounded-full p-4">
-            <CaretUp weight="bold" color={colors.gray['600']} />
-          </View>
+          >
+            <View className="bg-sky-100 h-16 items-center rounded-lg flex-row overflow-hidden shadow-black shadow-md">
+              <Image
+                source={require('../../../assets/home-background.png')}
+                style={{
+                  width: horizontalScale(80),
+                  height: '100%',
+                  resizeMode: 'cover',
+                }}
+              />
+              <View className="bg-current flex-1 h-full justify-center px-2 py-1">
+                <Text
+                  className="font-prompt5 text-gray-700"
+                  style={{ fontSize: moderateScale(16) }}
+                >
+                  กำลังทำ
+                </Text>
+              </View>
+              <View className="p-0.5 flex-row items-center gap-2">
+                <Text
+                  style={{
+                    color: colors.orange['500'],
+                    fontSize: moderateScale(24),
+                  }}
+                  className="font-prompt7"
+                >
+                  {myOrders.length}
+                </Text>
+                <Text className="font-prompt3">เมนู</Text>
+              </View>
+              <View className=" rounded-full p-4">
+                <CaretUp weight="bold" color={colors.gray['600']} />
+              </View>
+            </View>
+          </Pressable>
         </View>
-      </Pressable>
-    </View>
+      )}
+    </>
   )
 }
 

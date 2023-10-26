@@ -1,7 +1,5 @@
 import { View, Text, Image, Pressable } from 'react-native'
 import { moderateScale } from '../../config/scale'
-import useOrdersStore from '../../stores/ordersStore'
-import useCustomerOrderStore from '../../stores/customer/customerOrdersStore'
 import { FC, useEffect } from 'react'
 import getApiUrl from '../../utils/getApiUrl'
 import {
@@ -10,15 +8,23 @@ import {
 } from '../../navigator/types'
 import { ScrollView } from 'react-native-gesture-handler'
 import useHistoryListingStore from '../../stores/customer/historyStore'
+import { AxiosError } from 'axios'
+import useSettingsPersistentStore from '../../stores/settingsPersistentStore'
 
 const HistoryScreen: FC<CustomerBottomTabProps<'customer-bottom-history'>> = ({
   navigation,
 }) => {
   const { histories, fetch } = useHistoryListingStore()
+  const { token } = useSettingsPersistentStore()
 
   useEffect(() => {
     const intervalId = setInterval(async () => {
-      await fetch()
+      try {
+        await fetch()
+      } catch (e) {
+        const a = e as AxiosError
+        console.log(a.toJSON())
+      }
     }, 4000)
     fetch()
     return () => clearInterval(intervalId)
@@ -34,6 +40,7 @@ const HistoryScreen: FC<CustomerBottomTabProps<'customer-bottom-history'>> = ({
               onPress={() => {
                 navigation.navigate('customer-info', {
                   id: order.id,
+                  for: 'history',
                 })
               }}
             >

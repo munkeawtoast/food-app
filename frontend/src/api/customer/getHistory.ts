@@ -3,5 +3,5 @@ import { axios } from '../axios'
 import { GetOrdersResponse } from './types'
 
 export default async function (): Promise<AxiosResponse<GetOrdersResponse>> {
-  return axios.get('/customer/history')
+  return axios.get('/customer/histories')
 }
