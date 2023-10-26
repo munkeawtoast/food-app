@@ -114,7 +114,9 @@ const TextInput: FC<TextInputProps> = ({
   <>
     <Title title={label} />
     <TextField
-      onChangeText={onValueChange}
+      onChangeText={(value) => {
+        onValueChange(value)
+      }}
       value={value}
       placeholder={label}
       fieldStyle={textInputStyles.fieldStyle}

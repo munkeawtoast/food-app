@@ -155,26 +155,19 @@ const AccordionContent: FC<{ isAccordionOpen: boolean }> = ({
   isAccordionOpen,
 }) => (
   <View className="relative z-10 bg-slate-400">
-    {isAccordionOpen ?? (
+    <View className="bg-red-400 h-40 w-40" />
+    {true ?? (
       <View
-        style={
-          {
-            // zIndex: 100,
-            // right: 0,
-            // top: 0,
-            // width: '100%',
-            // position: 'absolute',
-            // marginLeft: -40,
-            // padding: 20,
-            // backgroundColor: '#E5E7EB',
-            // borderRadius: 20,
-          }
-        }
-      >
-        <View className="bg-red-400 h-40 w-40" />
-        <People />
-        <People />
-      </View>
+        style={{
+          right: 0,
+          top: 0,
+          width: '100%',
+          position: 'absolute',
+          marginLeft: -40,
+          padding: 20,
+          borderRadius: 20,
+        }}
+      ></View>
     )}
   </View>
 )
@@ -211,7 +204,7 @@ const QueueShown: FC<QueueShownProps> = ({
           </View>
         </View>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => setIsAccordionOpen(!isAccordionOpen)} // Toggle accordion state
         >
           <View className="p-2">
@@ -229,9 +222,10 @@ const QueueShown: FC<QueueShownProps> = ({
               />
             )}
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
-      <AccordionContent isAccordionOpen={isAccordionOpen} />
+
+      {/* <AccordionContent isAccordionOpen={isAccordionOpen} /> */}
     </View>
   )
 }
@@ -241,31 +235,6 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
   route,
 }) => {
   const { shop, resetShop, setShopWithShopId } = useCurrentShopStore()
-  function onUnmount() {
-    resetShop()
-  }
-  useEffect(() => {
-    setShopWithShopId(route.params.shopId)
-    return onUnmount
-  }, [])
-
-  useEffect(() => {
-    // Use `setOptions` to update the button that we previously specified
-    // Now the button includes an `onPress` handler to update the count
-    navigation.setOptions({
-      headerRight: () => (
-        <Pressable
-          onPress={async () => {
-            const res = await createOrder(order!)
-            navigation.navigate('customer-shop-payment', res.data)
-          }}
-          className="px-3"
-        >
-          <Text className="text-white font-prompt4 text-xl">จ่ายเงิน</Text>
-        </Pressable>
-      ),
-    })
-  }, [navigation])
 
   const [isAccordionOpen, setIsAccordionOpen] = useState(false)
   const [activeFoodId, setActiveFoodId] = useState<FoodWithOptions['id']>(-1)
@@ -283,6 +252,14 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
     setOrder(order)
   }, [activeFood, choices, message])
 
+  function onUnmount() {
+    resetShop()
+  }
+  useEffect(() => {
+    setShopWithShopId(route.params.shopId)
+    return onUnmount
+  }, [])
+
   useEffect(() => {
     if (!shop) {
       return
@@ -297,6 +274,28 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
     }
     setActiveFood(shop.food.find((food) => food.id === activeFoodId)!)
   }, [activeFoodId])
+
+  function orderRelayBecusUseEffectSucks() {
+    return order
+  }
+
+  useEffect(() => {
+    // Use `setOptions` to update the button that we previously specified
+    // Now the button includes an `onPress` handler to update the count
+    navigation.setOptions({
+      headerRight: () => (
+        <Pressable
+          onPress={async () => {
+            const res = await createOrder(orderRelayBecusUseEffectSucks()!)
+            navigation.navigate('customer-shop-payment', res.data)
+          }}
+          className="px-3"
+        >
+          <Text className="text-white font-prompt4 text-xl">จ่ายเงิน</Text>
+        </Pressable>
+      ),
+    })
+  }, [navigation])
 
   useEffect(() => {
     if (!activeFood) {
@@ -322,8 +321,8 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
     })
   }
   useEffect(() => {
-    console.log('choices ' + JSON.stringify(choices, null, 2))
-    console.log('options ' + JSON.stringify(activeFood?.options, null, 2))
+    // console.log('choices ' + JSON.stringify(choices, null, 2))
+    // console.log('options ' + JSON.stringify(activeFood?.options, null, 2))
   }, [choices])
   return (
     <>

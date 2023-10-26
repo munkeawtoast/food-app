@@ -24,10 +24,12 @@ export default class QueuesController {
     const customer = await Customer.findByOrFail('user_id', auth.user.id)
 
     const body = request.body()
+    const shopId = body.shop_id as number
+    console.log('body')
     console.log(body)
     const newQueue = await OrderQueue.create({
-      foodData: body.food_data,
-      shopId: body.shop_id as number,
+      foodData: body,
+      shopId,
       customerId: customer.id,
     })
     return response.status(201).send(newQueue.serialize())
