@@ -26,7 +26,7 @@ const customer: BypassLogin = {
 }
 
 const bypass: Bypass = {
-  // login: customer,
+  login: customer,
 }
 
 export default bypass

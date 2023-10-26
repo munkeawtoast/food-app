@@ -40,6 +40,7 @@ import { buttonStyles } from '../../components/ui/styles/buttonStyles'
 import { StatusBar } from 'expo-status-bar'
 import createOrder from '../../api/customer/createOrder'
 import { Order } from '../../models/order'
+import getOrders from '../../api/customer/getOrders'
 
 interface QueueShownProps {
   isAccordionOpen: boolean
@@ -85,13 +86,15 @@ const People: FC<{ queue: Order }> = ({ queue }) => {
         }}
       >
         <Text style={{ fontSize: 20 }}>คิวที่</Text>
-        <Text>เตี่ยววว</Text>
+        <Text>{queue.food_data.food_name}</Text>
       </View>
       <View
         style={{ flexDirection: 'column', marginLeft: width * 0.35, gap: 5 }}
       >
         <Clock size={35} color="black" />
-        <Text style={{ fontSize: 16 }}>2 นาที</Text>
+        <Text style={{ fontSize: 16 }}>
+          {queue.food_data.estimated_time} นาที
+        </Text>
       </View>
     </View>
   )
@@ -151,20 +154,45 @@ const HeaderDescription: FC<{
   </View>
 )
 
+function useTimedQueueGetter(): [Order[], () => void] {
+  const [queue, setQueue] = useState<Array<Order>>([])
+  async function caller() {
+    const res = await getOrders(1)
+    setQueue(res.data)
+    console.log(JSON.stringify(res.data, null, 2))
+  }
+  useEffect(() => {
+    const intervalId = setInterval(caller, 10000)
+    caller()
+    return () => clearInterval(intervalId)
+  }, [])
+  return [queue, caller]
+}
+
 const AccordionContent: FC<{ isAccordionOpen: boolean }> = ({
   isAccordionOpen,
-}) => (
-  <>
-    {isAccordionOpen ? (
-      <View className="relative z-10 items-center">
-        <View>
-          <People />
-          <People />
+}) => {
+  const [queue, caller] = useTimedQueueGetter()
+  const [filteredQ, setFilteredQ] = useState<Order[]>([])
+  useEffect(() => {
+    setFilteredQ(
+      queue.filter(
+        (q) => new Date(q.created_at) > new Date(Date.now() - 1000 * 60 * 60)
+      )
+    )
+  }, [queue])
+  return (
+    <>
+      {isAccordionOpen ? (
+        <View className="relative z-10 items-center">
+          {queue.map((or) => {
+            return <People queue={or} key={or.id} />
+          })}
         </View>
-      </View>
-    ) : null}
-  </>
-)
+      ) : null}
+    </>
+  )
+}
 
 const QueueShown: FC<QueueShownProps> = ({
   isAccordionOpen,

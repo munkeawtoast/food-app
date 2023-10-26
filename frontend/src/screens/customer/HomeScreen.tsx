@@ -90,9 +90,11 @@ const Top: FC = () => {
           height,
         }}
       >
-        <Text className="font-prompt7 text-4xl pt-20 absolute bottom-4 left-4">
-          สวัสดี ${user!.username} !
-        </Text>
+        {user && (
+          <Text className="font-prompt7 text-4xl pt-20 absolute bottom-4 left-4">
+            สวัสดี {user.username} !
+          </Text>
+        )}
       </LinearGradient>
     </>
   )
