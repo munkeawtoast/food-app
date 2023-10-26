@@ -8,4 +8,4 @@ export const mockSlow: MockSlow = {
   shop: false,
 }
 
-export const noSession = true
+export const noSession = false

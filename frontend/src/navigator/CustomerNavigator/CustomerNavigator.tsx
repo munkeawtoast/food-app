@@ -35,13 +35,12 @@ const CustomerNavigator = () => {
         component={FoodInfoScreen}
       />
       <Stack.Screen
-        name="customer-in_progress"
+        name="customer-listing"
         options={{
           title: 'รายการที่กำลังทำ',
         }}
         component={ListingScreen}
       />
-      {/* <Stack.Screen name="customer-in_progress" component={InProgressScreen} /> */}
 
       <Stack.Screen
         name="customer-scan"

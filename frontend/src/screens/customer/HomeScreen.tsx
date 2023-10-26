@@ -26,7 +26,7 @@ const FloatingInProgress: FC<
     <View className="absolute bottom-0 w-full p-4">
       <Pressable
         onPress={() => {
-          navigation.navigate('customer-in_progress')
+          navigation.navigate('customer-listing')
         }}
       >
         <View className="bg-sky-100 h-16 items-center rounded-lg flex-row overflow-hidden shadow-black shadow-md">

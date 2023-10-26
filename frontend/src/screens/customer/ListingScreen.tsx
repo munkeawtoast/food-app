@@ -10,7 +10,7 @@ import {
 } from '../../navigator/types'
 import { ScrollView } from 'react-native-gesture-handler'
 
-const ListingScreen: FC<CustomerStackProps<'customer-in_progress'>> = ({
+const ListingScreen: FC<CustomerStackProps<'customer-listing'>> = ({
   navigation,
 }) => {
   const { myOrders: orders, fetch } = useCustomerOrderStore()

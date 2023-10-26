@@ -1,8 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React, { FC } from 'react'
+import React, { FC, Fragment } from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
 import useSettingsPersistentStore from '../../stores/settingsPersistentStore'
-import { Switch } from 'react-native-ui-lib'
+import { Button, Switch } from 'react-native-ui-lib'
+import colors from 'tailwindcss/colors'
+import { buttonStyles } from '../../components/ui/styles/buttonStyles'
+import { CustomerBottomTabProps } from '../../navigator/types'
 
 type BooleanSettingProps = {
   onValueChange: (newVal: boolean) => void
@@ -23,9 +26,12 @@ const BooleanSettings: FC<BooleanSettingProps> = ({
   )
 }
 
-export default function SettingsScreen() {
-  const { notificationEnabled, setNotification } = useSettingsPersistentStore()
-  const settings: BooleanSettingProps[] = [
+const SettingsScreen: FC<
+  CustomerBottomTabProps<'customer-bottom-settings'>
+> = ({ navigation, route }) => {
+  const { notificationEnabled, setNotification, reset } =
+    useSettingsPersistentStore()
+  const customerSettings: BooleanSettingProps[] = [
     {
       label: 'การแจ้งเตือน',
       defaultValue: notificationEnabled,
@@ -36,19 +42,42 @@ export default function SettingsScreen() {
   ]
   return (
     <ScrollView>
-      {settings.map(({ defaultValue, onValueChange, label }, index) => (
-        <>
-          <BooleanSettings
-            label={label}
-            key={label}
-            onValueChange={onValueChange}
-            defaultValue={defaultValue}
-          />
-          {!(index === settings.length - 1) ?? (
-            <View key={label + 'separator'} className="h-0.5 bg-gray-200" />
-          )}
-        </>
-      ))}
+      {route.params?.for === 'customer' &&
+        customerSettings.map(
+          ({ defaultValue, onValueChange, label }, index) => (
+            <Fragment key={label}>
+              <BooleanSettings
+                label={label}
+                onValueChange={onValueChange}
+                defaultValue={defaultValue}
+              />
+              {!(index === customerSettings.length - 1) ?? (
+                <View className="h-0.5 bg-gray-200" />
+              )}
+            </Fragment>
+          )
+        )}
+      <View className="px-4 pt-4">
+        <Button
+          label="ออกจากระบบ"
+          style={{
+            paddingVertical: 16,
+          }}
+          labelStyle={{
+            ...buttonStyles.labelStyle,
+          }}
+          onPress={() => {
+            console.log('logout')
+            reset()
+            navigation.navigate('auth', {
+              screen: 'auth-landing',
+            })
+          }}
+          backgroundColor={colors.red['500']}
+        />
+      </View>
     </ScrollView>
   )
 }
+
+export default SettingsScreen
