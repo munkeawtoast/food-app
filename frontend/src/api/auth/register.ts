@@ -9,5 +9,5 @@ import {
 export default async function (
   data: RegisterRequest
 ): Promise<AxiosResponse<RegisterMerchantResponse | RegisterCustomerResponse>> {
-  return axios.post('/auth/register', data)
+  return axios.post('/auth/customer/register', data)
 }

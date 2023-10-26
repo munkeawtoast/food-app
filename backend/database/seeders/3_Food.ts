@@ -60,19 +60,15 @@ export default class extends BaseSeeder {
               options: [
                 {
                   name: 'ไม่เผ็ด',
-                  price: 0,
                 },
                 {
                   name: 'เผ็ดน้อย',
-                  price: 0,
                 },
                 {
                   name: 'เผ็ด',
-                  price: 0,
                 },
                 {
                   name: 'เผ็ดมาก',
-                  price: 0,
                 },
               ],
               required: true,
@@ -98,10 +94,10 @@ export default class extends BaseSeeder {
               isSingle: true,
               required: true,
               options: [
-                { name: 'ไม่เผ็ด', price: 0 },
-                { name: 'เผ็ดน้อย', price: 0 },
-                { name: 'เผ็ดกลาง', price: 0 },
-                { name: 'เผ็ดมาก', price: 0 },
+                { name: 'ไม่เผ็ด' },
+                { name: 'เผ็ดน้อย' },
+                { name: 'เผ็ดกลาง' },
+                { name: 'เผ็ดมาก' },
               ],
             },
             {

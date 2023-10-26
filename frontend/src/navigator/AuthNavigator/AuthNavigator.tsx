@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import LandingScreen from '../../screens/auth/LandingScreen'
 import { AuthStackParamList, RootNavigationProps } from '../types'
 import AuthScreen from '../../screens/auth/AuthScreen'
+import RegisterScreen from '../../screens/auth/RegisterScreen'
 
 const Stack = createStackNavigator<AuthStackParamList>()
 
@@ -25,6 +26,14 @@ const AuthNavigator = ({ navigation, route }: RootNavigationProps<'auth'>) => {
           }`,
         })}
         component={AuthScreen}
+      />
+      <Stack.Screen
+        name="auth-register"
+        options={{
+          headerShown: true,
+          title: 'สมัครสมาชิก',
+        }}
+        component={RegisterScreen}
       />
     </Stack.Navigator>
   )

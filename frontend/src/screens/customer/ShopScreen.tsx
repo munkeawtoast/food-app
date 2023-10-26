@@ -276,6 +276,7 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
   }, [activeFoodId])
 
   function orderRelayBecusUseEffectSucks() {
+    console.log('sending', order)
     return order
   }
 
@@ -359,6 +360,9 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
                 .find((food) => food.id === activeFoodId)!
                 .options.options.find((op) => op.name === choice.name)
               if (!options) {
+                return
+              }
+              if (!options.options) {
                 return
               }
               if (options.options.length > 1 && options.isSingle) {

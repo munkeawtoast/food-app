@@ -12,9 +12,8 @@ const FoodsDetail: FC<{ route: { params: FoodWithOptions } }> = ({
   navigation,
 }) => {
   const foodDetail = route.params
-  const options = foodDetail.options.option
+  const options = foodDetail.options.options
   const { removeById } = useFoodStore()
-  // console.log(options)
   return (
     <View className="p-4 w-full flex-1">
       <Text className="font-bold text-3xl pt-4">{foodDetail.food_name}</Text>
@@ -29,19 +28,20 @@ const FoodsDetail: FC<{ route: { params: FoodWithOptions } }> = ({
       <Text>ตัวเลือก</Text>
       {options.map((option) => {
         return (
-          <View key={option.optionTitle}>
-            <Text>{option.optionTitle}</Text>
+          <View key={option.name}>
+            <Text>{option.name}</Text>
             <Text>
-              {option.isMultiple == true
+              {option.isSingle == true
                 ? 'เสือกได้หลายอย่าง'
                 : 'เลือกได้อย่างเดียว'}{' '}
-              {option.mustSelected == true ?? 'ต้องเลือก'}
+              {option.required == true ?? 'ต้องเลือก'}
             </Text>
             <View className="flex-row px-4 flex-wrap">
-              {option.optionData.map((optiondata) => {
+              {option.options.map((optiondata) => {
                 return (
                   <Text key={optiondata.name}>
-                    +{optiondata.name} {optiondata.price} บาท{' '}
+                    +{optiondata.name}{' '}
+                    {optiondata.price ? optiondata.price + ' บาท ' : ''}
                   </Text>
                 )
               })}

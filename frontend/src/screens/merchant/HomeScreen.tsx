@@ -27,7 +27,7 @@ const HomeScreen = () => {
         }}
       >
         <Text className="font-prompt7 text-4xl pt-20 absolute bottom-4 left-4">
-          สวัสดี ${user!.username} !
+          สวัสดี {user!.username}!
         </Text>
       </LinearGradient>
     </Fragment>

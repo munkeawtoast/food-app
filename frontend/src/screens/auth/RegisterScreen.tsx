@@ -15,60 +15,14 @@ import customerLogin from '../../api/auth/customerLogin'
 import useSettingsPersistentStore from '../../stores/settingsPersistentStore'
 import { buttonStyles } from '../../components/ui/styles/buttonStyles'
 import bypass from '../../dev/bypass'
+import register from '../../api/auth/register'
 
-function getLoginHandler(type: 'merchant' | 'customer') {
-  switch (type) {
-    case 'merchant':
-      return merchantLogin
-    case 'customer':
-      return customerLogin
-  }
-}
-
-const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
-  // console.log(route.params.as === 'customer')
-  const { setUserWithResponseData, reset } = useSettingsPersistentStore()
+const RegisterScreen = ({ navigation, route }) => {
   const passwordRef = useRef() as MutableRefObject<TextInput | null>
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [confirmPassword, setConfirmPassword] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
-
-  function bypassLogin() {
-    if (!bypass.login) {
-      return
-    }
-    const { cred } = bypass.login
-    setUsername(cred.username)
-    setPassword(cred.password)
-    doLogin(cred)
-  }
-  useEffect(() => {
-    bypassLogin()
-  }, [])
-  async function doLogin({
-    username,
-    password,
-  }: {
-    username?: string
-    password?: string
-  }) {
-    reset()
-    if (!username || !password) {
-      setErrorMessage('กรุณากรอกข้อมูลให้ครบถ้วน')
-      return
-    }
-    try {
-      const loginFunc = getLoginHandler(route.params.as)
-      const res = await loginFunc({ username, password })
-      setUserWithResponseData(res.data)
-      navigation.replace(route.params.as)
-    } catch (er) {
-      console.log(er)
-      console.log('bad login')
-      setErrorMessage('ไอดีหรือพาสเวิร์ดไม่ถูกต้อง')
-    }
-  }
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View className="flex-1 items-center">
@@ -103,7 +57,6 @@ const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
             black
           />
           <TextField
-            ref={(input) => (passwordRef.current = input)}
             maxLength={32}
             placeholder="รหัสผ่าน"
             secureTextEntry
@@ -120,33 +73,43 @@ const AuthScreen = ({ navigation, route }: AuthStackProps<'auth-auth'>) => {
             onSubmitEditing={Keyboard.dismiss}
             value={password}
           />
+          <TextField
+            maxLength={32}
+            placeholder="ยืนยันรหัสผ่าน"
+            secureTextEntry
+            style={{ fontSize: 18 }}
+            floatingPlaceholder
+            floatOnFocus
+            fieldStyle={style.fieldStyle}
+            floatingPlaceholderStyle={style.floaterStyle}
+            floatingPlaceholderColor={{
+              default: colors.gray['400'],
+              focus: colors.sky['500'],
+            }}
+            onChangeText={setConfirmPassword}
+            onSubmitEditing={Keyboard.dismiss}
+            value={confirmPassword}
+          />
           <Text className="text-red-600">{errorMessage}</Text>
           <Button
-            label="เข้าสู่ระบบ"
+            label="สมัครสมาชิก"
             style={buttonStyles.style}
             labelStyle={buttonStyles.labelStyle}
             backgroundColor={colors.sky[600]}
-            onPress={() => doLogin({ password, username })}
+            onPress={async () => {
+              if (password !== confirmPassword) {
+                await setErrorMessage('Password ไม่ตรงกัน')
+              } else {
+                await register({ username: username, password: password })
+                navigation.navigate('auth-landing')
+              }
+            }}
           />
-          {route.params.as === 'customer' ? (
-            <View className="flex-row my-2">
-              <Text>ยังไม่มีบัญชีใช่ใหม</Text>
-              <Pressable
-                className="mx-1"
-                onPress={() => navigation.navigate('auth-register')}
-              >
-                <Text className="text-yellow-500">สมัครสมาชิก</Text>
-              </Pressable>
-            </View>
-          ) : (
-            ''
-          )}
         </View>
       </View>
     </TouchableWithoutFeedback>
   )
 }
-
 const style = StyleSheet.create({
   floaterStyle: {
     fontSize: 16,
@@ -158,4 +121,4 @@ const style = StyleSheet.create({
   },
 })
 
-export default AuthScreen
+export default RegisterScreen
