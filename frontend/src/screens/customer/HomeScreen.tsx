@@ -14,6 +14,7 @@ import { CustomerBottomTabProps } from '../../navigator/types'
 import { NavigationProp } from '@react-navigation/native'
 import useSettingsPersistentStore from '../../stores/settingsPersistentStore'
 import { buttonStyles } from '../../components/ui/styles/buttonStyles'
+import useCustomerOrderStore from '../../stores/customer/customerOrdersStore'
 
 const height = verticalScale(225)
 
@@ -22,6 +23,7 @@ const Padding: FC = () => <View style={{ height }} />
 const FloatingInProgress: FC<
   CustomerBottomTabProps<'customer-bottom-home'>
 > = ({ navigation, route }) => {
+  const { myOrders } = useCustomerOrderStore()
   return (
     <View className="absolute bottom-0 w-full p-4">
       <Pressable
@@ -43,7 +45,7 @@ const FloatingInProgress: FC<
               className="font-prompt5 text-gray-700"
               style={{ fontSize: moderateScale(16) }}
             >
-              จะทำเสร็จใน
+              กำลังทำ
             </Text>
           </View>
           <View className="p-0.5 flex-row items-center gap-2">
@@ -54,9 +56,9 @@ const FloatingInProgress: FC<
               }}
               className="font-prompt7"
             >
-              1
+              {myOrders.length}
             </Text>
-            <Text className="font-prompt3">นาที</Text>
+            <Text className="font-prompt3">เมนู</Text>
           </View>
           <View className=" rounded-full p-4">
             <CaretUp weight="bold" color={colors.gray['600']} />

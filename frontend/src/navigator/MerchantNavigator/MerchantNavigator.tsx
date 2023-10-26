@@ -4,7 +4,7 @@ import QueueList from '../../screens/merchant/QueueList'
 import colors from 'tailwindcss/colors'
 import MerchantLogin from '../../screens/merchant/MerchantLogin'
 import MerchantFoodNavigator from './MerchantFoodNavigator'
-import SettingsScreen from '../../screens/customer/SettingsScreen'
+import SettingsScreen from '../../screens/shared/SettingsScreen'
 
 const BottomBar = createBottomTabNavigator()
 

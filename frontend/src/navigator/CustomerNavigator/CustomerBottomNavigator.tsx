@@ -16,7 +16,7 @@ import {
   CustomerStackParamList,
   CustomerStackProps,
 } from '../types'
-import SettingsScreen from '../../screens/customer/SettingsScreen'
+import SettingsScreen from '../../screens/shared/SettingsScreen'
 import { defaultScreenOptions } from '../../config/theme'
 import HistoryScreen from '../../screens/customer/HistoryScreen'
 
