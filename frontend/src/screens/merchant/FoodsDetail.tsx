@@ -29,12 +29,12 @@ const FoodsDetail: FC<{ route: { params: FoodWithOptions } }> = ({
       {options.map((option) => {
         return (
           <View key={option.name}>
-            <Text>{option.name}</Text>
+            <Text className="font-bold">{option.name}</Text>
             <Text>
               {option.isSingle == true
                 ? 'เสือกได้หลายอย่าง'
                 : 'เลือกได้อย่างเดียว'}{' '}
-              {option.required == true ?? 'ต้องเลือก'}
+              {option.required == true ? 'ต้องเลือก' : ''}
             </Text>
             <View className="flex-row px-4 flex-wrap">
               {option.options.map((optiondata) => {
@@ -52,7 +52,7 @@ const FoodsDetail: FC<{ route: { params: FoodWithOptions } }> = ({
       <Text>สร้างเมื่อ: {foodDetail.created_at.slice(0, 10)}</Text>
       <Text>แก้ไขเมื่อ: {foodDetail.updated_at.slice(0, 10)}</Text>
       <View className="flex-row gap-4 justify-center">
-        <Button label="แก้ไข" backgroundColor={colors.yellow[500]} />
+        {/* <Button label="แก้ไข" backgroundColor={colors.yellow[500]} /> */}
         <Button
           label="ลบ"
           backgroundColor={colors.red[500]}

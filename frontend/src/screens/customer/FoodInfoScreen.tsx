@@ -81,6 +81,7 @@ const FoodInfoScreen: FC<CustomerStackProps<'customer-info'>> = ({ route }) => {
     setSumPrices(basePrice)
   }, [])
   useEffect(() => {
+    //error
     const intervalId = setInterval(async () => {
       await fetch()
     }, 4000)

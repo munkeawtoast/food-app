@@ -1,7 +1,7 @@
 import { View, Text, TextInput, Pressable, Button } from 'react-native'
 import React, { useState } from 'react'
 // import { TextField } from 'react-native-ui-lib'
-import createFood from '../../api/merchant/createFood'
+
 const FoodOptions = () => {
   const [optionName, setOptionName] = useState<string>()
   const [isSingle, setIsSingle] = useState<boolean>(false)
@@ -42,7 +42,7 @@ const FoodOptionsChild = () => {
   const [optionChild, setOptionChild] = useState<string>()
   const [price, setPrice] = useState<number>()
   return (
-    <View className="flex-row items-center my-2">
+    <View className="flex-row items-center">
       <Text>ตัวเลือกที่x:</Text>
       <TextInput
         className="border w-3/6 mr-2"

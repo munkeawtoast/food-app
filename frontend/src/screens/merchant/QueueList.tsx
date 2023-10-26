@@ -84,13 +84,11 @@ const ListContainer = () => {
                       <Text className="font-bold text-2xl">
                         {queue.food_data.food_name}
                       </Text>
-                      <Text>
-                        {JSON.stringify(queue.food_data.options.options)}
-                        {/* {queue.food_data.options.map((option) => {
-                        return <Text>{option}</Text>
-                      })} */}
-                      </Text>
-                      <Text>แห้ง</Text>
+
+                      {/* {JSON.stringify(queue.food_data.choices)} */}
+                      {queue.food_data.choices.map((choice) => {
+                        return <Text>- {choice.value}</Text>
+                      })}
                     </View>
                   </TouchableWithoutFeedback>
                 </Pressable>
