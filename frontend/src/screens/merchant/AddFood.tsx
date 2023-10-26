@@ -1,7 +1,8 @@
-import { View, Text, TextInput, Pressable, Button } from 'react-native'
+import { View, Text, Pressable, Button, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
-// import { TextField } from 'react-native-ui-lib'
 import createFood from '../../api/merchant/createFood'
+import colors from 'tailwindcss/colors'
+import { TextInput } from '../../components/Shop/Inputs'
 const FoodOptions = () => {
   const [optionName, setOptionName] = useState<string>()
   const [isSingle, setIsSingle] = useState<boolean>(false)
@@ -13,6 +14,7 @@ const FoodOptions = () => {
         <TextInput
           className="border w-4/12 mr-2"
           value={optionName}
+          widthFull
           onChangeText={setOptionName}
         />
         <View className="flex-row w-2/6 gap-2 ">
@@ -44,14 +46,12 @@ const FoodOptionsChild = () => {
   return (
     <View className="flex-row items-center my-2">
       <Text>ตัวเลือกที่x:</Text>
-      <TextInput
-        className="border w-3/6 mr-2"
-        value={optionChild}
-        onChangeText={setOptionChild}
-      />
+      <TextInput value={optionChild} widthFull onChangeText={setOptionChild} />
       <Text>ราคา:</Text>
       <TextInput
         className="border w-1/6 mr-2"
+        widthFull={true}
+        widthFull
         value={price}
         onChangeText={setPrice}
         keyboardType="numeric"
@@ -69,17 +69,14 @@ const AddFood = () => {
       <Text className="font-bold text-3xl py-2 flex-wrap">เพิ่มเมนู</Text>
       <View className="flex-row gap-2 items-center flex-wrap">
         <Text>ชื่อเมนู:</Text>
-        <TextInput
-          className="border w-3/6"
-          value={foodName}
-          onChangeText={setFoodName}
-        />
+        <TextInput widthFull={true} widthFull />
       </View>
       <View className="flex-row gap-2 items-center">
         <Text>ราคา:</Text>
         <TextInput
           className="border w-1/6"
           value={price}
+          widthFull
           onChangeText={setPrice}
           keyboardType="numeric"
         />
@@ -89,6 +86,7 @@ const AddFood = () => {
         <Text>เวลาที่คาดว่าจะเสร็จ:</Text>
         <TextInput
           className="border w-1/6"
+          widthFull
           value={estimatedTime}
           onChangeText={setestimatedTime}
           keyboardType="numeric"
@@ -114,3 +112,14 @@ const AddFood = () => {
 }
 
 export default AddFood
+
+const style = StyleSheet.create({
+  floaterStyle: {
+    fontSize: 16,
+  },
+  fieldStyle: {
+    backgroundColor: colors.white,
+    borderRadius: 10,
+    padding: 16,
+  },
+})

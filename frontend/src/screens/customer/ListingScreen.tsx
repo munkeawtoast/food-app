@@ -9,6 +9,7 @@ import {
   CustomerStackProps,
 } from '../../navigator/types'
 import { ScrollView } from 'react-native-gesture-handler'
+import { AxiosError } from 'axios'
 
 const ListingScreen: FC<CustomerStackProps<'customer-listing'>> = ({
   navigation,
@@ -17,7 +18,13 @@ const ListingScreen: FC<CustomerStackProps<'customer-listing'>> = ({
 
   useEffect(() => {
     const intervalId = setInterval(async () => {
-      await fetch()
+      try {
+        await fetch()
+        // broke here
+      } catch (e) {
+        const a = e as AxiosError
+        console.log(a.toJSON())
+      }
     }, 4000)
     fetch()
     return () => clearInterval(intervalId)

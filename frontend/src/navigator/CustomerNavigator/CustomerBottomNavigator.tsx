@@ -53,6 +53,7 @@ const CustomerBottomNavigator = () => {
       <CustomerTab.Screen
         name="customer-bottom-history"
         options={{
+          headerShown: true,
           title: 'ประวัติการซื้อ',
           tabBarIcon: getIcon(Fish),
         }}
