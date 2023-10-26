@@ -9,7 +9,7 @@ const ContentSeparator = ({
 }) => {
   return (
     <View
-      className={`min-h-2.5  bg-gray-100 shadow-inner ${
+      className={`min-h-2.5  bg-gray-100 px-2 shadow-inner ${
         width === 'full' ? 'w-full' : 'w-screen'
       }`}
     >

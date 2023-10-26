@@ -19,11 +19,9 @@ const height = verticalScale(225)
 
 const Padding: FC = () => <View style={{ height }} />
 
-const FloatingInProgress = ({
-  navigation,
-}: {
-  navigation: NavigationProp<any>
-}) => {
+const FloatingInProgress: FC<
+  CustomerBottomTabProps<'customer-bottom-home'>
+> = ({ navigation, route }) => {
   return (
     <View className="absolute bottom-0 w-full p-4">
       <Pressable
@@ -125,7 +123,7 @@ const HomeScreen = ({
           </View>
         </View>
       </ScrollView>
-      <FloatingInProgress navigation={navigation} />
+      <FloatingInProgress navigation={navigation} route={route} />
     </>
   )
 }
