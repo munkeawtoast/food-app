@@ -71,7 +71,7 @@ const Split: FC = () => {
   )
 }
 
-const People: FC = () => {
+const People: FC<{ queue: Order }> = ({ queue }) => {
   return (
     <View style={{ flexDirection: 'row', marginTop: height * 0.02 }}>
       <View style={{ flexDirection: 'column', padding: 10, borderWidth: 3 }}>
@@ -154,22 +154,16 @@ const HeaderDescription: FC<{
 const AccordionContent: FC<{ isAccordionOpen: boolean }> = ({
   isAccordionOpen,
 }) => (
-  <View className="relative z-10 bg-slate-400">
-    <View className="bg-red-400 h-40 w-40" />
-    {true ?? (
-      <View
-        style={{
-          right: 0,
-          top: 0,
-          width: '100%',
-          position: 'absolute',
-          marginLeft: -40,
-          padding: 20,
-          borderRadius: 20,
-        }}
-      ></View>
-    )}
-  </View>
+  <>
+    {isAccordionOpen ? (
+      <View className="relative z-10 items-center">
+        <View>
+          <People />
+          <People />
+        </View>
+      </View>
+    ) : null}
+  </>
 )
 
 const QueueShown: FC<QueueShownProps> = ({
@@ -204,7 +198,7 @@ const QueueShown: FC<QueueShownProps> = ({
           </View>
         </View>
 
-        {/* <TouchableOpacity
+        <TouchableOpacity
           onPress={() => setIsAccordionOpen(!isAccordionOpen)} // Toggle accordion state
         >
           <View className="p-2">
@@ -222,10 +216,10 @@ const QueueShown: FC<QueueShownProps> = ({
               />
             )}
           </View>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
 
-      {/* <AccordionContent isAccordionOpen={isAccordionOpen} /> */}
+      <AccordionContent isAccordionOpen={isAccordionOpen} />
     </View>
   )
 }
@@ -241,16 +235,7 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
   const [activeFood, setActiveFood] = useState<FoodWithOptions | null>(null)
   const [choices, setChoices] = useState<Choice[]>([])
   const [message, setMessage] = useState('')
-  const [order, setOrder] = useState<Order['food_data'] | null>(null)
-
-  useEffect(() => {
-    const order: Order['food_data'] = {
-      ...activeFood!,
-      choices,
-      comment: message,
-    }
-    setOrder(order)
-  }, [activeFood, choices, message])
+  const [order, setOrder] = useState<Order['food_data'] | undefined>()
 
   function onUnmount() {
     resetShop()
@@ -276,6 +261,7 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
   }, [activeFoodId])
 
   function orderRelayBecusUseEffectSucks() {
+    console.log('sending', order)
     return order
   }
 
@@ -301,12 +287,12 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
     if (!activeFood) {
       return
     }
-    const choices: Choice[] = activeFood.options.options.map((option) => ({
+    const newChoices: Choice[] = activeFood.options.options.map((option) => ({
       name: option.name,
       value: undefined,
       price: undefined,
     }))
-    setChoices(choices)
+    setChoices(newChoices)
   }, [activeFood])
 
   function handleChoice(choice: Choice) {
@@ -320,6 +306,16 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
       return newChoices
     })
   }
+
+  useEffect(() => {
+    const newOrder: Order['food_data'] = {
+      ...activeFood!,
+      choices,
+      comment: message,
+    }
+    console.log('setting new order to be ', newOrder)
+    setOrder(newOrder)
+  }, [activeFood, choices, message, shop])
   useEffect(() => {
     // console.log('choices ' + JSON.stringify(choices, null, 2))
     // console.log('options ' + JSON.stringify(activeFood?.options, null, 2))
