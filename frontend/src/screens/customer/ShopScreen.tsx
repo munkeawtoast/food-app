@@ -38,9 +38,8 @@ import {
 } from 'react-native-ui-lib'
 import { buttonStyles } from '../../components/ui/styles/buttonStyles'
 import { StatusBar } from 'expo-status-bar'
-import createOrder from '../../api/customer/createOrder'
 import { Order } from '../../models/order'
-import getOrders from '../../api/customer/getOrders'
+import { createOrder, getOrders } from '../../api/customer'
 
 interface QueueShownProps {
   isAccordionOpen: boolean
@@ -49,20 +48,20 @@ interface QueueShownProps {
 
 const { width, height } = Dimensions.get('window')
 
-const Title: FC<{ title: string }> = ({ title }) => (
-  <Text
-    style={{
-      flexGrow: 1,
-      fontSize: moderateScale(22),
-      color: '#C2410C',
-      marginLeft: '2%',
-      marginTop: '2%',
-      fontFamily: 'Prompt_400Regular',
-    }}
-  >
-    {title}
-  </Text>
-)
+// const Title: FC<{ title: string }> = ({ title }) => (
+//   <Text
+//     style={{
+//       flexGrow: 1,
+//       fontSize: moderateScale(22),
+//       color: '#C2410C',
+//       marginLeft: '2%',
+//       marginTop: '2%',
+//       fontFamily: 'Prompt_400Regular',
+//     }}
+//   >
+//     {title}
+//   </Text>
+// )
 
 const Split: FC = () => {
   return (

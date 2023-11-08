@@ -15,7 +15,7 @@ import customerLogin from '../../api/auth/customerLogin'
 import useSettingsPersistentStore from '../../stores/settingsPersistentStore'
 import { buttonStyles } from '../../components/ui/styles/buttonStyles'
 import bypass from '../../dev/bypass'
-import register from '../../api/auth/register'
+import { customerRegister } from '../../api/auth'
 
 const RegisterScreen = ({ navigation, route }) => {
   const passwordRef = useRef() as MutableRefObject<TextInput | null>
@@ -100,7 +100,10 @@ const RegisterScreen = ({ navigation, route }) => {
               if (password !== confirmPassword) {
                 await setErrorMessage('Password ไม่ตรงกัน')
               } else {
-                await register({ username: username, password: password })
+                await customerRegister({
+                  username: username,
+                  password: password,
+                })
                 navigation.navigate('auth-landing')
               }
             }}

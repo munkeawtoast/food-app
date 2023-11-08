@@ -1,8 +1,7 @@
 import { create } from 'zustand'
 import { Order } from '../../models/order'
-import getOrders from '../../api/customer/getOrders'
 import useSettingsPersistentStore from '../settingsPersistentStore'
-import getHistory from '../../api/customer/getHistory'
+import { getHistories } from '../../api/customer'
 
 type State = {
   histories: Order[]
@@ -26,7 +25,7 @@ const useHistoryListingStore = create<Actions & State>()((set) => ({
   },
 
   fetch: async () => {
-    const res = await getHistory()
+    const res = await getHistories()
     const histories = res.data
     set({ histories })
   },

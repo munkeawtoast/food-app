@@ -10,11 +10,10 @@ import {
 import { Button, Image, TextField, View } from 'react-native-ui-lib'
 import colors from 'tailwindcss/colors'
 import { AuthStackProps } from '../../navigator/types'
-import merchantLogin from '../../api/auth/merchantLogin'
-import customerLogin from '../../api/auth/customerLogin'
 import useSettingsPersistentStore from '../../stores/settingsPersistentStore'
 import { buttonStyles } from '../../components/ui/styles/buttonStyles'
 import bypass from '../../dev/bypass'
+import { customerLogin, merchantLogin } from '../../api/auth'
 
 function getLoginHandler(type: 'merchant' | 'customer') {
   switch (type) {

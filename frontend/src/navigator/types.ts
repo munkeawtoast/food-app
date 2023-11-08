@@ -42,7 +42,6 @@ type InheritParentPathing<
 export type RootStackParamList = {
   auth: NavigatorScreenParams<AuthStackParamList>
   customer: NavigatorScreenParams<CustomerStackParamList>
-
   merchant: undefined
 }
 
@@ -54,6 +53,7 @@ export type AuthStackParamList = InheritParentPathing<
     auth: {
       as: 'customer' | 'merchant'
     }
+    register: undefined
   }
 >
 

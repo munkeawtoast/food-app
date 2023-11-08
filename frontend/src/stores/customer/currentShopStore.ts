@@ -1,12 +1,7 @@
 import { create } from 'zustand'
-import { Order } from '../models/order'
-import getShop from '../../api/customer/getShop'
 import { Shop } from '../../models/shop'
-import { RefreshControlComponent } from 'react-native'
 import { mockSlow } from '../../dev/dev'
-
-type Success = true
-type Failed = false
+import { getShop } from '../../api/customer'
 
 type State = {
   shop?: Shop

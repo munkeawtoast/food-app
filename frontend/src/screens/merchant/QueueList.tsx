@@ -9,17 +9,16 @@ import {
   ScrollView,
 } from 'react-native'
 import { moderateScale } from '../../config/scale'
-import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Checkbox } from 'react-native-ui-lib'
-import getOrders from '../../api/merchant/getOrders'
 import { Order } from '../../models/order'
 import getApiUrl from '../../utils/getApiUrl'
-import declareOrderDone from '../../api/merchant/declareOrderDone'
+import { declareOrderDone, getMerchantSelfOrders } from '../../api/merchant'
 
 function useTimedQueueGetter(): [Order[], () => void] {
   const [queue, setQueue] = useState<Array<Order>>([])
   async function caller() {
-    const res = await getOrders({ shopId: 1 })
+    const res = await getMerchantSelfOrders({ shopId: 1 })
     setQueue(res.data)
     console.log(JSON.stringify(queue, null, 2))
   }
@@ -33,18 +32,8 @@ function useTimedQueueGetter(): [Order[], () => void] {
 
 const ListContainer = () => {
   const [modalVisible, setModalVisible] = useState(false)
-
   const [queue, getQueueue] = useTimedQueueGetter()
   const [qModalHidden, setQModalHidden] = useState<Array<number>>([])
-
-  // useEffect(() => {
-  //   setQModalHidden(queue.map(() => false))
-  // }, [queue])
-
-  useEffect(() => {
-    // console.log(qModalHidden)
-  }, [qModalHidden])
-  // let [queueNum, setQueueNum] = useState(1)
 
   function flipModalHiddenOfId(id: number) {
     if (qModalHidden.includes(id)) {
@@ -52,6 +41,11 @@ const ListContainer = () => {
     } else {
       setQModalHidden([...qModalHidden, id])
     }
+  }
+
+  async function handleClickQueueDone() {
+    await declareOrderDone({ id: queue.id })
+    getQueueue()
   }
 
   // console.log(queue)
@@ -86,9 +80,9 @@ const ListContainer = () => {
                       </Text>
 
                       {/* {JSON.stringify(queue.food_data.choices)} */}
-                      {queue.food_data.choices.map((choice) => {
-                        return <Text>- {choice.value}</Text>
-                      })}
+                      {queue.food_data.choices.map((choice) => (
+                        <Text key={choice.value}>- {choice.value}</Text>
+                      ))}
                     </View>
                   </TouchableWithoutFeedback>
                 </Pressable>
@@ -130,11 +124,7 @@ const ListContainer = () => {
                   {queue.food_data.price} บาท
                 </Text>
                 <Pressable
-                  onPress={async () => {
-                    // console.log(queue.id)
-                    await declareOrderDone({ id: queue.id })
-                    getQueueue()
-                  }}
+                  onPress={handleClickQueueDone(queue, getQueueue)}
                   className="bg-green-500 w-8 h-8 rounded-md justify-center items-center ml-2"
                 >
                   <Text className="text-white">&#10003;</Text>

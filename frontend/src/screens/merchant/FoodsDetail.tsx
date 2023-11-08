@@ -4,7 +4,6 @@ import React, { FC } from 'react'
 import { FoodWithOptions } from '../../models/food'
 import colors from 'tailwindcss/colors'
 import useFoodStore from '../../stores/foodStore'
-import deleteFood from '../../api/merchant/deleteFood'
 import getApiUrl from '../../utils/getApiUrl'
 
 const FoodsDetail: FC<{ route: { params: FoodWithOptions } }> = ({

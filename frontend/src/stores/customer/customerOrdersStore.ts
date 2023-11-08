@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { Order } from '../../models/order'
-import getOrders from '../../api/customer/getOrders'
 import useSettingsPersistentStore from '../settingsPersistentStore'
+import { getOrders } from '../../api/customer'
 
 type State = {
   orders: Order[]

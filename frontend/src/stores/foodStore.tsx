@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { FoodWithOptions } from '../models/food'
-import getFood from '../api/merchant/getFood'
+import { getFood } from '../api/merchant'
 
 type State = {
   foods: FoodWithOptions[]
