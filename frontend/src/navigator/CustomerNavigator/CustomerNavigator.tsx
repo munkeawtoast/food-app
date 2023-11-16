@@ -4,7 +4,7 @@ import FoodInfoScreen from '../../screens/customer/FoodInfoScreen'
 
 import { createStackNavigator } from '@react-navigation/stack'
 import { animationFromBottom, defaultScreenOptions } from '../../config/theme'
-import ListingScreen from '../../screens/customer/ListingScreen'
+import InProgressListingScreen from '../../screens/customer/ListingScreen'
 import { CustomerStackParamList } from '../types'
 import ShopNavigator from './ShopNavigator'
 import useCustomerOrderStore from '../../stores/customer/customerOrdersStore'
@@ -39,7 +39,7 @@ const CustomerNavigator = () => {
         options={{
           title: 'รายการที่กำลังทำ',
         }}
-        component={ListingScreen}
+        component={InProgressListingScreen}
       />
 
       <Stack.Screen

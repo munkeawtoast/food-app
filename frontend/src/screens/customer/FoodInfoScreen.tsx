@@ -9,13 +9,17 @@ import { StatusBar } from 'expo-status-bar'
 import { AxiosError } from 'axios'
 import useHistoryListingStore from '../../stores/customer/historyStore'
 
-const FloatingTime = () => {
+type FloatingTimeProps = {
+  time: number
+}
+
+const FloatingTime: FC<FloatingTimeProps> = ({ time }) => {
   return (
     <View className="m-1 absolute top-0 left-0 z-10 p-1 bg-white rounded-md h-16 w-20">
       <Text className="font-prompt3 text-xs">เสร็จใน</Text>
       <View className="flex-row items-end gap-1.5 -translate-y-3">
         <Text className="text-4xl text-orange-500 font-prompt6 translate-y-3 pt-2">
-          10
+          {time}
         </Text>
         <Text className="font-prompt4 text-sky-700">นาที</Text>
       </View>
@@ -98,7 +102,9 @@ const FoodInfoScreen: FC<CustomerStackProps<'customer-info'>> = ({ route }) => {
   return (
     <View className="flex-1 h-full">
       <StatusBar style="light" />
-      {route.params.for !== 'history' && <FloatingTime />}
+      {route.params.for !== 'history' && (
+        <FloatingTime time={order.food_data.estimated_time} />
+      )}
       <Image
         className="resize-center w-full h-20"
         source={{
@@ -144,7 +150,6 @@ const FoodInfoScreen: FC<CustomerStackProps<'customer-info'>> = ({ route }) => {
             ))}
         </View>
       </View>
-      <Text>for: {route.params.for}</Text>
     </View>
   )
 }

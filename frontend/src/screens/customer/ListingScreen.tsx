@@ -6,7 +6,7 @@ import getApiUrl from '../../utils/getApiUrl'
 import { CustomerStackProps } from '../../navigator/types'
 import { ScrollView } from 'react-native-gesture-handler'
 
-const ListingScreen: FC<CustomerStackProps<'customer-listing'>> = ({
+const InProgressListingScreen: FC<CustomerStackProps<'customer-listing'>> = ({
   navigation,
 }) => {
   const { myOrders: orders, fetch } = useCustomerOrderStore()
@@ -62,8 +62,6 @@ const ListingScreen: FC<CustomerStackProps<'customer-listing'>> = ({
                         style={{ fontSize: moderateScale(16) }}
                       >
                         {choice.name}: {choice.value as string}
-                        {/* {choice.value === true && 'ใช่'}
-                    {choice.value === false && 'ไม่'} */}
                       </Text>
                     </View>
                   ))}
@@ -75,4 +73,4 @@ const ListingScreen: FC<CustomerStackProps<'customer-listing'>> = ({
     </ScrollView>
   )
 }
-export default ListingScreen
+export default InProgressListingScreen

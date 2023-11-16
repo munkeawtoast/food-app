@@ -32,7 +32,7 @@ const FloatingInProgress: FC<
   }, [])
   return (
     <>
-      {true && (
+      {myOrders.length > 0 && (
         <View className="absolute bottom-0 w-full p-4">
           <Pressable
             onPress={() => {

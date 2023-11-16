@@ -16,7 +16,7 @@ const LandingScreen = ({
   navigation,
   route,
 }: AuthStackProps<'auth-landing'>) => {
-  const { customer, merchant, user, token } = useSettingsPersistentStore()
+  const { customer, merchant } = useSettingsPersistentStore()
   function bypassLogin() {
     if (!bypass.login) {
       return

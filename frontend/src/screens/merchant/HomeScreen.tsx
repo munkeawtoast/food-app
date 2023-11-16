@@ -2,16 +2,12 @@ import { View, Text, Image, ScrollView, Pressable } from 'react-native'
 import useSettingsPersistentStore from '../../stores/settingsPersistentStore'
 import { LinearGradient } from 'expo-linear-gradient'
 import { moderateScale, verticalScale } from '../../config/scale'
-import { FC, Fragment, useEffect } from 'react'
-import getApiUrl from '../../utils/getApiUrl'
+import { Fragment, useEffect } from 'react'
 import useHistoryListingStore from '../../stores/merchant/historyStore'
 import { AxiosError } from 'axios'
-import { CustomerBottomTabProps } from '../../navigator/types'
-const HistoryScreen: FC<CustomerBottomTabProps<'customer-bottom-history'>> = ({
-  navigation,
-}) => {
+
+const Histories = () => {
   const { histories, fetch } = useHistoryListingStore()
-  const { token } = useSettingsPersistentStore()
 
   useEffect(() => {
     const intervalId = setInterval(async () => {
@@ -27,10 +23,14 @@ const HistoryScreen: FC<CustomerBottomTabProps<'customer-bottom-history'>> = ({
   }, [])
   return (
     <ScrollView>
-      {histories.map((history) => {
+      {histories.map((history, index) => {
         return (
           <Pressable key={history.id}>
-            <View className="flex-col border-t-2">
+            <View
+              className={`flex-col py-1 px-2 ${
+                index && 'border-t border-gray-300'
+              }`}
+            >
               <Text
                 className="font-prompt4"
                 style={{ fontSize: moderateScale(16) }}
@@ -59,7 +59,7 @@ const HistoryScreen: FC<CustomerBottomTabProps<'customer-bottom-history'>> = ({
   )
 }
 const HomeScreen = () => {
-  const { merchant, user } = useSettingsPersistentStore()
+  const { user } = useSettingsPersistentStore()
   const height = verticalScale(225)
   return (
     <Fragment>
@@ -86,8 +86,8 @@ const HomeScreen = () => {
           </Text>
         </LinearGradient>
       </View>
-      <Text className="text-xl">ประวัติการขายในวันนี้</Text>
-      <HistoryScreen />
+      <Text className="text-xl font-prompt5">ประวัติการขายในวันนี้</Text>
+      <Histories />
     </Fragment>
   )
 }

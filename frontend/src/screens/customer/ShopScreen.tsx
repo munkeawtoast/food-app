@@ -343,10 +343,6 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
   useEffect(() => {
     console.log(order)
   }, [order])
-  useEffect(() => {
-    // console.log('choices ' + JSON.stringify(choices, null, 2))
-    // console.log('options ' + JSON.stringify(activeFood?.options, null, 2))
-  }, [choices])
   return (
     <>
       <StatusBar style="light" />
