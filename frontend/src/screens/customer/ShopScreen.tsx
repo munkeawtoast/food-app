@@ -262,7 +262,7 @@ const ShopScreen: FC<CustomerShopStackProps<'customer-shop-home'>> = ({
   const [activeFood, setActiveFood] = useState<FoodWithOptions | null>(null)
   const [choices, setChoices] = useState<Choice[]>([])
   const [message, setMessage] = useState('')
-  const [order, setOrder] = useState<Order['food_data'] | undefined>({})
+  const [order, setOrder] = useState<Order['food_data'] | undefined>()
 
   function onUnmount() {
     resetShop()

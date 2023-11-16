@@ -16,7 +16,7 @@ const HistoryScreen: FC<CustomerBottomTabProps<'customer-bottom-history'>> = ({
     const intervalId = setInterval(async () => {
       console.log('fetching history')
       await fetch()
-    }, 1000)
+    }, 3000)
     fetch()
     return () => clearInterval(intervalId)
   }, [])

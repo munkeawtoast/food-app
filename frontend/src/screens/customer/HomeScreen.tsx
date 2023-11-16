@@ -1,4 +1,4 @@
-import { useEffect, type FC, useState } from 'react'
+import { useEffect, type FC } from 'react'
 import { Image, Pressable, ScrollView, Text, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { StatusBar } from 'expo-status-bar'
@@ -11,7 +11,6 @@ import {
 import { Button } from 'react-native-ui-lib'
 import { CaretUp, QrCode } from 'phosphor-react-native'
 import { CustomerBottomTabProps } from '../../navigator/types'
-import { NavigationProp } from '@react-navigation/native'
 import useSettingsPersistentStore from '../../stores/settingsPersistentStore'
 import { buttonStyles } from '../../components/ui/styles/buttonStyles'
 import useCustomerOrderStore from '../../stores/customer/customerOrdersStore'
@@ -26,9 +25,8 @@ const FloatingInProgress: FC<
   const { myOrders, fetch } = useCustomerOrderStore()
   useEffect(() => {
     const intervalId = setInterval(async () => {
-      console.log('asdifodsajio')
       await fetch()
-    }, 1000)
+    }, 3000)
     fetch()
     return () => clearInterval(intervalId)
   }, [])

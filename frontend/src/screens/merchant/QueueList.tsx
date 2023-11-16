@@ -21,7 +21,7 @@ function useTimedQueueGetter(): [Order[], () => void] {
     setQueue(res.data)
   }
   useEffect(() => {
-    const intervalId = setInterval(caller, 10000)
+    const intervalId = setInterval(caller, 3000)
     caller()
     return () => clearInterval(intervalId)
   }, [])

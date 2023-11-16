@@ -90,7 +90,7 @@ const FoodInfoScreen: FC<CustomerStackProps<'customer-info'>> = ({ route }) => {
         const a = e as AxiosError
         console.log(a.toJSON())
       }
-    }, 1000)
+    }, 3000)
     orderFetch()
     historyFetch()
     return () => clearInterval(intervalId)
@@ -98,7 +98,7 @@ const FoodInfoScreen: FC<CustomerStackProps<'customer-info'>> = ({ route }) => {
   return (
     <View className="flex-1 h-full">
       <StatusBar style="light" />
-      <FloatingTime />
+      {route.params.for !== 'history' && <FloatingTime />}
       <Image
         className="resize-center w-full h-20"
         source={{
@@ -144,6 +144,7 @@ const FoodInfoScreen: FC<CustomerStackProps<'customer-info'>> = ({ route }) => {
             ))}
         </View>
       </View>
+      <Text>for: {route.params.for}</Text>
     </View>
   )
 }
