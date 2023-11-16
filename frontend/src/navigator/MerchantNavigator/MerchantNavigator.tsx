@@ -52,7 +52,11 @@ const MerchantNavigator = () => {
       <BottomBar.Screen
         name="merchant-food"
         component={MerchantFoodNavigator}
-        options={{ title: 'เมนู', tabBarIcon: getIcon(ListDashes) }}
+        options={{
+          headerShown: false,
+          title: 'เมนู',
+          tabBarIcon: getIcon(ListDashes),
+        }}
       />
       <BottomBar.Screen
         name="merchant-queue_screen"

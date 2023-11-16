@@ -59,8 +59,16 @@ const AppNavigator: FC = () => {
         initialRouteName="auth"
       >
         <RootStack.Screen name="auth" component={AuthNavigator} />
-        <RootStack.Screen name="customer" component={CustomerNavigator} />
-        <RootStack.Screen name="merchant" component={MerchantNavigator} />
+        <RootStack.Screen
+          name="customer"
+          options={{ animationEnabled: false }}
+          component={CustomerNavigator}
+        />
+        <RootStack.Screen
+          name="merchant"
+          options={{ animationEnabled: false }}
+          component={MerchantNavigator}
+        />
       </RootStack.Navigator>
     </NavigationContainer>
   )
