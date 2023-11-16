@@ -12,10 +12,7 @@ import bypass from '../../dev/bypass'
 import useSettingsPersistentStore from '../../stores/settingsPersistentStore'
 import { noSession } from '../../dev/dev'
 
-const LandingScreen = ({
-  navigation,
-  route,
-}: AuthStackProps<'auth-landing'>) => {
+const LandingScreen = ({ navigation }: AuthStackProps<'auth-landing'>) => {
   const { customer, merchant } = useSettingsPersistentStore()
   function bypassLogin() {
     if (!bypass.login) {

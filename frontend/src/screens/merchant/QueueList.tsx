@@ -14,7 +14,7 @@ import { Order } from '../../models/order'
 import getApiUrl from '../../utils/getApiUrl'
 import { declareOrderDone, getMerchantSelfOrders } from '../../api/merchant'
 
-function useTimedQueueGetter(): [Order[], () => void] {
+export function useTimedQueueGetter(): [Order[], () => void] {
   const [queue, setQueue] = useState<Array<Order>>([])
   async function caller() {
     const res = await getMerchantSelfOrders({ shopId: 1 })
@@ -81,7 +81,7 @@ const ListContainer = () => {
 
                       {/* {JSON.stringify(queue.food_data.choices)} */}
                       {queue.food_data.choices.map((choice) => (
-                        <Text key={choice.value}>- {choice.value}</Text>
+                        <Text key={choice.name}>- {choice.value}</Text>
                       ))}
                     </View>
                   </TouchableWithoutFeedback>

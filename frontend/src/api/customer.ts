@@ -24,7 +24,7 @@ export async function getOrders(
   shopId: number
 ): Promise<AxiosResponse<GetOrdersResponse>> {
   return axiosInstance.get('/customer/orders', {
-    params: { shopId },
+    params: { shopId, self: true },
   })
 }
 

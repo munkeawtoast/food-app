@@ -1,6 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import HomeScreen from '../../screens/merchant/HomeScreen'
-import QueueList from '../../screens/merchant/QueueList'
+import QueueList, {
+  useTimedQueueGetter,
+} from '../../screens/merchant/QueueList'
 import colors from 'tailwindcss/colors'
 import MerchantLogin from '../../screens/merchant/MerchantLogin'
 import MerchantFoodNavigator from './MerchantFoodNavigator'
@@ -31,6 +33,7 @@ const getIcon = (Icon: FC<PhosphorIconProps> | null) => {
 }
 
 const MerchantNavigator = () => {
+  const [queue, caller] = useTimedQueueGetter()
   return (
     <BottomBar.Navigator
       screenOptions={{
@@ -44,7 +47,7 @@ const MerchantNavigator = () => {
       <BottomBar.Screen
         name="merchant-home"
         component={HomeScreen}
-        options={{ title: 'Home', tabBarIcon: getIcon(House) }}
+        options={{ title: 'หน้าหลัก', tabBarIcon: getIcon(House) }}
       />
       <BottomBar.Screen
         name="merchant-food"
@@ -54,7 +57,15 @@ const MerchantNavigator = () => {
       <BottomBar.Screen
         name="merchant-queue_screen"
         component={QueueList}
-        options={{ title: 'ดูคิว', tabBarIcon: getIcon(ListChecks) }}
+        options={{
+          title: 'ดูคิว',
+          tabBarBadge: queue.length || undefined,
+          tabBarBadgeStyle: {
+            backgroundColor: colors.orange['500'],
+            color: colors.white,
+          },
+          tabBarIcon: getIcon(ListChecks),
+        }}
       />
       <BottomBar.Screen
         name="merchant-settings"

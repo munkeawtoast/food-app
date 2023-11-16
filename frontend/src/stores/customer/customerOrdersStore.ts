@@ -32,11 +32,7 @@ const useCustomerOrderStore = create<Actions & State>()((set) => ({
       (or) =>
         or.customer_id === useSettingsPersistentStore.getState()?.customer?.id
     )
-    if (myOrders.length > 0) {
-      set({ orders, myOrders })
-    } else {
-      set({ orders })
-    }
+    set({ orders, myOrders })
   },
 }))
 

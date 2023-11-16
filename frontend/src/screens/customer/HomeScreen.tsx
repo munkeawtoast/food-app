@@ -26,12 +26,14 @@ const FloatingInProgress: FC<
   useEffect(() => {
     const intervalId = setInterval(async () => {
       await fetch()
+      console.log(myOrders)
     }, 3000)
     fetch()
     return () => clearInterval(intervalId)
-  }, [])
+  }, [myOrders])
   return (
     <>
+      <Text>{myOrders.length}</Text>
       {myOrders.length > 0 && (
         <View className="absolute bottom-0 w-full p-4">
           <Pressable
@@ -80,7 +82,10 @@ const FloatingInProgress: FC<
 }
 
 const Top: FC = () => {
-  const { user } = useSettingsPersistentStore()
+  const { user, token } = useSettingsPersistentStore()
+  useEffect(() => {
+    console.log(token)
+  }, [token])
   return (
     <>
       <Image
