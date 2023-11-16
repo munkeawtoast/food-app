@@ -3,10 +3,11 @@ import History from 'App/Models/History'
 
 export default class HistoriesController {
   public async merchantGetHistories({ request, response, auth }: HttpContextContract) {
-    const shopId = await request.input('shopId')
+    const from = await request.input('from')
+    const to = await request.input('to')
     try {
       // const histories = History.findMany('shop_id', Number(shopId))
-      const histories = await History.query().where('shop_id', Number(shopId))
+      const histories = await History.query().whereBetween('created_at', [from, to])
       return response.status(200).send(histories.map((history) => history.serialize()))
     } catch (e) {
       return response.status(400).send('fail')

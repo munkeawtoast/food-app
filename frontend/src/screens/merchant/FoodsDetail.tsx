@@ -58,7 +58,7 @@ const FoodsDetail: FC<{ route: { params: FoodWithOptions } }> = ({
           onPress={() => {
             Alert.alert(
               'ลบเมนู',
-              'คุณแม่ใจที่ละลบเมนูนี้หรือไม่', // <- this part is optional, you can pass an empty string
+              'คุณแน่ใจที่ละลบเมนูนี้หรือไม่', // <- this part is optional, you can pass an empty string
               [
                 {
                   text: 'ยกเลิก',

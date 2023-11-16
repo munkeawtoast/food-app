@@ -88,3 +88,18 @@ export async function updateFoodImage(
 ): Promise<AxiosResponse<UpdateFoodImageResponse>> {
   return axiosInstance.put('/merchant/foodImage', data)
 }
+
+export type GetHistoriesRequest = {
+  from: string
+  to: string
+}
+
+export type GetHistoriesResponse = {
+  histories: History
+}
+
+export async function getMerchantHistories(
+  data: GetHistoriesRequest
+): Promise<AxiosResponse<GetHistoriesResponse>> {
+  return axiosInstance.get('/merchant/histories', { params: data })
+}
