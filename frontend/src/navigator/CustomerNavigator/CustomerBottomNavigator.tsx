@@ -1,21 +1,13 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import {
-  Horse,
   Fish,
   IconProps as PhosphorIconProps,
   House,
-  QrCode,
   Gear,
 } from 'phosphor-react-native'
 import { type FC } from 'react'
-import DontKnowYet from './DontKnowNavigator'
 import HomeScreen from '../../screens/customer/HomeScreen'
-import ShopNavigator from './ShopNavigator'
-import {
-  CustomerBottomTabParamList,
-  CustomerStackParamList,
-  CustomerStackProps,
-} from '../types'
+import { CustomerBottomTabParamList } from '../types'
 import SettingsScreen from '../../screens/shared/SettingsScreen'
 import { defaultScreenOptions } from '../../config/theme'
 import HistoryScreen from '../../screens/customer/HistoryScreen'

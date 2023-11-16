@@ -1,5 +1,4 @@
 import bareAxios from 'axios'
-import { Platform } from 'react-native'
 import useSettingsPersistentStore from '../stores/settingsPersistentStore'
 import getApiUrl from '../utils/getApiUrl'
 
@@ -9,7 +8,7 @@ const axiosInstance = bareAxios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const { token, user } = useSettingsPersistentStore.getState()
+    const { token } = useSettingsPersistentStore.getState()
     if (!token) {
       return config
     }

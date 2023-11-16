@@ -2,30 +2,21 @@ import { View, Text, Image, Pressable } from 'react-native'
 import { moderateScale } from '../../config/scale'
 import { FC, useEffect } from 'react'
 import getApiUrl from '../../utils/getApiUrl'
-import {
-  CustomerBottomTabProps,
-  CustomerStackProps,
-} from '../../navigator/types'
+import { CustomerBottomTabProps } from '../../navigator/types'
 import { ScrollView } from 'react-native-gesture-handler'
 import useHistoryListingStore from '../../stores/customer/historyStore'
-import { AxiosError } from 'axios'
-import useSettingsPersistentStore from '../../stores/settingsPersistentStore'
 
 const HistoryScreen: FC<CustomerBottomTabProps<'customer-bottom-history'>> = ({
   navigation,
 }) => {
   const { histories, fetch } = useHistoryListingStore()
-  const { token } = useSettingsPersistentStore()
 
   useEffect(() => {
+    console.log('jfoiadsjfiods')
     const intervalId = setInterval(async () => {
-      try {
-        await fetch()
-      } catch (e) {
-        const a = e as AxiosError
-        console.log(a.toJSON())
-      }
-    }, 4000)
+      console.log('fetching history')
+      await fetch()
+    }, 1000)
     fetch()
     return () => clearInterval(intervalId)
   }, [])

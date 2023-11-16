@@ -1,15 +1,10 @@
 import { View, Text, Image, Pressable } from 'react-native'
 import { moderateScale } from '../../config/scale'
-import useOrdersStore from '../../stores/ordersStore'
 import useCustomerOrderStore from '../../stores/customer/customerOrdersStore'
 import { FC, useEffect } from 'react'
 import getApiUrl from '../../utils/getApiUrl'
-import {
-  CustomerStackParamList,
-  CustomerStackProps,
-} from '../../navigator/types'
+import { CustomerStackProps } from '../../navigator/types'
 import { ScrollView } from 'react-native-gesture-handler'
-import { AxiosError } from 'axios'
 
 const ListingScreen: FC<CustomerStackProps<'customer-listing'>> = ({
   navigation,
@@ -18,14 +13,9 @@ const ListingScreen: FC<CustomerStackProps<'customer-listing'>> = ({
 
   useEffect(() => {
     const intervalId = setInterval(async () => {
-      try {
-        await fetch()
-        // broke here
-      } catch (e) {
-        const a = e as AxiosError
-        console.log(a.toJSON())
-      }
-    }, 4000)
+      console.log('fetching')
+      await fetch()
+    }, 3000)
     fetch()
     return () => clearInterval(intervalId)
   }, [])
@@ -39,6 +29,7 @@ const ListingScreen: FC<CustomerStackProps<'customer-listing'>> = ({
             onPress={() => {
               navigation.navigate('customer-info', {
                 id: order.id,
+                for: 'queue',
               })
             }}
           >

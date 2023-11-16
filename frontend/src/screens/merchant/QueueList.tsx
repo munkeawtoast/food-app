@@ -10,7 +10,6 @@ import {
 } from 'react-native'
 import { moderateScale } from '../../config/scale'
 import { Fragment, useEffect, useState } from 'react'
-import { Checkbox } from 'react-native-ui-lib'
 import { Order } from '../../models/order'
 import getApiUrl from '../../utils/getApiUrl'
 import { declareOrderDone, getMerchantSelfOrders } from '../../api/merchant'
@@ -20,7 +19,6 @@ function useTimedQueueGetter(): [Order[], () => void] {
   async function caller() {
     const res = await getMerchantSelfOrders({ shopId: 1 })
     setQueue(res.data)
-    console.log(JSON.stringify(queue, null, 2))
   }
   useEffect(() => {
     const intervalId = setInterval(caller, 10000)
@@ -33,6 +31,7 @@ function useTimedQueueGetter(): [Order[], () => void] {
 const ListContainer = () => {
   const [modalVisible, setModalVisible] = useState(false)
   const [queue, getQueueue] = useTimedQueueGetter()
+
   const [qModalHidden, setQModalHidden] = useState<Array<number>>([])
 
   function flipModalHiddenOfId(id: number) {
@@ -43,8 +42,9 @@ const ListContainer = () => {
     }
   }
 
-  async function handleClickQueueDone() {
-    await declareOrderDone({ id: queue.id })
+  async function handleClickQueueDone(id: number) {
+    console.log(queue)
+    await declareOrderDone({ id })
     getQueueue()
   }
 
@@ -124,7 +124,7 @@ const ListContainer = () => {
                   {queue.food_data.price} บาท
                 </Text>
                 <Pressable
-                  onPress={handleClickQueueDone(queue, getQueueue)}
+                  onPress={() => handleClickQueueDone(queue.id)}
                   className="bg-green-500 w-8 h-8 rounded-md justify-center items-center ml-2"
                 >
                   <Text className="text-white">&#10003;</Text>

@@ -1,14 +1,10 @@
 import { View, Text, Image } from 'react-native'
 import { moderateScale } from '../../config/scale'
-import useOrdersStore from '../../stores/ordersStore'
 import ContentSeparator from '../../components/ui/ContentSeparator'
 import useCustomerOrderStore from '../../stores/customer/customerOrdersStore'
 import { FC, useEffect, useState } from 'react'
 import getApiUrl from '../../utils/getApiUrl'
-import {
-  CustomerStackParamList,
-  CustomerStackProps,
-} from '../../navigator/types'
+import { CustomerStackProps } from '../../navigator/types'
 import { StatusBar } from 'expo-status-bar'
 import { AxiosError } from 'axios'
 import useHistoryListingStore from '../../stores/customer/historyStore'
@@ -86,7 +82,6 @@ const FoodInfoScreen: FC<CustomerStackProps<'customer-info'>> = ({ route }) => {
     setSumPrices(basePrice)
   }, [])
   useEffect(() => {
-    //error
     const intervalId = setInterval(async () => {
       try {
         await orderFetch()
@@ -95,7 +90,7 @@ const FoodInfoScreen: FC<CustomerStackProps<'customer-info'>> = ({ route }) => {
         const a = e as AxiosError
         console.log(a.toJSON())
       }
-    }, 4000)
+    }, 1000)
     orderFetch()
     historyFetch()
     return () => clearInterval(intervalId)

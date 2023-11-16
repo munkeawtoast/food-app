@@ -1,4 +1,4 @@
-import type { FC } from 'react'
+import { useEffect, type FC, useState } from 'react'
 import { Image, Pressable, ScrollView, Text, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { StatusBar } from 'expo-status-bar'
@@ -23,7 +23,15 @@ const Padding: FC = () => <View style={{ height }} />
 const FloatingInProgress: FC<
   CustomerBottomTabProps<'customer-bottom-home'>
 > = ({ navigation, route }) => {
-  const { myOrders } = useCustomerOrderStore()
+  const { myOrders, fetch } = useCustomerOrderStore()
+  useEffect(() => {
+    const intervalId = setInterval(async () => {
+      console.log('asdifodsajio')
+      await fetch()
+    }, 1000)
+    fetch()
+    return () => clearInterval(intervalId)
+  }, [])
   return (
     <>
       {myOrders.length > 0 && (

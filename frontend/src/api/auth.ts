@@ -19,10 +19,8 @@ export type LoginCustomerResponse = {
   merchant: never
 }
 
-export async function customerLogin(
-  data: LoginRequest
-): Promise<AxiosResponse<LoginCustomerResponse>> {
-  return axiosInstance.post('/auth/customer/login', data)
+export async function customerLogin(data: LoginRequest) {
+  return axiosInstance.post<LoginCustomerResponse>('/auth/customer/login', data)
 }
 
 export type LoginMerchantResponse = {
@@ -31,10 +29,8 @@ export type LoginMerchantResponse = {
   customer: never
 }
 
-export async function merchantLogin(
-  data: LoginRequest
-): Promise<AxiosResponse<LoginMerchantResponse>> {
-  return axiosInstance.post('/auth/merchant/login', data)
+export async function merchantLogin(data: LoginRequest) {
+  return axiosInstance.post<LoginMerchantResponse>('/auth/merchant/login', data)
 }
 
 export async function refreshToken(): Promise<AxiosResponse<BearerToken>> {

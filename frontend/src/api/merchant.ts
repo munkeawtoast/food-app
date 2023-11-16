@@ -56,10 +56,8 @@ export type GetOrderRequest = {
 
 export type GetOrderResponse = Order[]
 
-export async function getMerchantSelfOrders(
-  data: GetOrderRequest
-): Promise<AxiosResponse<GetOrderResponse>> {
-  return axiosInstance.post('/merchant/orders', data)
+export async function getMerchantSelfOrders(data: GetOrderRequest) {
+  return axiosInstance.post<GetOrderResponse>('/merchant/orders', data)
 }
 
 export type UpdateFoodRequest = {
