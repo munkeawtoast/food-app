@@ -56,7 +56,14 @@ export default function MerchantFood({ navigation }) {
   const { foods, fetch } = useFoodStore()
   useEffect(() => {
     fetch()
+    const intervalId = setInterval(async () => {
+      await fetch()
+    }, 10000)
+    return () => clearInterval(intervalId)
   }, [])
+  // useEffect(() => {
+  //   fetch()
+  // }, [])
   const [foodName, setFoodName] = useState<string>()
   return (
     // <TouchableNativeFeedback onPress={Keyboard.dismiss}>

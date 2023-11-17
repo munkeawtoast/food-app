@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Button, StyleSheet } from 'react-native'
+import { View, Text, Pressable, Button, StyleSheet, Image } from 'react-native'
 import { Button as UIButton } from 'react-native-ui-lib'
 import React, { FC, Fragment, useState } from 'react'
 import colors from 'tailwindcss/colors'
@@ -7,6 +7,8 @@ import { ScrollView } from 'react-native-gesture-handler'
 import mockData from './mockData'
 import { buttonStyles } from '../../components/ui/styles/buttonStyles'
 import { Plus } from 'phosphor-react-native'
+import * as ImagePicker from 'expo-image-picker'
+import { createFood } from '../../api/merchant'
 // import { Option } from '../../models/option'
 
 export type MiniOption = {
@@ -229,7 +231,22 @@ const FoodOptionsChild: FC<FoodOptionsChildProps> = ({
   )
 }
 
-const AddFood = () => {
+const AddFood = ({ navigation }) => {
+  const [image, setImage] = useState(null)
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    })
+    if (!result.canceled) {
+      setImage(result.assets[0].uri)
+    }
+  }
+
   const [foodName, setFoodName] = useState('')
   const [price, setPrice] = useState<number>()
   const [estimatedTime, setEstimatedTime] = useState<number>()
@@ -250,6 +267,12 @@ const AddFood = () => {
       <Text className="font-prompt5 font-bold text-3xl py-2 flex-wrap">
         เพิ่มเมนู
       </Text>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Button title="Pick an image from camera roll" onPress={pickImage} />
+        {image && (
+          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+        )}
+      </View>
       <View className="flex-row gap-2 items-center justify-center">
         <TextInput widthFull label="ชื่อเมนู" onValueChange={setFoodName} />
       </View>
@@ -281,12 +304,12 @@ const AddFood = () => {
           option={options[optionIndex]}
         />
       </View>
-      <Pressable
+      {/* <Pressable
         className="w-1/6 h-10 bg-sky-600 justify-center items-center rounded-md"
         onPress={() => {}}
       >
-        <Text>+</Text>
-      </Pressable>
+        <Text>+</Text> */}
+      {/* </Pressable> */}
 
       <View className="px-4 pt-4">
         <UIButton
@@ -298,8 +321,18 @@ const AddFood = () => {
             ...buttonStyles.labelStyle,
           }}
           backgroundColor={colors.green['600']}
+          onPress={() =>
+            createFood({
+              food_name: foodName,
+              price: price,
+              estimated_time: estimatedTime,
+              options: { options },
+              shop_id: 1,
+            }).then(navigation.navigate('merchant-food_page'))
+          }
         />
       </View>
+      {/* <Text>{JSON.stringify({ options })}</Text> */}
     </ScrollView>
   )
 }

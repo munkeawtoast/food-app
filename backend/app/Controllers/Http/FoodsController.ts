@@ -7,7 +7,7 @@ export default class FoodsController {
     try {
       await Food.create({
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        foodName: foodData.foodName,
+        foodName: foodData.food_name,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         // image: foodData.image,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -15,7 +15,8 @@ export default class FoodsController {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         price: foodData.price,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        shopId: foodData.shopId,
+        shopId: foodData.shop_id,
+        estimatedTime: foodData.estimated_time,
       })
       return response.status(200).send('Success')
     } catch (e) {

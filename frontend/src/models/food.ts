@@ -1,7 +1,7 @@
 import { Option } from './option'
 
 export type Food = {
-  id: number
+  // id: number
   food_name: string
   price: number
   'image-url'?: string
@@ -9,8 +9,9 @@ export type Food = {
     options: Option[]
   }
   estimated_time: number
-  created_at: string
-  updated_at: string
+  shop_id: number
+  // created_at: string
+  // updated_at: string
 }
 
 export type FoodWithOptions = Food & {
