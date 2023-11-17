@@ -12,9 +12,9 @@ const HistoryScreen: FC<CustomerBottomTabProps<'customer-bottom-history'>> = ({
   const { histories, fetch } = useHistoryListingStore()
 
   useEffect(() => {
-    console.log('jfoiadsjfiods')
+    // console.log('jfoiadsjfiods')
     const intervalId = setInterval(async () => {
-      console.log('fetching history')
+      // console.log('fetching history')
       await fetch()
     }, 3000)
     fetch()

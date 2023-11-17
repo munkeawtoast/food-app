@@ -22,7 +22,7 @@ const FoodsDetail: FC<{ route: { params: FoodWithOptions } }> = ({
         }}
         height={200}
       />
-      <Text>ราคา: {foodDetail.price} บาท</Text>
+      <Text className="text-xl">ราคา: {foodDetail.price} บาท</Text>
       <Text>เวลาที่ทำ: {foodDetail.estimated_time} นาที</Text>
       <Text>ตัวเลือก</Text>
       {options.map((option) => {
@@ -55,6 +55,34 @@ const FoodsDetail: FC<{ route: { params: FoodWithOptions } }> = ({
         <Button
           label="ลบ"
           backgroundColor={colors.red[500]}
+          onPress={() => {
+            Alert.alert(
+              'ลบเมนู',
+              'คุณแน่ใจที่ละลบเมนูนี้หรือไม่', // <- this part is optional, you can pass an empty string
+              [
+                {
+                  text: 'ยกเลิก',
+                  onPress: () => console.log('Cancel Pressed'),
+                  style: 'cancel',
+                },
+                {
+                  text: 'ตกลง',
+                  onPress: async () => {
+                    navigation.navigate('merchant-food_page')
+                    removeById(foodDetail.id)
+                    await deleteFood({
+                      id: foodDetail.id,
+                    })
+                  },
+                },
+              ],
+              { cancelable: false }
+            )
+          }}
+        />
+        <Button
+          label="แก้ไข"
+          backgroundColor={colors.blue[500]}
           onPress={() => {
             Alert.alert(
               'ลบเมนู',

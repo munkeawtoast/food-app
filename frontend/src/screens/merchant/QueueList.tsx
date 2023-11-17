@@ -78,11 +78,18 @@ const ListContainer = () => {
                       <Text className="font-bold text-2xl">
                         {queue.food_data.food_name}
                       </Text>
-
-                      {/* {JSON.stringify(queue.food_data.choices)} */}
-                      {queue.food_data.choices.map((choice) => (
-                        <Text key={choice.name}>- {choice.value}</Text>
-                      ))}
+                      {queue.food_data.choices.map((choice) =>
+                        choice.value ? (
+                          <Text key={choice.name}>{'- ' + choice.value}</Text>
+                        ) : (
+                          <></>
+                        )
+                      )}
+                      {queue.food_data.comment ? (
+                        <Text>คอมเม้น : {queue.food_data.comment}</Text>
+                      ) : (
+                        <Fragment></Fragment>
+                      )}
                     </View>
                   </TouchableWithoutFeedback>
                 </Pressable>

@@ -82,7 +82,7 @@ const PaymentView: FC<CustomerShopStackProps<'customer-shop-payment'>> = ({
             </Text>
           </View> */}
         </View>
-        <Text>{JSON.stringify(route.params.food_data.choices, null, 2)}</Text>
+        {/* <Text>{JSON.stringify(route.params.food_data.choices, null, 2)}</Text> */}
       </View>
     </>
   )

@@ -26,7 +26,7 @@ const FloatingInProgress: FC<
   useEffect(() => {
     const intervalId = setInterval(async () => {
       await fetch()
-      console.log(myOrders)
+      // console.log(myOrders)
     }, 3000)
     fetch()
     return () => clearInterval(intervalId)
