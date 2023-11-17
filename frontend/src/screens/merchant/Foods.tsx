@@ -10,6 +10,7 @@ import { Food } from '../../models/food'
 import useFoodStore from '../../stores/foodStore'
 import getApiUrl from '../../utils/getApiUrl'
 import colors from 'tailwindcss/colors'
+import { buttonStyles } from '../../components/ui/styles/buttonStyles'
 
 const FoodLoop: FC<{ foods: Food[]; navigation: any }> = ({
   foods,
@@ -74,13 +75,21 @@ export default function MerchantFood({ navigation }) {
       <View className="w-auto h-auto flex-row flex-wrap justify-center">
         <FoodLoop foods={foods} navigation={navigation} />
       </View>
-      <Button
-        label="เพิ่มเมนู"
-        backgroundColor={colors.blue[500]}
-        onPress={() => {
-          navigation.navigate('merchant-add_food')
-        }}
-      />
+      <View className="px-4 pt-4">
+        <Button
+          label="เพิ่มเมนู"
+          style={{
+            paddingVertical: 16,
+          }}
+          labelStyle={{
+            ...buttonStyles.labelStyle,
+          }}
+          onPress={() => {
+            navigation.navigate('merchant-add_food')
+          }}
+          backgroundColor={colors.sky['600']}
+        />
+      </View>
     </View>
     // </TouchableNativeFeedback>
     // <View className="flex-1 justify-center items-center">

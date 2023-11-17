@@ -113,7 +113,7 @@ const TextInput: FC<TextInputProps> = ({
   widthFull = false,
   label,
 }) => (
-  <View style={{ flex: widthFull ? '1' : undefined }}>
+  <View style={{ flex: widthFull ? 1 : undefined }}>
     <Title title={label} />
     <TextField
       onChangeText={(value) => {
@@ -163,16 +163,18 @@ type BooleanInputProps = {
   value?: boolean
   price?: number
   label: string
+  titleShown: boolean
 }
 
 const BooleanInput: FC<BooleanInputProps> = ({
+  titleShown = true,
   label,
   price,
   onValueChange,
   value: value,
 }) => (
   <>
-    <Title title={label} />
+    {titleShown && <Title title={label} />}
     <Checkbox
       labelStyle={{
         ...buttonStyles.labelStyle,
