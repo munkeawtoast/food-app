@@ -26,6 +26,7 @@ export default class FoodsController {
   }
   public async deleteFood({ request, response, auth }: HttpContextContract) {
     const deletedFood = request.body().id
+    console.log(deletedFood)
     try {
       await Food.query().delete().where('id', deletedFood)
       return response.status(200).send('Success')

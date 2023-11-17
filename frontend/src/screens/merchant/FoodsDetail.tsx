@@ -5,6 +5,7 @@ import { FoodWithOptions } from '../../models/food'
 import colors from 'tailwindcss/colors'
 import useFoodStore from '../../stores/foodStore'
 import getApiUrl from '../../utils/getApiUrl'
+import { deleteFood } from '../../api/merchant'
 
 const FoodsDetail: FC<{ route: { params: FoodWithOptions } }> = ({
   route,
@@ -68,11 +69,12 @@ const FoodsDetail: FC<{ route: { params: FoodWithOptions } }> = ({
                 {
                   text: 'ตกลง',
                   onPress: async () => {
-                    navigation.navigate('merchant-food_page')
-                    removeById(foodDetail.id)
+                    console.log(foodDetail.id)
+                    await removeById(foodDetail.id)
                     await deleteFood({
                       id: foodDetail.id,
                     })
+                    navigation.navigate('merchant-food_page')
                   },
                 },
               ],
@@ -80,7 +82,7 @@ const FoodsDetail: FC<{ route: { params: FoodWithOptions } }> = ({
             )
           }}
         />
-        <Button
+        {/* <Button
           label="แก้ไข"
           backgroundColor={colors.blue[500]}
           onPress={() => {
@@ -107,7 +109,7 @@ const FoodsDetail: FC<{ route: { params: FoodWithOptions } }> = ({
               { cancelable: false }
             )
           }}
-        />
+        /> */}
       </View>
     </View>
   )
