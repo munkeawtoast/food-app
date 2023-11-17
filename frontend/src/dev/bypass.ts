@@ -1,4 +1,4 @@
-import { LoginRequest } from '../api/auth/types'
+import { LoginRequest } from '../api/auth'
 
 export type BypassLogin = {
   target: 'merchant' | 'customer'
@@ -26,8 +26,8 @@ const customer: BypassLogin = {
 }
 
 const bypass: Bypass = {
-  // login: customer,
-  login: vasana,
+  login: customer,
+  // login: vasana,
 }
 
 export default bypass
